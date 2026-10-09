@@ -1,0 +1,55 @@
+[gd_resource type="Resource" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/puzzles/memory_puzzle_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/puzzles/memory_option.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/art/puzzles/well_memory/backgrounds/well_memory_environment.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/art/puzzles/well_memory/backgrounds/well_memory_well.png" id="4"]
+[ext_resource type="SpriteFrames" path="res://resources/art/well_memory/water_ripple_frames.tres" id="5"]
+
+[sub_resource type="Resource" id="A"]
+script = ExtResource("2")
+choice_id = &"A"
+fragment_id = &"bedroom_photo_01"
+fragment_display_name = "港湾"
+word = "A"
+moon_fraction = 0.18
+
+[sub_resource type="Resource" id="B"]
+script = ExtResource("2")
+choice_id = &"B"
+fragment_id = &"corridor_photo_02"
+fragment_display_name = "镜面"
+word = "B"
+moon_fraction = 0.35
+
+[sub_resource type="Resource" id="C"]
+script = ExtResource("2")
+choice_id = &"C"
+fragment_id = &"memory_fragment_03"
+word = "C"
+moon_fraction = 0.5
+
+[sub_resource type="Resource" id="D"]
+script = ExtResource("2")
+choice_id = &"D"
+fragment_id = &"memory_fragment_04"
+word = "D"
+moon_fraction = 0.78
+
+[sub_resource type="Resource" id="E"]
+script = ExtResource("2")
+choice_id = &"E"
+fragment_id = &"memory_fragment_05"
+word = "E"
+moon_fraction = 1.0
+
+[resource]
+script = ExtResource("1")
+puzzle_id = &"well_memory"
+options = Array[Resource]([SubResource("A"), SubResource("B"), SubResource("C"), SubResource("D"), SubResource("E")])
+answer_left = &"A"
+answer_right = &"B"
+sentence_verb = "看见"
+moon_environment = ExtResource("3")
+moon_well = ExtResource("4")
+water_ripple = ExtResource("5")

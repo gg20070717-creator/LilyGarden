@@ -1,0 +1,497 @@
+[gd_scene load_steps=6 format=3]
+
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+
+[ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
+
+[ext_resource type="Script" path="res://scripts/portal.gd" id="3"]
+
+[ext_resource type="Script" path="res://scripts/collect_photo.gd" id="4"]
+
+[ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="5"]
+
+[node name="FirstFloor" type="Node2D"]
+script = ExtResource("1")
+level_id = &"first_floor"
+display_name = "一楼"
+camera_bounds = Rect2(-16, -16, 1452, 1162)
+
+[node name="MovementBounds" parent="." instance=ExtResource("5")]
+area = Rect2(0, 200, 1420, 930)
+outline = PackedVector2Array(420, 200, 1420, 200, 1420, 1130, 0, 1130, 0, 260, 420, 260)
+
+[node name="Geometry" type="Node2D" parent="."]
+
+
+[node name="Floor" type="Polygon2D" parent="Geometry"]
+polygon = PackedVector2Array(420, 200, 1420, 200, 1420, 1130, 0, 1130, 0, 260, 420, 260)
+color = Color(0.97, 0.97, 0.97, 1)
+
+[node name="MainBackWallLeft" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(450, 100)
+size = Vector2(60, 200)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="MainBackWallRight" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1010, 100)
+size = Vector2(820, 200)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="CourtyardDoor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(540, 100)
+size = Vector2(120, 200)
+label = "大门"
+solid = true
+oval = false
+shade = Color(0.85, 0.85, 0.85, 1)
+label_size = 26
+
+[node name="MainTopWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(920, -6)
+size = Vector2(1024, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="RightWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1426, 565)
+size = Vector2(12, 1154)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="BottomWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(710, 1136)
+size = Vector2(1432, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="LeftWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(-6, 695)
+size = Vector2(12, 882)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="UpperRoomBackWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(210, 185)
+size = Vector2(420, 150)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="UpperRoomTopWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(210, 104)
+size = Vector2(432, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="UpperRoomLeftBackWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(-6, 185)
+size = Vector2(12, 162)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="UpperRoomWindow" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(310, 185)
+size = Vector2(100, 75)
+label = "窗"
+solid = true
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 26
+
+[node name="UpperRoomRightWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(420, 388)
+size = Vector2(12, 376)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="UpperRoomBottomWallLeft" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(85, 570)
+size = Vector2(170, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="UpperRoomBottomWallRight" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(352.5, 570)
+size = Vector2(135, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="UpperRoomDoor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(227.5, 570)
+size = Vector2(115, 12)
+label = "门"
+solid = false
+oval = false
+shade = Color(0.85, 0.85, 0.85, 1)
+label_size = 20
+
+[node name="WallReturn" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(490, 570)
+size = Vector2(140, 18)
+label = "墙体"
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 20
+
+[node name="LowerRoomBackWallLeft" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(35, 755)
+size = Vector2(70, 150)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="LowerRoomBackWallRight" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(300, 755)
+size = Vector2(240, 150)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="LowerRoomDoor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(125, 755)
+size = Vector2(110, 150)
+label = "门"
+solid = false
+oval = false
+shade = Color(0.85, 0.85, 0.85, 1)
+label_size = 24
+
+[node name="LowerRoomRightWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(420, 983)
+size = Vector2(12, 306)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="ShoeMat" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(590, 230)
+size = Vector2(90, 45)
+label = "鞋垫"
+solid = false
+oval = false
+shade = Color(0.91, 0.91, 0.91, 1)
+label_size = 22
+
+[node name="Stool" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(480, 255)
+size = Vector2(40, 40)
+label = "凳"
+solid = true
+oval = true
+shade = Color(0.86, 0.86, 0.86, 1)
+label_size = 20
+
+[node name="ShoeCabinet" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(695, 275)
+size = Vector2(60, 150)
+label = "鞋\n柜"
+solid = true
+oval = false
+shade = Color(0.87, 0.87, 0.87, 1)
+label_size = 24
+
+[node name="Plant" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(695, 388)
+size = Vector2(48, 48)
+label = "盆栽"
+solid = true
+oval = true
+shade = Color(0.87, 0.87, 0.87, 1)
+label_size = 18
+
+[node name="Rug" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1005, 410)
+size = Vector2(260, 230)
+label = "地毯"
+solid = false
+oval = true
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 26
+
+[node name="SofaHorizontal" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1005, 270)
+size = Vector2(220, 90)
+label = "沙发"
+solid = true
+oval = false
+shade = Color(0.88, 0.88, 0.88, 1)
+label_size = 26
+
+[node name="SofaVertical" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(860, 355)
+size = Vector2(70, 180)
+label = "沙\n发"
+solid = true
+oval = false
+shade = Color(0.88, 0.88, 0.88, 1)
+label_size = 26
+
+[node name="FishTank" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1245, 250)
+size = Vector2(100, 60)
+label = "鱼缸"
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="Stairs" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 225)
+size = Vector2(100, 250)
+label = ""
+solid = true
+oval = false
+shade = Color(0.8, 0.8, 0.8, 1)
+label_size = 24
+
+[node name="Step0" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 115.625)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step1" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 146.875)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step2" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 178.125)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step3" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 209.375)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step4" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 240.625)
+size = Vector2(96, 29.25)
+label = "上楼"
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step5" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 271.875)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step6" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 303.125)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step7" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1370, 334.375)
+size = Vector2(96, 29.25)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="DiningTable" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1080, 760)
+size = Vector2(200, 100)
+label = "餐桌"
+solid = true
+oval = false
+shade = Color(0.88, 0.88, 0.88, 1)
+label_size = 26
+
+[node name="DiningChair0" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1030, 665)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="DiningChair1" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1130, 665)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="DiningChair2" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1030, 855)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="DiningChair3" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1130, 855)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="DiningChair4" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(930, 760)
+size = Vector2(50, 65)
+label = ""
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="DiningChair5" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1230, 760)
+size = Vector2(50, 65)
+label = ""
+solid = true
+oval = false
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="SideWindow" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1414, 750)
+size = Vector2(12, 230)
+label = "窗"
+solid = true
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 24
+
+[node name="SmallTent" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(580, 950)
+size = Vector2(160, 160)
+label = "小帐篷"
+solid = true
+oval = true
+shade = Color(0.92, 0.92, 0.92, 1)
+label_size = 24
+
+[node name="KitchenCounter" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1080, 1085)
+size = Vector2(460, 90)
+label = "储物柜 & 厨房流理台"
+solid = true
+oval = false
+shade = Color(0.88, 0.88, 0.88, 1)
+label_size = 24
+
+[node name="KitchenSideCounter" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1380, 980)
+size = Vector2(80, 300)
+label = "柜\n台"
+solid = true
+oval = false
+shade = Color(0.88, 0.88, 0.88, 1)
+label_size = 24
+
+[node name="Interactables" type="Node2D" parent="."]
+
+
+[node name="ToCorridor" type="Area2D" parent="Interactables"]
+position = Vector2(1270, 340)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToCorridor"
+target_scene_path = "res://scenes/corridor.tscn"
+target_spawn = &"from_first_floor"
+prompt_offset = Vector2(-40, -115)
+
+[node name="ToCourtyard" type="Area2D" parent="Interactables"]
+position = Vector2(540, 245)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToCourtyard"
+target_scene_path = "res://scenes/courtyard.tscn"
+target_spawn = &"from_first_floor"
+prompt_offset = Vector2(0, -160)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="from_corridor" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1220, 350)
+
+[node name="from_courtyard" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(540, 295)

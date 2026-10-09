@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=3]
+
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+
+[ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
+
+[ext_resource type="Script" path="res://scripts/portal.gd" id="3"]
+
+[ext_resource type="Script" path="res://scripts/collect_photo.gd" id="4"]
+
+[ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="5"]
+
+[node name="Studio" type="Node2D"]
+script = ExtResource("1")
+level_id = &"studio"
+display_name = "画室"
+camera_bounds = Rect2(0, -12, 480, 636)
+
+[node name="MovementBounds" parent="." instance=ExtResource("5")]
+area = Rect2(12, 150, 456, 450)
+
+[node name="Geometry" type="Node2D" parent="."]
+
+
+[node name="Floor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(240, 375)
+size = Vector2(456, 450)
+label = ""
+solid = false
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 24
+
+[node name="BackWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(240, 75)
+size = Vector2(456, 150)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="TopWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(240, -6)
+size = Vector2(480, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="LeftWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(6, 300)
+size = Vector2(12, 600)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="RightWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(474, 300)
+size = Vector2(12, 600)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="BottomWallLeft" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(87, 606)
+size = Vector2(174, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="BottomWallRight" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(393, 606)
+size = Vector2(174, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="CorridorDoor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(240, 600)
+size = Vector2(132, 12)
+label = "门"
+solid = false
+oval = false
+shade = Color(0.85, 0.85, 0.85, 1)
+label_size = 24
+
+[node name="Interactables" type="Node2D" parent="."]
+
+
+[node name="ToCorridor" type="Area2D" parent="Interactables"]
+position = Vector2(240, 557)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToCorridor"
+target_scene_path = "res://scenes/corridor.tscn"
+target_spawn = &"from_studio"
+prompt_offset = Vector2(100, -30)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="from_corridor" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(240, 500)

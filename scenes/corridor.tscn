@@ -1,0 +1,279 @@
+[gd_scene load_steps=6 format=3]
+
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+
+[ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
+
+[ext_resource type="Script" path="res://scripts/portal.gd" id="3"]
+
+[ext_resource type="Script" path="res://scripts/collect_photo.gd" id="4"]
+
+[ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="5"]
+
+[node name="Corridor" type="Node2D"]
+script = ExtResource("1")
+level_id = &"corridor"
+display_name = "走廊 · 二楼"
+camera_bounds = Rect2(-10, -140, 908, 380)
+
+[node name="MovementBounds" parent="." instance=ExtResource("5")]
+area = Rect2(12, 72, 864, 156)
+
+[node name="Geometry" type="Node2D" parent="."]
+
+
+[node name="Floor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(444, 50)
+size = Vector2(864, 356)
+label = ""
+solid = false
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 24
+
+[node name="BackWallLeft" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(138.5, -28)
+size = Vector2(253, 200)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="BackWallRight" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(615.5, -28)
+size = Vector2(521, 200)
+label = ""
+solid = true
+oval = false
+shade = Color(0.65, 0.65, 0.65, 1)
+label_size = 24
+
+[node name="TopWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(444, -134)
+size = Vector2(888, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="BottomWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(444, 234)
+size = Vector2(888, 12)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="RightWall" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(882, 50)
+size = Vector2(12, 356)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="LeftWallUpper" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(6, -16)
+size = Vector2(12, 224)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="LeftWallLower" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(6, 207)
+size = Vector2(12, 42)
+label = ""
+solid = true
+oval = false
+shade = Color(0.35, 0.35, 0.35, 1)
+label_size = 24
+
+[node name="BedroomDoor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(14.4, 141)
+size = Vector2(18, 90)
+label = "卧\n室\n门"
+solid = false
+oval = false
+shade = Color(0.85, 0.85, 0.85, 1)
+label_size = 14
+
+[node name="StudioDoor" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(310, -28)
+size = Vector2(90, 200)
+label = "画室门"
+solid = true
+oval = false
+shade = Color(0.85, 0.85, 0.85, 1)
+label_size = 24
+
+[node name="PhotoFrameLeft" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(440, -25)
+size = Vector2(65, 75)
+label = ""
+solid = false
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 24
+
+[node name="PhotoFrameMiddle" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(505, -12)
+size = Vector2(26, 42)
+label = ""
+solid = false
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 24
+
+[node name="LabPhoto" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(565, -25)
+size = Vector2(80, 60)
+label = "照片"
+solid = false
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 22
+
+[node name="Stairs" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 156)
+size = Vector2(100, 144)
+label = ""
+solid = true
+oval = false
+shade = Color(0.8, 0.8, 0.8, 1)
+label_size = 24
+
+[node name="Step0" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 96.0)
+size = Vector2(96, 22.0)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step1" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 120.0)
+size = Vector2(96, 22.0)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step2" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 144.0)
+size = Vector2(96, 22.0)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step3" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 168.0)
+size = Vector2(96, 22.0)
+label = "下楼"
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step4" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 192.0)
+size = Vector2(96, 22.0)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="Step5" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(820, 216.0)
+size = Vector2(96, 22.0)
+label = ""
+solid = false
+oval = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 22
+
+[node name="FlowerPot" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(848, 47)
+size = Vector2(44, 54)
+label = "花盆"
+solid = true
+oval = false
+shade = Color(0.86, 0.86, 0.86, 1)
+label_size = 18
+
+[node name="Interactables" type="Node2D" parent="."]
+
+
+[node name="ToBedroom" type="Area2D" parent="Interactables"]
+position = Vector2(64, 141)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToBedroom"
+target_scene_path = "res://scenes/bedroom.tscn"
+target_spawn = &"from_corridor"
+prompt_offset = Vector2(85, 10)
+
+[node name="ToFirstFloor" type="Area2D" parent="Interactables"]
+position = Vector2(740, 155)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToFirstFloor"
+target_scene_path = "res://scenes/first_floor.tscn"
+target_spawn = &"from_corridor"
+prompt_offset = Vector2(-95, -35)
+
+[node name="ToStudio" type="Area2D" parent="Interactables"]
+position = Vector2(310, 120)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToStudio"
+target_scene_path = "res://scenes/studio.tscn"
+target_spawn = &"from_corridor"
+prompt_offset = Vector2(0, -145)
+required_key = &"studio_key_01"
+message_offset = Vector2(0, -150)
+
+[node name="CorridorPhoto" type="Area2D" parent="Interactables"]
+position = Vector2(565, 115)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("4")
+interaction_id = &"corridor_photo"
+fragment_id = &"corridor_photo_02"
+fragment_display_name = "镜面"
+narrative_text = "你搂着某人站在实验室里。照片上，那人的脸庞不知为何被烧了一个洞。"
+prompt_offset = Vector2(0, -145)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="from_bedroom" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(115, 141)
+
+[node name="from_first_floor" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(680, 155)
+
+[node name="from_studio" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(310, 190)

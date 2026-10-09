@@ -1,0 +1,30 @@
+# Godot cache and generated translations
+.godot/
+*.translation
+
+# Generated verification screenshots, reports, and logs
+/verification/
+*.log
+*.tmp
+
+# Exported builds
+/build/
+/dist/
+/exports/
+
+# Local credentials and editor configuration
+.env
+.env.*
+!.env.example
+.mcp.json
+.codex/
+.claude/
+.cursor/
+.vscode/
+.idea/
+.vs/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini

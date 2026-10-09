@@ -1,0 +1,325 @@
+[gd_scene load_steps=28 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/portal.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/inspect_cg.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/read_note.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/collect_photo.gd" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="7"]
+
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_floor.tres" id="art_floor"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_back_wall.tres" id="art_back_wall"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_border_top.tres" id="art_border_top"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_border_bottom.tres" id="art_border_bottom"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_border_left.tres" id="art_border_left"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_border_right.tres" id="art_border_right"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_window.tres" id="art_window"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_door.tres" id="art_door"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_bookshelf.tres" id="art_bookshelf"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_photo_frame.tres" id="art_photo_frame"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_desk.tres" id="art_desk"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_chair.tres" id="art_chair"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_bed.tres" id="art_bed"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_desk_lamp.tres" id="art_desk_lamp"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_01/bedroom_photo.png" id="photo_artwork"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_01_crescent_left.png" id="cg_01"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_02_crescent_right.png" id="cg_02"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_03_wide_left.png" id="cg_03"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_04_wide_right.png" id="cg_04"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_05_full.png" id="cg_05"]
+
+[node name="Bedroom" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1")
+level_id = &"bedroom"
+display_name = "卧室 · 二楼"
+camera_bounds = Rect2(24, 30, 672, 576)
+
+[node name="MovementBounds" parent="." instance=ExtResource("7")]
+area = Rect2(36, 231, 645, 355.2)
+
+[node name="Geometry" type="Node2D" parent="."]
+
+[node name="Floor" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_floor")
+artwork_size = Vector2(645.000000, 355.200000)
+artwork_offset = Vector2(0.000000, 93.000000)
+position = Vector2(358.5, 315.6)
+size = Vector2(645, 541.2)
+label = ""
+shade = Color(0.97, 0.97, 0.97, 1)
+solid = false
+oval = false
+label_size = 14
+
+[node name="BackWall" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_back_wall")
+artwork_size = Vector2(645.000000, 186.000000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(358.5, 138)
+size = Vector2(645, 186)
+label = ""
+shade = Color(0.65, 0.65, 0.65, 1)
+solid = true
+oval = false
+label_size = 14
+
+[node name="Window" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_window")
+artwork_size = Vector2(150.000000, 105.652174)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(260, 122)
+size = Vector2(150, 120)
+label = "窗户"
+shade = Color(1, 1, 1, 1)
+solid = false
+oval = false
+label_size = 22
+
+[node name="LeftWall" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_border_left")
+artwork_size = Vector2(12.000000, 541.200000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(30, 315.6)
+size = Vector2(12, 541.2)
+label = ""
+shade = Color(0.35, 0.35, 0.35, 1)
+solid = true
+oval = false
+label_size = 14
+
+[node name="TopWall" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_border_top")
+artwork_size = Vector2(669.000000, 12.000000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(358.5, 39)
+size = Vector2(669, 12)
+label = ""
+shade = Color(0.35, 0.35, 0.35, 1)
+solid = true
+oval = false
+label_size = 14
+
+[node name="BottomWall" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_border_bottom")
+artwork_size = Vector2(669.000000, 12.000000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(358.5, 592.2)
+size = Vector2(669, 12)
+label = ""
+shade = Color(0.35, 0.35, 0.35, 1)
+solid = true
+oval = false
+label_size = 14
+
+[node name="RightWallUpper" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_border_right")
+artwork_size = Vector2(12.000000, 230.000000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(687, 160)
+size = Vector2(12, 230)
+label = ""
+shade = Color(0.35, 0.35, 0.35, 1)
+solid = true
+oval = false
+label_size = 14
+
+[node name="RightWallLower" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_border_right")
+artwork_size = Vector2(12.000000, 221.200000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(687, 475.6)
+size = Vector2(12, 221.2)
+label = ""
+shade = Color(0.35, 0.35, 0.35, 1)
+solid = true
+oval = false
+label_size = 14
+
+[node name="BedroomDoor" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_door")
+artwork_size = Vector2(21.301775, 90.000000)
+artwork_offset = Vector2(0.000000, 0.000000)
+position = Vector2(684, 320)
+size = Vector2(18, 90)
+label = "门"
+shade = Color(0.85, 0.85, 0.85, 1)
+solid = false
+oval = false
+label_size = 16
+
+[node name="Shelf" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_bookshelf")
+artwork_size = Vector2(59.500000, 178.500000)
+artwork_offset = Vector2(9.750000, -5.250000)
+position = Vector2(56, 321)
+size = Vector2(40, 168)
+label = "书\n架"
+shade = Color(0.85, 0.85, 0.85, 1)
+solid = true
+oval = false
+label_size = 18
+
+[node name="Photo" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_photo_frame")
+artwork_size = Vector2(29.000000, 33.000000)
+artwork_offset = Vector2(1.500000, -1.000000)
+position = Vector2(56, 278)
+size = Vector2(20, 30)
+label = "照片"
+shade = Color(1, 1, 1, 1)
+solid = false
+oval = false
+label_size = 10
+
+[node name="Desk" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_desk")
+artwork_size = Vector2(79.500000, 160.000000)
+artwork_offset = Vector2(0.000000, -10.000000)
+position = Vector2(73.5, 496.2)
+size = Vector2(75, 140)
+label = "桌子"
+shade = Color(0.9, 0.9, 0.9, 1)
+solid = true
+oval = false
+label_size = 18
+
+[node name="Note" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(73.5, 447)
+size = Vector2(15, 21)
+label = "字条"
+shade = Color(1, 1, 1, 1)
+solid = false
+oval = false
+label_size = 8
+
+[node name="Chair" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_chair")
+artwork_size = Vector2(58.000000, 98.500000)
+artwork_offset = Vector2(0.000000, -20.250000)
+position = Vector2(161, 519)
+size = Vector2(58, 58)
+label = "椅子"
+shade = Color(0.85, 0.85, 0.85, 1)
+solid = true
+oval = false
+label_size = 16
+
+[node name="DeskFooter" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
+position = Vector2(73.5, 569.2)
+size = Vector2(75, 6)
+label = ""
+shade = Color(0.65, 0.65, 0.65, 1)
+solid = false
+oval = false
+label_size = 14
+
+[node name="Bed" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_bed")
+artwork_size = Vector2(282.304348, 204.405797)
+artwork_offset = Vector2(-28.666667, -30.985507)
+position = Vector2(573.5, 520.2)
+size = Vector2(215, 120)
+label = "床"
+shade = Color(0.92, 0.92, 0.92, 1)
+solid = true
+oval = false
+label_size = 26
+
+[node name="Pillow" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
+position = Vector2(656, 520.2)
+size = Vector2(40, 70)
+label = ""
+shade = Color(1, 1, 1, 1)
+solid = false
+oval = false
+label_size = 14
+
+[node name="BedFooter" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
+position = Vector2(573.5, 583.2)
+size = Vector2(215, 6)
+label = ""
+shade = Color(0.65, 0.65, 0.65, 1)
+solid = false
+oval = false
+label_size = 14
+
+[node name="DeskLamp" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(58.25, 404.45)
+size = Vector2(39, 55.5)
+solid = false
+artwork = ExtResource("art_desk_lamp")
+artwork_size = Vector2(39, 55.5)
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="WindowCG" type="Area2D" parent="Interactables"]
+position = Vector2(260, 266)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("4")
+interaction_id = &"WindowCG"
+prompt = "查看窗外"
+title = "窗外场景 CG"
+placeholder_caption = "场景 CG 占位符\n（月亮与水井）"
+artworks = Array[Texture2D]([ExtResource("cg_01"), ExtResource("cg_02"), ExtResource("cg_03"), ExtResource("cg_04"), ExtResource("cg_05")])
+slide_duration = 2.0
+prompt_offset = Vector2(80, 12)
+
+[node name="DeskNote" type="Area2D" parent="Interactables"]
+position = Vector2(146, 460)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("5")
+interaction_id = &"DeskNote"
+prompt = "阅读字条"
+text = "来水井边见我"
+duration = 4.0
+text_offset = Vector2(-72.5, -59)
+prompt_offset = Vector2(70, 15)
+
+[node name="ShelfPhoto" type="Area2D" parent="Interactables"]
+position = Vector2(110, 300)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("6")
+interaction_id = &"ShelfPhoto"
+prompt = "查看照片"
+fragment_id = &"bedroom_photo_01"
+fragment_display_name = "港湾"
+narrative_text = "照片上的女人背对月光，面目模糊不清"
+artwork = ExtResource("photo_artwork")
+title = "照片"
+placeholder_caption = "照片占位符\n（前妻在月光前的照片）"
+prompt_offset = Vector2(95, -10)
+
+[node name="ToCorridor" type="Area2D" parent="Interactables"]
+position = Vector2(645, 320)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3")
+interaction_id = &"ToCorridor"
+prompt = "进入走廊"
+target_scene_path = "res://scenes/corridor.tscn"
+target_spawn = &"from_bedroom"
+prompt_offset = Vector2(-95, -35)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="start" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(606, 309)
+
+[node name="from_corridor" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(603, 320)

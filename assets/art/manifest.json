@@ -1,0 +1,1650 @@
+{
+  "schema_version": 1,
+  "asset_pack": "demo2_art",
+  "assets": [
+    {
+      "id": "bedroom_bookshelf",
+      "source_filename": "书架.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_bookshelf.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        33,
+        159,
+        152,
+        516
+      ],
+      "sha256": "f6c939c54421d366e0f013c18d18f4e3e13e85cd7dac53b840b6594676a93f9d",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_bookshelf.tres",
+          "region": [
+            33,
+            159,
+            119,
+            357
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_desk_lamp",
+      "source_filename": "台灯.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_desk_lamp.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        43,
+        429,
+        121,
+        540
+      ],
+      "sha256": "e5d02c73efc955ad5c1dec4f66f0fbf546269e24bdd5dbc7b35848e7e3f9725b",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_desk_lamp.tres",
+          "region": [
+            43,
+            429,
+            78,
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_floor_wall",
+      "source_filename": "地板墙面.png",
+      "path": "res://assets/art/environments/bedroom/backgrounds/bedroom_floor_wall.png",
+      "category": "backgrounds",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1360,
+        870
+      ],
+      "sha256": "fe6cefcd220fcf4a75f38fbec3d9edbe70c96deac5e92c9da0ff185014d904a3",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_back_wall.tres",
+          "region": [
+            0,
+            0,
+            1360,
+            307
+          ]
+        },
+        {
+          "path": "res://resources/art/bedroom/bedroom_floor.tres",
+          "region": [
+            0,
+            307,
+            1360,
+            563
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_wall_border",
+      "source_filename": "墙体.png",
+      "path": "res://assets/art/environments/bedroom/backgrounds/bedroom_wall_border.png",
+      "category": "backgrounds",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1360,
+        870
+      ],
+      "sha256": "36c5b604d94b608c2da4eda6cda8cc401e47bb8710dda539fcb9769095aef0bd",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_border_top.tres",
+          "region": [
+            0,
+            0,
+            1360,
+            29
+          ]
+        },
+        {
+          "path": "res://resources/art/bedroom/bedroom_border_bottom.tres",
+          "region": [
+            0,
+            839,
+            1360,
+            31
+          ]
+        },
+        {
+          "path": "res://resources/art/bedroom/bedroom_border_left.tres",
+          "region": [
+            0,
+            29,
+            29,
+            810
+          ]
+        },
+        {
+          "path": "res://resources/art/bedroom/bedroom_border_right.tres",
+          "region": [
+            1332,
+            29,
+            28,
+            810
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_bed",
+      "source_filename": "床.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_bed.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        879,
+        512,
+        1332,
+        840
+      ],
+      "sha256": "170f07f0ebcdee8cbab0851535109169bc3925f4112ea729aa8745caf72554e4",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_bed.tres",
+          "region": [
+            879,
+            512,
+            453,
+            328
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_desk",
+      "source_filename": "桌子.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_desk.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        33,
+        488,
+        192,
+        808
+      ],
+      "sha256": "7b914519b55f7acd3235d7be33118990684787053edf61f0847224a803145ee9",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_desk.tres",
+          "region": [
+            33,
+            488,
+            159,
+            320
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_chair",
+      "source_filename": "椅子.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_chair.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        226,
+        503,
+        342,
+        700
+      ],
+      "sha256": "cc3b0aa12855d1f8608b5a2889640bc3ca4a1983e8b2fc3f82345ed93f5545ce",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_chair.tres",
+          "region": [
+            226,
+            503,
+            116,
+            197
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_photo_frame",
+      "source_filename": "照片.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_photo_frame.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        47,
+        227,
+        105,
+        293
+      ],
+      "sha256": "21501d9ba1ec85c50d303d41b3137136d9e2b5e9a0378300f954327e47da20c9",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_photo_frame.tres",
+          "region": [
+            47,
+            227,
+            58,
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_window",
+      "source_filename": "窗户.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_window.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        410,
+        56,
+        640,
+        218
+      ],
+      "sha256": "7f078d438007b08d3128c7ab48ee75c9eac84973becf6d8caf044a8cb7077015",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_window.tres",
+          "region": [
+            410,
+            56,
+            230,
+            162
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bedroom_door",
+      "source_filename": "门.png",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_door.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        1360,
+        870
+      ],
+      "alpha_bounds": [
+        1312,
+        318,
+        1352,
+        487
+      ],
+      "sha256": "575e53a017c057d0d583b4ccfd3314975075155c7fb431b76fb6bc9ef773677a",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_door.tres",
+          "region": [
+            1312,
+            318,
+            40,
+            169
+          ]
+        }
+      ]
+    },
+    {
+      "id": "well_memory_composite",
+      "source_filename": "总图.png",
+      "path": "res://assets/art/puzzles/well_memory/backgrounds/well_memory_composite.png",
+      "category": "backgrounds",
+      "scene": "well_memory",
+      "usage": "reference_composition",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "57c2769ed6dffd6e5479ca7f5c49a9d621b6ac87db953af31bbf7f27dd53f3db",
+      "regions": []
+    },
+    {
+      "id": "well_memory_environment",
+      "source_filename": "环境.png",
+      "path": "res://assets/art/puzzles/well_memory/backgrounds/well_memory_environment.png",
+      "category": "backgrounds",
+      "scene": "well_memory",
+      "usage": "runtime_environment",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "083d2efac09c3d70371754f6a43b51997d3117c7f1dfb2670404b69af1594552",
+      "regions": []
+    },
+    {
+      "id": "well_memory_well",
+      "source_filename": "水井.png",
+      "path": "res://assets/art/puzzles/well_memory/backgrounds/well_memory_well.png",
+      "category": "backgrounds",
+      "scene": "well_memory",
+      "usage": "runtime_well",
+      "canvas_size": [
+        750,
+        230
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        750,
+        230
+      ],
+      "sha256": "3dc7e40b4ec9486643487aa235233a81a043ede11592a5e79d45648607b8a76c",
+      "regions": []
+    },
+    {
+      "id": "well_memory_ripple",
+      "source_filename": "水波纹(1).zip",
+      "path": "res://resources/art/well_memory/water_ripple_frames.tres",
+      "category": "effects",
+      "scene": "well_memory",
+      "canvas_size": [
+        2500,
+        2500
+      ],
+      "alpha_bounds": [
+        90,
+        1112,
+        2394,
+        1747
+      ],
+      "frame_count": 229,
+      "fps": 60,
+      "loop": false,
+      "import_size_limit": 512,
+      "source_sha256": "0d748071aaa005f25ebe1e6de8401cc86473aa076755111773570ae0e474355c",
+      "frames": [
+        {
+          "source_filename": "水波纹/水波纹 (1).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0001.png",
+          "sha256": "2d20370208015e4fd4e1e57f33d6293e1a8d5c946febe6a15b3388ab60933763"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (2).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0002.png",
+          "sha256": "69589a65e871cbb2f473371a56fa25a25b1512678575696502fdcac09a8afbb0"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (3).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0003.png",
+          "sha256": "38a0ddadcd95aa8f1f6982d34abd6080134966d8fd17e150546ed8ca57d9de60"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (4).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0004.png",
+          "sha256": "9d74b240ade29b23a283779ff3693c90620d0fff72bd00597397efffd508bf61"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (5).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0005.png",
+          "sha256": "189547ff28d8b79dc27ae04c536c1d6f43d128251f4ef1023fe60d6575de189b"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (6).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0006.png",
+          "sha256": "b4a430076c86b73a46065e5fc32dd0c4ae1045a936bd6e38705dc9a64d167427"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (7).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0007.png",
+          "sha256": "9ecbc3df932e2b0dcac54e246c5238973d8d25360407735927b21f5bd0ddf053"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (8).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0008.png",
+          "sha256": "f8740d18bfa1cebfa779d65fb2167c7a9fad1924735d79b2dec4cff6f521a4c6"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (9).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0009.png",
+          "sha256": "8294c9c74f7761898bb339e7731193b994d05bb0f9befac2f70633a26beb018b"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (10).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0010.png",
+          "sha256": "9dfceec9b0f132396af03ab873b07c5e17eb9a882b6e2a7455b3475f277572b8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (11).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0011.png",
+          "sha256": "ee2775cefff574028033790b323a3f2727f0baa18e52dde6835bb68320cec7bc"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (12).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0012.png",
+          "sha256": "8a51fed6b57ab453eb3c6529fdd31c3b571f074998765648bdff2bdf3c1f7fef"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (13).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0013.png",
+          "sha256": "39ef2d822d6c3456ca5a333153fb0533bfe0c0973ef8ac4c3fec2990cfb673ef"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (14).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0014.png",
+          "sha256": "fe226a5e7a026b6c2ce4d6a5c138411b683491b6f70182a099c362f28c578733"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (15).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0015.png",
+          "sha256": "77b4f34160f8ae1cdcb8ee8dc632869e99a2b73dbb23ba6c0a5531a5b5f7f44e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (16).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0016.png",
+          "sha256": "20a51ff31b3129a83971074e4c2f4a13c4431d540b6ec39e7322e0b364d77a7d"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (17).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0017.png",
+          "sha256": "1663acc6f024d5cca1bc2f382a023ecec49c13310575ed17dc4886d893ebb49e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (18).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0018.png",
+          "sha256": "0d149009c3756003e50c3c63a787d4c2cc847b507b981414cd4c70202dbf2d80"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (19).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0019.png",
+          "sha256": "d4c75da1354677f2d412747c90b92beb5c90d9d3bb477e0bc36fd48711bbd76c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (20).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0020.png",
+          "sha256": "f46dd91f8f31504431c342ce40859a4c618792e0cc8003094a78b615cd2ba0bc"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (21).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0021.png",
+          "sha256": "c7570dd95121bdacce28f0cc357db0cee7a0c805efffd64fb81880c6fe26cbc1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (22).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0022.png",
+          "sha256": "0ad36fa375dae6edaf389926d9c9e161b2a63a4ee65ba6323246fb26f5ca3996"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (23).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0023.png",
+          "sha256": "895902045e84349bde590d08b726b8533baa4ecf4b6f4ed58415762f5d4233c9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (24).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0024.png",
+          "sha256": "177ee28a2042dbe3b28cc90a7393c706c4eeac0a8cab02dd0b2495965835f800"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (25).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0025.png",
+          "sha256": "80f857f6178187134c1db7a748be89f6fc4b486280bd5f7cb22243a34d3fd139"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (26).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0026.png",
+          "sha256": "25dc9274cbe5beb0c703cc7b2ec988b28b1d85f3df4bb3be69e0c1a9dc487c1e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (27).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0027.png",
+          "sha256": "c250553a479407490e626f33cf32fe10cdcedafe0b7c6231613aeb9a0d957a3d"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (28).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0028.png",
+          "sha256": "4f0e6d895694e82bdd2cee37436508abbfe92322dfd2dd89590dea7ac59eac72"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (29).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0029.png",
+          "sha256": "1c5f62080c401297a2df4f48f4e8d42374fc8c6847176d5ec373f08a591722df"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (30).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0030.png",
+          "sha256": "953a6b9a9eca0d474afe73bfdf9a004d016c58cd658bc94469b5afc92c397a30"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (31).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0031.png",
+          "sha256": "5ae5deacc6a06570f6fa1f83b766c2ecf9e2af48a1bba287a55ec00ecddc6ab4"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (32).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0032.png",
+          "sha256": "ff7fe39cd689b26644a4e19d0a5dd7e44501483d8bf7f672f2d05b94967405a1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (33).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0033.png",
+          "sha256": "3c7e5341795cbbb7cb0cd47770fb1996a6281f63257ac911ec63f79c09dd5c1f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (34).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0034.png",
+          "sha256": "5e7462aeb582b13cf07c940ad3b36b347f21f27d3d250710801c0529aa394c11"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (35).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0035.png",
+          "sha256": "2d36550a498f4cc26abf8d1c8711b309729baa40c47cb98aa3ea7a21acaf71ba"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (36).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0036.png",
+          "sha256": "32e66e4cfd9dca8ad2fa9d33c324da7fee7ee2ae6e39e8cffe151e5605bb3eb1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (37).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0037.png",
+          "sha256": "e019f5a5df3b360b5984b15646dc0b6f9bad7a4038c92a914fe41ab197786d7b"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (38).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0038.png",
+          "sha256": "2f73277aa329d03cfcffceaf87b1af6fdbde962c6658258d02576d17b48d8034"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (39).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0039.png",
+          "sha256": "737ea9fcfc22898834ffd4e903d7fb2eb3c8ab44b8b7908a96708bd886279141"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (40).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0040.png",
+          "sha256": "6ba79a1aa16c241be83dabb6644c0527339873381b28a80468cbb4fa1df57c65"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (41).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0041.png",
+          "sha256": "ea61b4427893eac6f5143833a6fcf351c0973c93650248bb90f26cd76005acd1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (42).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0042.png",
+          "sha256": "135ab6be3887d85edc0ae6753597c1947bc39cb92dba9fec9507ad061d3d582e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (43).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0043.png",
+          "sha256": "562592becc260d64404a98d2db2be7128d5abfb2782736ce4cffcd9b129dccce"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (44).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0044.png",
+          "sha256": "3ed8c00947c54a7c33925826039e3f2842f11125e4bdcea84bae54902ababc41"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (45).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0045.png",
+          "sha256": "f8242f4d2b2e8e1592f8f087451c16fa82263803ec11f6f38885d757df91f587"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (46).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0046.png",
+          "sha256": "bf48a01f52560dba38a5b643ffee9e78ce56e6ba69d349db56b5c37c87d4cb24"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (47).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0047.png",
+          "sha256": "98a1f53813b7d8e372c61288d657e81659aeb3d540955fb981fe58428ca6a067"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (48).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0048.png",
+          "sha256": "93ba7effb18326376560d12a00cf7d085f0b6627604cb8fa7107a6b915a002c3"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (49).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0049.png",
+          "sha256": "35950d73879d1c95d53f5a11e495f1df909b0127480bc69b70a679ab87d23590"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (50).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0050.png",
+          "sha256": "dd18d3d3b49549cc34d8c200a5f375570d55cd74fb3b9e6400465990ab774727"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (51).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0051.png",
+          "sha256": "0ac0bab6fd66daa4834d7737f30d4caaa8d77f97d95455a8deb8742595bcd845"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (52).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0052.png",
+          "sha256": "ad61c98b36c8eb0f926067da6b261755ed30dd0e8dcb8a4d02597913d03eb96d"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (53).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0053.png",
+          "sha256": "c90be77fa567339f14eca57b64d4c3294761005cfb281127c9bb18dbc37bd246"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (54).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0054.png",
+          "sha256": "947589d85a34f9cac6a645e438013bd5f0de530d46d5e205f79ec956a1757852"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (55).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0055.png",
+          "sha256": "60b3a42de5301c8cc7723c8e96432fce1ce03e3843f5c6327cd91f3df6dd97ee"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (56).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0056.png",
+          "sha256": "3cb3d6506787a5da313f589224abab7f18af0558d73957ef4dfa90219c09cbd9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (57).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0057.png",
+          "sha256": "61eee880e32ebfcfdabf2e16466afb9e3974122e5bcdaccc125ad92599328778"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (58).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0058.png",
+          "sha256": "73698abcb8c6d9214234f4942e902dc7338ac1d19825276542dbe226be3ea59f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (59).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0059.png",
+          "sha256": "0adc42ebf28ebd0e0ec928e8e9013871d390375cf9f2de9e656011d19a34a384"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (60).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0060.png",
+          "sha256": "20e3a678373600ffdd59c3e029b02b40ce83aacd31a673081733f23880f720bf"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (61).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0061.png",
+          "sha256": "265cf8622b10783fb40592ef2e139233c09253d0077b6cb2156809bd53b49ea8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (62).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0062.png",
+          "sha256": "918cc6174020b2155b85816651ebc157c13727f445b2410d943c0c775d8d3925"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (63).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0063.png",
+          "sha256": "502611b8c9ac60bca72362da6b5eefb4955b256ec130894f327943feac7065e7"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (64).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0064.png",
+          "sha256": "40401d7e62718450cb1e91b2605e4fdc55f9d9509c754d2688a7f054a0aa4690"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (65).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0065.png",
+          "sha256": "43c43671bf2ae9cafd9de3948f0e229836100355fc85c41084232ea1cd0550fe"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (66).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0066.png",
+          "sha256": "c1174c7157ffe57ee0fbde1bd9180a801a9224cb868f778951aff55b3157f995"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (67).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0067.png",
+          "sha256": "79749e585e6e17ced062466ee0fdb7b1caa1c67fe0fe24995f913a7b4d8c8100"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (68).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0068.png",
+          "sha256": "e2f40726928fa44f4b3c24f5ec26f62cb55a0e9bacaa82e4c9aa5a49f7a935bb"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (69).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0069.png",
+          "sha256": "191a9c2c96c2535dc8c3afd684609a85f0de4c5f9b713a8e7073b161e70e757f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (70).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0070.png",
+          "sha256": "25ae6c9cf3c06cfdf08eb2523e70dcd0db13697b18286debd659bbf7ce074f81"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (71).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0071.png",
+          "sha256": "df2a4bd05c495f88dd6d2cd66c04fa91ae854e618cb6e5e4bd05b748e2e97f00"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (72).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0072.png",
+          "sha256": "c7e06892d093f10259e16b2771b5f86dd5eec01c02a6ac47f08fd64d563603b9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (73).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0073.png",
+          "sha256": "502f5d688b0d5568874411b82649f47da576717ae9af6da5c44f742f5bce7673"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (74).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0074.png",
+          "sha256": "f11a1cc60a431a0fa3caf1044622f3545c5cc43aed80bf51eb09d35052309065"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (75).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0075.png",
+          "sha256": "3cff1225603a04c73df08f1d1979116e7615b18b964b454a916bd7ebdf70c2f2"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (76).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0076.png",
+          "sha256": "9125a1b9f8a8f1891089f783b7b91292f423e4ed3033ebc5e0a1e06de40360d8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (77).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0077.png",
+          "sha256": "655ebdcc8a12ef4d5eb90c3f8db2df5e869c2ffc654806f3dcb2b2282543db75"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (78).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0078.png",
+          "sha256": "50d71b44ce681a6720c553bb43645750f9cf6e1c3dc72c48deb33f13d17a0ba8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (79).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0079.png",
+          "sha256": "b68f1a32fed9edc4a679b4add081a37a13d92d247455899cb3a1929feb6eb4f6"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (80).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0080.png",
+          "sha256": "b3f248aaabc378a06ea2d932fc7fe152a1d4d3ec9907cf154af1404b25139bfb"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (81).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0081.png",
+          "sha256": "cb6cdd41c1689a7e93befe64b5d96acbeb5916f069144c04851f9add3011ad2e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (82).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0082.png",
+          "sha256": "15c6720e8cc8a7c29beb10141e74b08127cc9360e7baf0ac425c29dc73692bb1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (83).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0083.png",
+          "sha256": "d9c251e5aafc0456517593f58953ca7415f960ab83339fd5046a9633a701a8dc"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (84).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0084.png",
+          "sha256": "ca71bc7ad035a109b6056b0cc90802c1a8fc402767124990420ae22494775bb9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (85).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0085.png",
+          "sha256": "efbf3a63db0d5628e7f19803e4d1bfb9e21584083976893e765c878cd5475c74"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (86).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0086.png",
+          "sha256": "368921b54fe7bd07719bf22791c2cb8bb438255f0ef5fdf7afdd840c2b7c566a"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (87).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0087.png",
+          "sha256": "dfa7bb3ca159e50ee43097175a53bc350e7a639dd42a52c442bbbe50b14f77ae"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (88).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0088.png",
+          "sha256": "c211f1f93fe0337826f8435f673d67a574325707bf0fec4f322a07d124195575"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (89).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0089.png",
+          "sha256": "8e18fc2d466ea5bb9ba31bb4c564e3200a7b712882320fcfc5dd56cf171afd29"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (90).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0090.png",
+          "sha256": "e339c6ea8fe66f428780ab45a47487d0fe0e8406ae5bebb53159ffc0daebfaa3"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (91).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0091.png",
+          "sha256": "fe6ec9820a24c4bcb2ff69d59fab165ffcee5abd6bbaa8358c7348980bcb64d5"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (92).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0092.png",
+          "sha256": "c0fbea4939d636fee0e327a9534adbe28d65633ddbe3c10eea9ae828c91e6515"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (93).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0093.png",
+          "sha256": "aa042f15b9f036b1a1b310f49891fe6b5a499dff962481e80ca9372d7014d27c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (94).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0094.png",
+          "sha256": "26c6d885c374fc267c0c104dc40bbc2fd5e36f1ded52844ca20bf8ca74fcda86"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (95).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0095.png",
+          "sha256": "06090410fe50e79dfd7703e5bdd8df7b64a3dd87fff07492c42cd62b428fcd3a"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (96).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0096.png",
+          "sha256": "03805402bb7a84695aca62baafbe56076d98825a5d2a819b08db99aec177ad10"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (97).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0097.png",
+          "sha256": "c56d79f5695ac0f4a18b44af3afca39bf579d48b74e4a69d2815f977e0b2603e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (98).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0098.png",
+          "sha256": "932ffa057064caa553cb6ecf8ffa8d94f41eed44bbb192c7739712115470d725"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (99).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0099.png",
+          "sha256": "8da6c16d2fa803f32983deb791c7695e7c395ce9ec1f07a2db8eee3c4f24709d"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (100).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0100.png",
+          "sha256": "7b7b60ed10efb66b68b4fd6f51d542ac0be2c93eb7e0f0e3e0ad4e7f3712033e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (101).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0101.png",
+          "sha256": "dc5a4c3ff144edc8ffbd7b5857af8341053b0efced9805c9a8a1c5fe38302f47"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (102).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0102.png",
+          "sha256": "98ad0d71b376c77011e905c62d2d81b1c5dcb31989d74505853c733e8b88217c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (103).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0103.png",
+          "sha256": "930d251de1c62b065db8b2236b8b4946a9f7a5b245aafffe692209c2aaf53fe9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (104).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0104.png",
+          "sha256": "d69aaffaab72bab709b6ac9424748f49c29dbf2ee4ce28bf94601f5fc617a36f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (105).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0105.png",
+          "sha256": "f24eb99d698d81934d6429160c3e025e645b7affcfb8ef2109489e57f54e8493"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (106).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0106.png",
+          "sha256": "9fa303323e1b652562e7193db652a5d44ce1fb3133a311c83440ba7b7a18c6da"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (107).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0107.png",
+          "sha256": "da44b6174fc3a95bde703287712bbd405d81d5b9f9da295b5629a205a47755e4"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (108).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0108.png",
+          "sha256": "75f7c669da42e4b876bb8ed4c85aa9b3a0466af7c7bd36e050b01e23b5bf0072"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (109).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0109.png",
+          "sha256": "5d0c7ab050eb3e6399c69c04e51f65e1c71dd2cb6cff1f7ed9cd44e2d1905305"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (110).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0110.png",
+          "sha256": "f9502b6cd7f0110ba073acd65153b6940eba0f48ba6610bd32c7c44c86ad6f3e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (111).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0111.png",
+          "sha256": "696febf00e45a75f535763fd68bdd71e04005cdc2040b653a6481e1549a6714a"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (112).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0112.png",
+          "sha256": "c405f02572c9aed9cbeca2bf0fc997a728067dfbff6f9334f95a00d404898097"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (113).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0113.png",
+          "sha256": "6f8cce8bc7a1268e4ac794876634c4b7ac084c02e086c293aed6366f43bf790b"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (114).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0114.png",
+          "sha256": "6b28eaaee402b338deaf187270421130421b228ad64984057e30d82c933af5d8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (115).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0115.png",
+          "sha256": "7313730569a622685f3e2a8cb8114da0879c540a5e8c372d36f1bccd8c4402e5"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (116).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0116.png",
+          "sha256": "79c452841a46848587b5f0fd8f671fb55e72e3c974f7d56e74f01b45989ca64b"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (117).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0117.png",
+          "sha256": "20b83c6774340a1b60a097231e36485b5b5ca17bc05c0f1b7469a9c596a368a6"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (118).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0118.png",
+          "sha256": "98ba3a533169ca80ab28a5cf04d3ab1702f01b650474753d4252a66ca99814e8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (119).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0119.png",
+          "sha256": "c03ecaa5bae670c0551f777b5d6e61e3d6b17a1487f87ba9654a2443df08d814"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (120).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0120.png",
+          "sha256": "74656ab267bb0e689b3f17f71f27706aa81e1f5cd4ea9aae5761ef67d38573ab"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (121).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0121.png",
+          "sha256": "96f51178446ed6da6287b242a7b1c796e4aa25c78624d6ae7be6a2b8bcade895"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (122).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0122.png",
+          "sha256": "46a00fe58fc7683d95bb49ae3d3d58abc3c5603476fa866a2b94f13f095efca3"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (123).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0123.png",
+          "sha256": "40a2d378d0e75dcea1cf0af29f873cdcc59ef09f0fd34239fd0e73a789b09253"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (124).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0124.png",
+          "sha256": "e20f41ae4988c52ee4965cdc8c6d709c2388e8970c909ffb9a02b44d826b6b70"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (125).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0125.png",
+          "sha256": "6e641ea41f90015f7639040e199ed06129ec82807e9284fa7349f76e49d78bea"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (126).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0126.png",
+          "sha256": "9160ffd6f98bfc34fecfc3962dc262d6187336b1b74fbabe99f378dd23bb3fa6"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (127).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0127.png",
+          "sha256": "69d7ad6ddffb51960261cfa83418d1b7259327f1698e6df1671eb66bda8ca657"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (128).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0128.png",
+          "sha256": "58130908bf389031f48dd7ccac99aa5908870287837fdecd8a5c43d58e0e1fbb"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (129).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0129.png",
+          "sha256": "f87d4e7ceef94cdb4094ebda02e3ffdf8b22b74544a67b33efcecdad1a928463"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (130).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0130.png",
+          "sha256": "38ae6e7413e12519259fd64d164b9f420c099aa8316c11f0a7bea2a7af4cb97f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (131).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0131.png",
+          "sha256": "c826a78c1f147e06e31f8f20f7bb46896a26640aa933b2f650fd92f1da16b7dd"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (132).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0132.png",
+          "sha256": "828c3f9e9a95a2c92a11ae91b1e96ea267bc2122b96c772da2cec1d99baa08f1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (133).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0133.png",
+          "sha256": "b946e7b23c0220588b04d508df6c33f06ad8b1aa6e02a637f32cda41d41f3d11"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (134).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0134.png",
+          "sha256": "c164cc8b17b5045aa0a3adb31fd772a11e833373c4d06f1e59e695cfaaa21bba"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (135).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0135.png",
+          "sha256": "0eea836ffaf7a17f50179b66b396d23703d2d615a9e5da7c7afd1853afeb8934"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (136).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0136.png",
+          "sha256": "cb77866270adf02a0703fe79216b8ffe3676a789bea04e7b6e0fb736a227e992"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (137).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0137.png",
+          "sha256": "6529c26515db186c48d54a8f1b3e1e81d33f255b683536565278c555d75ece27"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (138).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0138.png",
+          "sha256": "ff76a5d98c13ff4d3f9dc6025acc2eb25da3e96c88cf1a44c218bc25ec701941"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (139).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0139.png",
+          "sha256": "ca0e1f793449684e3aae00e56451e3528b21b11e1f06ccf466ee7feee56dfa3c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (140).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0140.png",
+          "sha256": "88ec49d160088271caa04e9e613e2aa25a39c372cfd3d7cae6f4913966139709"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (141).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0141.png",
+          "sha256": "6b15d9b80e9e1ed066ac7bd64dfcb16cf6e059d1af788798aab96ecf6168d790"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (142).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0142.png",
+          "sha256": "f25a188fccc0bceaf4496399cb0ff9929891af7dbb5429f940cc6433e51eb162"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (143).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0143.png",
+          "sha256": "947c5a62be3ddbe770b9eb2195f7517822fef3eae04cdbecc032ba9d63d7f936"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (144).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0144.png",
+          "sha256": "9925d6d583053481e2ea24a3df5d298e4046449de00eeabcc2b2cdcbf558edb1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (145).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0145.png",
+          "sha256": "cb4074e1fd0bb6a2941eb1c243617e2e4943be6bb7c94cae9cd66f06be047262"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (146).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0146.png",
+          "sha256": "f366713301b2939267287146749cb1e1e791b50e78e3c39f28a96df92ffe9883"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (147).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0147.png",
+          "sha256": "9a4f739d8f2169f06cef1b96de5caf5a1d66003545dc9ff840a1abb9834a9d99"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (148).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0148.png",
+          "sha256": "da4b00f7a430522825de0c0228019ba7527fba76921c6f04eb61841cd656c396"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (149).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0149.png",
+          "sha256": "ebf23599343f6c10ec9830c96815474cd928562d22ca8e237edc85bdd9f0b7b3"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (150).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0150.png",
+          "sha256": "efb16960b33588e3a3e1faf1574e60f606fbd6da1c219d787afb7e65e7a23319"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (151).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0151.png",
+          "sha256": "055255b8ecb588cd4dac32b6e6d49ce136c11d82077c00b6d9bd389073a09b49"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (152).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0152.png",
+          "sha256": "8b10f34882bbbb84dfbfdfb2526246fff034e8506a9db3472ef3dba262b8f238"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (153).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0153.png",
+          "sha256": "96635b12132ab9b2150c0652c035536087a10a74523e416231b349a1f3ce1397"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (154).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0154.png",
+          "sha256": "cd8cbd4c19015986ffd91901719ef21c5190590d6044efa6325dab5cc30760d5"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (155).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0155.png",
+          "sha256": "eede2bdf566f96e653d409416024a0292481524b31f8b9cdde6df7ff6f7f6ace"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (156).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0156.png",
+          "sha256": "135793466340507bccaafd121ce3b483941ca9d8ad8fd2fa6d3d3337f1229083"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (157).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0157.png",
+          "sha256": "b16766b398d0dc5d5630dbc3f523c44df776f8f69dbc9e7921f274041435095d"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (158).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0158.png",
+          "sha256": "13e7faeeb208dfc428a074297689e11b8b610dd64ba47bfe0c4e4a734cd30033"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (159).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0159.png",
+          "sha256": "b4213fee238ba47f67fed38d94b38bd715103d8e2573bb2bef403091d9c99265"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (160).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0160.png",
+          "sha256": "73dfbc92f0fbb89b7a8730e3225fdf040baeb7035cfd0d63c019693cd7807d73"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (161).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0161.png",
+          "sha256": "6609b61264b2274b09cfebd1a4ae0afd389d297d87b5740d8fdbc7ae86ffc2d9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (162).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0162.png",
+          "sha256": "89ccda34435bd19064939ba71b1fffb7aac14c11985fcbedb0fd8d2a1b542a40"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (163).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0163.png",
+          "sha256": "06b39f1fe3ecf0c209d2317e780a9702d2fb5f8b8cae32b61a8b566de64bd273"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (164).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0164.png",
+          "sha256": "88b0867ac4052bf6731b898d6f545589df99e368e8f0fd7a9998fc517b8353bb"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (165).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0165.png",
+          "sha256": "69d5e142a0e30b529a10adc0894c11e35c4d8b5c26a000f874f4f7054fb552e8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (166).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0166.png",
+          "sha256": "9b5730b32532b16d6979bc08769daa766a3fc6d16762070c7ba91a0d46439107"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (167).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0167.png",
+          "sha256": "42f302fb2a1a57ccb8c78a666afd66f66490b12c074a13f943b44fdd76232e35"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (168).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0168.png",
+          "sha256": "67a098dc55ba2048260770ade38d980f7dd2c312e5844f212291cd1a814a1dd9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (169).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0169.png",
+          "sha256": "916eb31c8fcfeec8ba295d37f6261c06e1faf61b8324b8cc8b13a7e3473cfb9f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (170).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0170.png",
+          "sha256": "3357aed54db461e8c55089c6ea79d17af39a846f2d89a530d5a570940d877974"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (171).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0171.png",
+          "sha256": "129698cc11551d921e5f65a3b63a3565a22ea41bc5fc868d5c796fedf00dbc01"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (172).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0172.png",
+          "sha256": "6051bd8ee662fb6580d62e3bdbe91cb2f693c43d4f5219d8a17d4a41b16843b9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (173).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0173.png",
+          "sha256": "8b38941fcadf4d11fe35f5c26e953fc27c72ee5fede4fb417515b805b99012b0"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (174).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0174.png",
+          "sha256": "2183554e19e33a7c88b9dea77af98662350c3b3f973b24a1c26e2bb681a36c1e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (175).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0175.png",
+          "sha256": "5db9ee1a36bf4e4580027643395965023dd7e7ff07f072d5bed285e2176e4f1c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (176).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0176.png",
+          "sha256": "96ec1521c83cc7adb291f4cffa2c8d3417a831077ca7c336dc07c3aa2b8e978f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (177).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0177.png",
+          "sha256": "d4f38de6f8b997aa5753bfc3006cbffe9d6043e8363beebd261cd57a2ec71b8f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (178).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0178.png",
+          "sha256": "b155ee28f7e534da43ff7461b8182953c2f4571d236d5cec18d91683e50948d8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (179).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0179.png",
+          "sha256": "f2141a3ac969add68a0e5c57be9ade30a81b9c34ab688694e9dd4a26a3e5f328"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (180).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0180.png",
+          "sha256": "2e167191dceebd676c64e237e81f0979c310a21d38b22c46947794e8a652acf7"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (181).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0181.png",
+          "sha256": "a351e5a484afdb94d30a5c4611500c667522491b0a7926f2c6e8484ed165d307"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (182).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0182.png",
+          "sha256": "44e3455df6c0f2ba1a21e8b48ecb262415c8890d14d6575b593a49d240bdbd29"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (183).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0183.png",
+          "sha256": "9f1d1a523137685db0ffe15b3a70b8cbce533dafd2200a4f97386be01c90d7d9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (184).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0184.png",
+          "sha256": "5d939044e7bc3938f06e90c836bb1594ad7c530ec840e4d10f9a9f2598e684a3"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (185).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0185.png",
+          "sha256": "aaac6ba77c839b59ea26912c77a457ab9445d8efff8686b3e3fcf0c07a235731"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (186).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0186.png",
+          "sha256": "4b5187151e2b0170b38cf1b3bb72408465d4280949fc669ed7f0191dc5ecece5"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (187).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0187.png",
+          "sha256": "0e7591ccb60d833eaf11699403e88ddcaa5e3649154b46d1e5e9c9623f0dc9e5"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (188).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0188.png",
+          "sha256": "1fe2a78da425425109c0f51b98c709c66b6f65a20d4213edb2607f6fa66dd75c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (189).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0189.png",
+          "sha256": "e7fdf13bf227d60bd6e46b0a5bd7fc52f67509c74d6a90f84d2d7c8182c21f69"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (190).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0190.png",
+          "sha256": "e403157f8999c721fb49430bba799496abb84475d0c6c8a3782da2a5df85d747"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (191).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0191.png",
+          "sha256": "22b121de0d232be10383a673ed8d8b8873d0a3f6ef11f5ca88e4fe2eae3780a1"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (192).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0192.png",
+          "sha256": "eed82b55acb1d19b8ab1275d3fdd9a6e17f9ec59beebdd4684cf3a4e52f0b3e9"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (193).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0193.png",
+          "sha256": "8d0bfd9e8f8b6ae36c8b36430fa7df93a573429214822cc65ce8d081dfe30b90"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (194).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0194.png",
+          "sha256": "00466624ed140247e322e215d14f8493b43be9be3a19548e3f7b0d3eca298e15"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (195).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0195.png",
+          "sha256": "053d5619bf19b088f16fca391b0875bffdbcd8d527674576b0137e9ea4f32d36"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (196).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0196.png",
+          "sha256": "df667c5521f0359e19d6a111f73d53df11938dca1f308f0286bf5e6c2bd4a327"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (197).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0197.png",
+          "sha256": "f6bdc8a398dc96322f3156558e707f43138baac12a996e36a7ad41a0b366c2db"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (198).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0198.png",
+          "sha256": "cb04407ffbaee642fe44de7bc68476f52036f1f44f677a31c7e4c5f736859143"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (199).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0199.png",
+          "sha256": "fd1870b5992b9f835bb228ce1b66a996acf0e7788c9fad43998a70b4fce4491f"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (200).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0200.png",
+          "sha256": "3a4d5982c43db41e0e2a48d200bd6c405dc8bd3ca9256bf16da169183de8c27a"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (201).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0201.png",
+          "sha256": "4b9a3b43f96293d293ef5704758b89c3ac42e74f35006b3968062b5aaf134428"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (202).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0202.png",
+          "sha256": "1c4511b1075651307790867eed6430d8a28533529dcefe86a6f6c72a27f1c6e7"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (203).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0203.png",
+          "sha256": "c639569b9d438e286b4f8f608ba86cde8a7fd66537234b5bdc46bf4be9fdd6c0"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (204).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0204.png",
+          "sha256": "66763b97e5780b092b9491895a5b96c1cbe53ff5eb0a3e0bf392401a4431b131"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (205).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0205.png",
+          "sha256": "371722bc7ed7d229c007472601e4d0cec809a59594251b7fb0a4fd63a93667e2"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (206).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0206.png",
+          "sha256": "494352c4b973250af04597383731aca7669927507e9b477265c6a70d193db7ad"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (207).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0207.png",
+          "sha256": "469db9fc316f3ee874beab733ddb75b05a40b7b0d12bbd169c18233891a5ea23"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (208).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0208.png",
+          "sha256": "277cac5718dcc9dbe54c62ce1d8c41e0347ce323245795dd8cf1648417058e13"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (209).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0209.png",
+          "sha256": "d61f807078b27fc1c9132b4a4501ccd2a5fabe70dd69cd5dabb719fa7953f899"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (210).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0210.png",
+          "sha256": "01452baf42316862f9b5c3bc5081fbf750f9cd3e5f5a804a045eebd708425705"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (211).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0211.png",
+          "sha256": "039e06e6cc9cf2c66e0f84e540b90fdce25622d84348f9f38239c293aeb35bbc"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (212).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0212.png",
+          "sha256": "7190d0ec8cc8063c7a1b4851c962dc2bf98ed38e943941dacd04d747026c2d6e"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (213).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0213.png",
+          "sha256": "c2752adf11e840af3eb8270cef81d749d59a9bf2ed0584f7701b701d99f10564"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (214).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0214.png",
+          "sha256": "1b56ebf00ec591590d439131a61d3c7a689dd22586eb39e92200f730fbad1f66"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (215).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0215.png",
+          "sha256": "debb13d19cfab9eadb8e65ab2a789241d2dba4fb44569c0d67a028406aaf197c"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (216).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0216.png",
+          "sha256": "5fa2f5f5436024337de4f614f836b5cd4c13281c2957aa0b3a90a9bc0e667e99"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (217).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0217.png",
+          "sha256": "33bf61fa51ed381ee61987f257862de6edcf5e92ce51b8f1877e3dcfa031d5d6"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (218).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0218.png",
+          "sha256": "3c95bded598a16d2d3e56d61117e8b3afa0693705f24ec5c743f556a6973c9bd"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (219).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0219.png",
+          "sha256": "27ace1164a6d66e033b55a683c4f302a3042b9cb80ce003758ba2df56a703fb8"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (220).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0220.png",
+          "sha256": "caca6e15eec8dcd3abb2499ed527d87c14fc53ee38f0b196c69bfbe22020bd9a"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (221).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0221.png",
+          "sha256": "870dfeb6d5d4cf6516f22c37582cd2a402eadc3ef17eb6db21e697fddbd43250"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (222).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0222.png",
+          "sha256": "c9d8cf2d4a3506827964be1eb71afe9fcbef503e0300fda3024f240af8c24d2a"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (223).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0223.png",
+          "sha256": "84d5e262e2b6d1c7525d77b2163a6f5465f1eacbf5a6586a20b53c564e3b0584"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (224).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0224.png",
+          "sha256": "e313ead74f25aa181de9487a982b7cb200ac405f1e9ef7dee59a32d19bf21f15"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (225).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0225.png",
+          "sha256": "0f1821354401248386a4dae55d99f3aa09087db1ae3ef95e01376b8b4bb9d8bb"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (226).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0226.png",
+          "sha256": "6749c6b83cce777b9e2c9520af9abd8808ee3f9b119da92132812fcb3be211af"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (227).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0227.png",
+          "sha256": "448d2ff2e985917fbadacf7746a4f6b11ce21b9ecb0d67b1978a9292c7e9738b"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (228).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0228.png",
+          "sha256": "16eb7c55a6c9cd8528f30dfebe41ceac8f226f440729e170eadf7e42223a7339"
+        },
+        {
+          "source_filename": "水波纹/水波纹 (229).png",
+          "path": "res://assets/art/puzzles/well_memory/effects/ripple/ripple_0229.png",
+          "sha256": "ff5709bd251b033582e629dba3a0b0313cbde94a9dbe0cd4e458ebf64d905d97"
+        }
+      ]
+    },
+    {
+      "id": "act_01_bedroom_photo",
+      "source_filename": "照片 2.png",
+      "path": "res://assets/art/cg/act_01/bedroom_photo.png",
+      "category": "cg",
+      "scene": "bedroom",
+      "usage": "collection_photo",
+      "canvas_size": [
+        500,
+        600
+      ],
+      "sha256": "46dd37418348eb8d148cef543315d8ae8dc190d0223ad55866d0b938d917d11c",
+      "regions": []
+    },
+    {
+      "id": "act_01_window_moon_01",
+      "source_filename": "未命名作品 5.png",
+      "path": "res://assets/art/cg/act_01/window_moon/window_moon_01_crescent_left.png",
+      "category": "cg",
+      "scene": "bedroom",
+      "usage": "window_slideshow",
+      "sequence_index": 1,
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "sha256": "19faa0a457d0fe38d878ce8a6c39dc8c953a6b5394cb379792e247089b25d024",
+      "regions": []
+    },
+    {
+      "id": "act_01_window_moon_02",
+      "source_filename": "未命名作品 8.png",
+      "path": "res://assets/art/cg/act_01/window_moon/window_moon_02_crescent_right.png",
+      "category": "cg",
+      "scene": "bedroom",
+      "usage": "window_slideshow",
+      "sequence_index": 2,
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "sha256": "28bc4ee4cf888dad75276ec398a7a75d402c64cf25d1d0ee29b8f7b6846a4c2a",
+      "regions": []
+    },
+    {
+      "id": "act_01_window_moon_03",
+      "source_filename": "未命名作品 1 2.png",
+      "path": "res://assets/art/cg/act_01/window_moon/window_moon_03_wide_left.png",
+      "category": "cg",
+      "scene": "bedroom",
+      "usage": "window_slideshow",
+      "sequence_index": 3,
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "sha256": "f692852e08a9c558d8698679786837e9d972514427e4219772572a9ea59d8403",
+      "regions": []
+    },
+    {
+      "id": "act_01_window_moon_04",
+      "source_filename": "未命名作品 7.png",
+      "path": "res://assets/art/cg/act_01/window_moon/window_moon_04_wide_right.png",
+      "category": "cg",
+      "scene": "bedroom",
+      "usage": "window_slideshow",
+      "sequence_index": 4,
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "sha256": "34c8cf1b858a74b5b6fb711fb9dc43dcc87d938a39e585d834e910dc7dfb10e5",
+      "regions": []
+    },
+    {
+      "id": "act_01_window_moon_05",
+      "source_filename": "未命名作品 6.png",
+      "path": "res://assets/art/cg/act_01/window_moon/window_moon_05_full.png",
+      "category": "cg",
+      "scene": "bedroom",
+      "usage": "window_slideshow",
+      "sequence_index": 5,
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "sha256": "0d3dfcd96916f679449dface18314b57930db5070513897c2560457f796e067d",
+      "regions": []
+    }
+  ]
+}

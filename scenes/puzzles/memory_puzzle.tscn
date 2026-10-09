@@ -1,0 +1,132 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/puzzles/memory_puzzle.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/puzzles/water_drop_zone.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/puzzles/word_slot.gd" id="3"]
+[ext_resource type="Resource" path="res://resources/well_memory_puzzle.tres" id="4"]
+[ext_resource type="Font" path="res://ui_font.tres" id="5"]
+[ext_resource type="Script" path="res://scripts/puzzles/water_ripple.gd" id="6"]
+
+[sub_resource type="Theme" id="Theme"]
+default_font = ExtResource("5")
+default_font_size = 24
+Label/colors/font_color = Color(0, 0, 0, 1)
+
+[node name="MemoryPuzzle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme")
+script = ExtResource("1")
+definition = ExtResource("4")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.97, 0.97, 0.97, 1)
+
+[node name="MoonEnvironment" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 0
+mouse_filter = 2
+expand_mode = 1
+
+[node name="MoonWell" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 0
+mouse_filter = 2
+expand_mode = 1
+
+[node name="Water" type="Control" parent="."]
+layout_mode = 0
+script = ExtResource("2")
+
+[node name="Ripple" type="TextureRect" parent="Water"]
+visible = false
+layout_mode = 0
+mouse_filter = 2
+expand_mode = 1
+script = ExtResource("6")
+
+[node name="UnderwaterWords" type="Control" parent="."]
+layout_mode = 0
+mouse_filter = 2
+
+[node name="Sentence" type="Control" parent="."]
+layout_mode = 0
+mouse_filter = 2
+
+[node name="Backing" type="ColorRect" parent="Sentence"]
+layout_mode = 0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.96)
+
+[node name="LeftSlot" type="Control" parent="Sentence"]
+layout_mode = 0
+mouse_filter = 2
+script = ExtResource("3")
+
+[node name="Verb" type="Label" parent="Sentence"]
+layout_mode = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 46
+text = "看见"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightSlot" type="Control" parent="Sentence"]
+layout_mode = 0
+mouse_filter = 2
+script = ExtResource("3")
+slot_index = 1
+
+[node name="Cards" type="Control" parent="."]
+layout_mode = 0
+mouse_filter = 2
+
+[node name="EscHint" type="Label" parent="."]
+layout_mode = 0
+mouse_filter = 2
+text = "按esc退出"
+horizontal_alignment = 2
+
+[node name="EnterHint" type="Label" parent="."]
+layout_mode = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+text = "按enter开始还原"
+horizontal_alignment = 1
+
+[node name="Feedback" type="Label" parent="."]
+layout_mode = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 26
+text = "水面很平静，毫无波澜"
+horizontal_alignment = 1
+
+[node name="StoryPanel" type="ColorRect" parent="."]
+layout_mode = 0
+mouse_filter = 2
+color = Color(0.85, 0.85, 0.85, 1)
+
+[node name="StoryImage" type="TextureRect" parent="StoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FeedbackTimer" type="Timer" parent="."]
+one_shot = true
