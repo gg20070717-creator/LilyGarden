@@ -1,24 +1,25 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://dwntpk2pq2ith"]
 
-[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_background.png" id="2_background"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_title.png" id="3_title"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_new_game.png" id="4_new_game"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_continue.png" id="5_continue"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_settings.png" id="6_settings"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_load_game.png" id="7_load_game"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_quit.png" id="8_quit"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/main_menu/main_menu_credits.png" id="9_credits"]
+[ext_resource type="Script" uid="uid://cqyn87mfabqfm" path="res://scripts/ui/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://6yjmgfs0tfjx" path="res://assets/art/ui/main_menu/main_menu_background.png" id="2_background"]
+[ext_resource type="Texture2D" uid="uid://8rkgswyknymi" path="res://assets/art/ui/main_menu/main_menu_new_game.png" id="4_new_game"]
+[ext_resource type="Script" uid="uid://c1dqk1dp730cm" path="res://scripts/ui/menu_hover_button.gd" id="5_8g5eo"]
+[ext_resource type="Texture2D" uid="uid://b23a4rqsvn6fs" path="res://assets/art/ui/main_menu/main_menu_continue.png" id="5_continue"]
+[ext_resource type="Texture2D" uid="uid://dsxmxlf4b4kq0" path="res://assets/art/ui/main_menu/main_menu_settings.png" id="6_settings"]
+[ext_resource type="Texture2D" uid="uid://dbkmhx8i1vdog" path="res://assets/art/ui/main_menu/main_menu_load_game.png" id="7_load_game"]
+[ext_resource type="Texture2D" uid="uid://cv4o5rpxhr3u1" path="res://assets/art/ui/main_menu/main_menu_quit.png" id="8_quit"]
+[ext_resource type="Texture2D" uid="uid://jt52hvj8dfqg" path="res://assets/art/ui/main_menu/main_menu_credits.png" id="9_credits"]
+[ext_resource type="PackedScene" path="res://LunarTitleFX/lunar_title.tscn" id="10_8g5eo"]
 
-[node name="MainMenu" type="Node"]
+[node name="MainMenu" type="Node" unique_id=1032987442]
 script = ExtResource("1_script")
 
-[node name="GameHost" type="Node" parent="."]
+[node name="GameHost" type="Node" parent="." unique_id=1279158382]
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
+[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=71757601]
 layer = 30
 
-[node name="MenuRoot" type="Control" parent="MenuLayer"]
+[node name="MenuRoot" type="Control" parent="MenuLayer" unique_id=1405858011]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Matte" type="ColorRect" parent="MenuLayer/MenuRoot"]
+[node name="Matte" type="ColorRect" parent="MenuLayer/MenuRoot" unique_id=1885414441]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,14 +38,14 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.035, 0.055, 0.12, 1)
 
-[node name="Artwork" type="Control" parent="MenuLayer/MenuRoot"]
+[node name="Artwork" type="Control" parent="MenuLayer/MenuRoot" unique_id=549568459]
 texture_filter = 2
-layout_mode = 0
+anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="Background" type="TextureRect" parent="MenuLayer/MenuRoot/Artwork" unique_id=1494578815]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -52,17 +53,7 @@ mouse_filter = 2
 texture = ExtResource("2_background")
 expand_mode = 1
 
-[node name="Title" type="TextureRect" parent="MenuLayer/MenuRoot/Artwork"]
-layout_mode = 0
-offset_left = 490.0
-offset_top = 187.0
-offset_right = 1410.0
-offset_bottom = 627.0
-mouse_filter = 2
-texture = ExtResource("3_title")
-expand_mode = 1
-
-[node name="NewGame" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="NewGame" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork" unique_id=285712393]
 layout_mode = 0
 offset_left = 810.0
 offset_top = 564.0
@@ -74,9 +65,9 @@ texture_pressed = ExtResource("4_new_game")
 texture_hover = ExtResource("4_new_game")
 texture_disabled = ExtResource("4_new_game")
 ignore_texture_size = true
+script = ExtResource("5_8g5eo")
 
-
-[node name="ContinueGame" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="ContinueGame" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork" unique_id=801014515]
 layout_mode = 0
 offset_left = 810.0
 offset_top = 639.0
@@ -88,9 +79,9 @@ texture_pressed = ExtResource("5_continue")
 texture_hover = ExtResource("5_continue")
 texture_disabled = ExtResource("5_continue")
 ignore_texture_size = true
+script = ExtResource("5_8g5eo")
 
-
-[node name="Settings" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="Settings" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork" unique_id=1226252634]
 layout_mode = 0
 offset_left = 810.0
 offset_top = 715.0
@@ -102,9 +93,9 @@ texture_pressed = ExtResource("6_settings")
 texture_hover = ExtResource("6_settings")
 texture_disabled = ExtResource("6_settings")
 ignore_texture_size = true
+script = ExtResource("5_8g5eo")
 
-
-[node name="LoadGame" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="LoadGame" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork" unique_id=2084706364]
 layout_mode = 0
 offset_left = 810.0
 offset_top = 788.0
@@ -116,9 +107,9 @@ texture_pressed = ExtResource("7_load_game")
 texture_hover = ExtResource("7_load_game")
 texture_disabled = ExtResource("7_load_game")
 ignore_texture_size = true
+script = ExtResource("5_8g5eo")
 
-
-[node name="Quit" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="Quit" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork" unique_id=1759879484]
 layout_mode = 0
 offset_left = 810.0
 offset_top = 863.0
@@ -130,9 +121,9 @@ texture_pressed = ExtResource("8_quit")
 texture_hover = ExtResource("8_quit")
 texture_disabled = ExtResource("8_quit")
 ignore_texture_size = true
+script = ExtResource("5_8g5eo")
 
-
-[node name="Credits" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork"]
+[node name="Credits" type="TextureButton" parent="MenuLayer/MenuRoot/Artwork" unique_id=1531401535]
 layout_mode = 0
 offset_left = 809.0
 offset_top = 938.0
@@ -144,8 +135,16 @@ texture_pressed = ExtResource("9_credits")
 texture_hover = ExtResource("9_credits")
 texture_disabled = ExtResource("9_credits")
 ignore_texture_size = true
+script = ExtResource("5_8g5eo")
 
-[node name="EmptyPage" type="Control" parent="MenuLayer"]
+[node name="LunarTitle" parent="MenuLayer/MenuRoot/Artwork" unique_id=1226309524 instance=ExtResource("10_8g5eo")]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 187.0
+offset_right = 1410.0
+offset_bottom = 627.0
+
+[node name="EmptyPage" type="Control" parent="MenuLayer" unique_id=1864017547]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -154,7 +153,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Blank" type="ColorRect" parent="MenuLayer/EmptyPage"]
+[node name="Blank" type="ColorRect" parent="MenuLayer/EmptyPage" unique_id=848823213]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,13 +164,8 @@ mouse_filter = 2
 color = Color(0.96, 0.96, 0.96, 1)
 
 [connection signal="pressed" from="MenuLayer/MenuRoot/Artwork/NewGame" to="." method="start_new_game"]
-
 [connection signal="pressed" from="MenuLayer/MenuRoot/Artwork/ContinueGame" to="." method="continue_game"]
-
 [connection signal="pressed" from="MenuLayer/MenuRoot/Artwork/Settings" to="." method="_on_settings_pressed"]
-
 [connection signal="pressed" from="MenuLayer/MenuRoot/Artwork/LoadGame" to="." method="_on_load_game_pressed"]
-
 [connection signal="pressed" from="MenuLayer/MenuRoot/Artwork/Quit" to="." method="_on_quit_pressed"]
-
 [connection signal="pressed" from="MenuLayer/MenuRoot/Artwork/Credits" to="." method="_on_credits_pressed"]

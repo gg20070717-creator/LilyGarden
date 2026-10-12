@@ -2369,6 +2369,35 @@
           ]
         }
       ]
+    },
+    {
+      "id": "menu_hover_background",
+      "source_filename": "codex-clipboard-31131d23-fdca-4a53-8bb5-7264de2659a4.png",
+      "path": "res://assets/art/ui/panels/menu_hover_background.png",
+      "category": "panels",
+      "scene": "shared_ui",
+      "canvas_size": [
+        2172,
+        724
+      ],
+      "alpha_bounds": [
+        31,
+        15,
+        2108,
+        724
+      ],
+      "sha256": "db854d28e372866113a43cddf8ae8f6d810493336e6e12ba8c3cb4e2ee173687",
+      "regions": [
+        {
+          "path": "res://resources/art/ui/menu_hover_background.tres",
+          "region": [
+            176,
+            96,
+            1823,
+            514
+          ]
+        }
+      ]
     }
   ]
 }

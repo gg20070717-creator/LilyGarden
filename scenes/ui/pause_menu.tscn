@@ -1,11 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b75q36l2ltbeu"]
 
-[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_script"]
-[ext_resource type="Shader" path="res://shaders/pause_gaussian_blur.gdshader" id="2_blur"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/pause_menu/pause_menu_overlay.png" id="3_overlay"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/pause_menu/pause_menu_resume.png" id="4_resume"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/pause_menu/pause_menu_main_menu.png" id="5_main_menu"]
-[ext_resource type="Texture2D" path="res://assets/art/ui/pause_menu/pause_menu_quit.png" id="6_quit"]
+[ext_resource type="Script" uid="uid://byqdqgj11y3xv" path="res://scripts/ui/pause_menu.gd" id="1_script"]
+[ext_resource type="Shader" uid="uid://cwsh88u61yd74" path="res://shaders/pause_gaussian_blur.gdshader" id="2_blur"]
+[ext_resource type="Texture2D" uid="uid://bd2x22n5d8bh2" path="res://assets/art/ui/pause_menu/pause_menu_overlay.png" id="3_overlay"]
+[ext_resource type="Texture2D" uid="uid://dk87ki28ao1y6" path="res://assets/art/ui/pause_menu/pause_menu_resume.png" id="4_resume"]
+[ext_resource type="Script" uid="uid://c1dqk1dp730cm" path="res://scripts/ui/menu_hover_button.gd" id="5_8fwbo"]
+[ext_resource type="Texture2D" uid="uid://dnablsf2xq2nq" path="res://assets/art/ui/pause_menu/pause_menu_main_menu.png" id="5_main_menu"]
+[ext_resource type="Texture2D" uid="uid://cqd2kmgcrbf7q" path="res://assets/art/ui/pause_menu/pause_menu_quit.png" id="6_quit"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_horizontal"]
 shader = ExtResource("2_blur")
@@ -79,6 +80,7 @@ texture_normal = ExtResource("4_resume")
 texture_pressed = ExtResource("4_resume")
 texture_hover = ExtResource("4_resume")
 ignore_texture_size = true
+script = ExtResource("5_8fwbo")
 
 [node name="MainMenu" type="TextureButton" parent="Root/Artwork" unique_id=1790460420]
 layout_mode = 0
@@ -91,6 +93,7 @@ texture_normal = ExtResource("5_main_menu")
 texture_pressed = ExtResource("5_main_menu")
 texture_hover = ExtResource("5_main_menu")
 ignore_texture_size = true
+script = ExtResource("5_8fwbo")
 
 [node name="QuitGame" type="TextureButton" parent="Root/Artwork" unique_id=726585555]
 layout_mode = 0
@@ -103,6 +106,7 @@ texture_normal = ExtResource("6_quit")
 texture_pressed = ExtResource("6_quit")
 texture_hover = ExtResource("6_quit")
 ignore_texture_size = true
+script = ExtResource("5_8fwbo")
 
 [connection signal="pressed" from="Root/Artwork/ResumeGame" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Root/Artwork/MainMenu" to="." method="_on_main_menu_pressed"]
