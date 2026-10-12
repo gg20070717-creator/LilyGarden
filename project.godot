@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="demo2"
-run/main_scene="res://main.tscn"
+config/name="Lunar"
+run/main_scene="res://scenes/ui/main_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
@@ -28,7 +28,7 @@ window/stretch/mode="canvas_items"
 
 [dotnet]
 
-project/assembly_name="demo2"
+project/assembly_name="Lunar"
 
 [editor_plugins]
 

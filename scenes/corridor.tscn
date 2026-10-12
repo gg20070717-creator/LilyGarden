@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=18 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
@@ -11,30 +11,58 @@
 
 [ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="5"]
 
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_floor.tres" id="art_floor"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_back_wall.tres" id="art_back_wall"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_border_top.tres" id="art_border_top"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_border_bottom.tres" id="art_border_bottom"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_border_left.tres" id="art_border_left"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_border_right.tres" id="art_border_right"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_bedroom_door.tres" id="art_bedroom_door"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_studio_door.tres" id="art_studio_door"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_photo_frame_left.tres" id="art_photo_frame_left"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_photo_frame_middle.tres" id="art_photo_frame_middle"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_memory_photo_frame.tres" id="art_memory_photo_frame"]
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_flower_pot.tres" id="art_flower_pot"]
+
 [node name="Corridor" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1")
 level_id = &"corridor"
 display_name = "走廊 · 二楼"
-camera_bounds = Rect2(-10, -140, 908, 380)
+camera_bounds = Rect2(0.000000, -140.000000, 1385.000000, 548.000000)
 
 [node name="MovementBounds" parent="." instance=ExtResource("5")]
-area = Rect2(12, 72, 864, 156)
+area = Rect2(12.000000, 72.000000, 1360.800000, 312.000000)
+outline = PackedVector2Array(12, 72, 1372.8, 72, 1372.8, 240, 1366, 240, 1366, 384, 1266, 384, 1266, 240, 12, 240)
 
 [node name="Geometry" type="Node2D" parent="."]
 
 
 [node name="Floor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(444, 50)
-size = Vector2(864, 356)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(1360.800000, 168.000000)
+artwork = ExtResource("art_floor")
+position = Vector2(692.400000, 156.000000)
+size = Vector2(1360.800000, 168.000000)
 label = ""
 solid = false
 oval = false
 shade = Color(0.97, 0.97, 0.97, 1)
 label_size = 24
 
+[node name="BackWallArtwork" parent="Geometry" instance=ExtResource("2")]
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(1360.800000, 200.000000)
+artwork = ExtResource("art_back_wall")
+label = ""
+solid = false
+size = Vector2(1360.800000, 200.000000)
+position = Vector2(692.400000, -28.000000)
+
 [node name="BackWallLeft" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(138.5, -28)
-size = Vector2(253, 200)
+draw_placeholder = false
+position = Vector2(165.750000, -28.000000)
+size = Vector2(307.500000, 200.000000)
 label = ""
 solid = true
 oval = false
@@ -42,8 +70,9 @@ shade = Color(0.65, 0.65, 0.65, 1)
 label_size = 24
 
 [node name="BackWallRight" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(615.5, -28)
-size = Vector2(521, 200)
+draw_placeholder = false
+position = Vector2(906.150000, -28.000000)
+size = Vector2(933.300000, 200.000000)
 label = ""
 solid = true
 oval = false
@@ -51,8 +80,11 @@ shade = Color(0.65, 0.65, 0.65, 1)
 label_size = 24
 
 [node name="TopWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(444, -134)
-size = Vector2(888, 12)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(1384.800000, 12.000000)
+artwork = ExtResource("art_border_top")
+position = Vector2(692.400000, -134.000000)
+size = Vector2(1384.800000, 12.000000)
 label = ""
 solid = true
 oval = false
@@ -60,8 +92,11 @@ shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
 
 [node name="BottomWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(444, 234)
-size = Vector2(888, 12)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(1266.000000, 12.000000)
+artwork = ExtResource("art_border_bottom")
+position = Vector2(633.000000, 246.000000)
+size = Vector2(1266.000000, 12.000000)
 label = ""
 solid = true
 oval = false
@@ -69,8 +104,11 @@ shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
 
 [node name="RightWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(882, 50)
-size = Vector2(12, 356)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(12.000000, 368.000000)
+artwork = ExtResource("art_border_right")
+position = Vector2(1378.800000, 56.000000)
+size = Vector2(12.000000, 368.000000)
 label = ""
 solid = true
 oval = false
@@ -78,6 +116,9 @@ shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
 
 [node name="LeftWallUpper" parent="Geometry" instance=ExtResource("2")]
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(12.000000, 224.000000)
+artwork = ExtResource("art_border_left")
 position = Vector2(6, -16)
 size = Vector2(12, 224)
 label = ""
@@ -87,8 +128,11 @@ shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
 
 [node name="LeftWallLower" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(6, 207)
-size = Vector2(12, 42)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(12.000000, 54.000000)
+artwork = ExtResource("art_border_left")
+position = Vector2(6.000000, 213.000000)
+size = Vector2(12.000000, 54.000000)
 label = ""
 solid = true
 oval = false
@@ -96,8 +140,11 @@ shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
 
 [node name="BedroomDoor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(14.4, 141)
-size = Vector2(18, 90)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(16.513761, 90.000000)
+artwork = ExtResource("art_bedroom_door")
+position = Vector2(12.000000, 141.000000)
+size = Vector2(18.000000, 90.000000)
 label = "卧\n室\n门"
 solid = false
 oval = false
@@ -105,8 +152,11 @@ shade = Color(0.85, 0.85, 0.85, 1)
 label_size = 14
 
 [node name="StudioDoor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(310, -28)
-size = Vector2(90, 200)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(121.090909, 180.000000)
+artwork = ExtResource("art_studio_door")
+position = Vector2(379.500000, -18.000000)
+size = Vector2(122.000000, 180.000000)
 label = "画室门"
 solid = true
 oval = false
@@ -114,8 +164,11 @@ shade = Color(0.85, 0.85, 0.85, 1)
 label_size = 24
 
 [node name="PhotoFrameLeft" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(440, -25)
-size = Vector2(65, 75)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(42.600000, 45.600000)
+artwork = ExtResource("art_photo_frame_left")
+position = Vector2(495.900000, -78.000000)
+size = Vector2(42.600000, 45.600000)
 label = ""
 solid = false
 oval = false
@@ -123,8 +176,11 @@ shade = Color(0.97, 0.97, 0.97, 1)
 label_size = 24
 
 [node name="PhotoFrameMiddle" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(505, -12)
-size = Vector2(26, 42)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(22.800000, 31.200000)
+artwork = ExtResource("art_photo_frame_middle")
+position = Vector2(539.400000, -51.863636)
+size = Vector2(22.800000, 31.200000)
 label = ""
 solid = false
 oval = false
@@ -132,8 +188,11 @@ shade = Color(0.97, 0.97, 0.97, 1)
 label_size = 24
 
 [node name="LabPhoto" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(565, -25)
-size = Vector2(80, 60)
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(40.200000, 33.000000)
+artwork = ExtResource("art_memory_photo_frame")
+position = Vector2(574.500000, -75.159091)
+size = Vector2(40.200000, 33.000000)
 label = "照片"
 solid = false
 oval = false
@@ -141,7 +200,7 @@ shade = Color(0.97, 0.97, 0.97, 1)
 label_size = 22
 
 [node name="Stairs" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 156)
+position = Vector2(1316.000000, 312.000000)
 size = Vector2(100, 144)
 label = ""
 solid = true
@@ -150,7 +209,7 @@ shade = Color(0.8, 0.8, 0.8, 1)
 label_size = 24
 
 [node name="Step0" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 96.0)
+position = Vector2(1316.000000, 252.000000)
 size = Vector2(96, 22.0)
 label = ""
 solid = false
@@ -159,7 +218,7 @@ shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
 
 [node name="Step1" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 120.0)
+position = Vector2(1316.000000, 276.000000)
 size = Vector2(96, 22.0)
 label = ""
 solid = false
@@ -168,7 +227,7 @@ shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
 
 [node name="Step2" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 144.0)
+position = Vector2(1316.000000, 300.000000)
 size = Vector2(96, 22.0)
 label = ""
 solid = false
@@ -177,7 +236,7 @@ shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
 
 [node name="Step3" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 168.0)
+position = Vector2(1316.000000, 324.000000)
 size = Vector2(96, 22.0)
 label = "下楼"
 solid = false
@@ -186,7 +245,7 @@ shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
 
 [node name="Step4" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 192.0)
+position = Vector2(1316.000000, 348.000000)
 size = Vector2(96, 22.0)
 label = ""
 solid = false
@@ -195,7 +254,7 @@ shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
 
 [node name="Step5" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(820, 216.0)
+position = Vector2(1316.000000, 372.000000)
 size = Vector2(96, 22.0)
 label = ""
 solid = false
@@ -204,13 +263,56 @@ shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
 
 [node name="FlowerPot" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(848, 47)
-size = Vector2(44, 54)
+artwork_offset = Vector2(0.000000, -53.000000)
+artwork_size = Vector2(71.400000, 118.800000)
+artwork = ExtResource("art_flower_pot")
+position = Vector2(1314.300000, 130.600000)
+size = Vector2(36.000000, 18.000000)
 label = "花盆"
 solid = true
-oval = false
+oval = true
 shade = Color(0.86, 0.86, 0.86, 1)
 label_size = 18
+
+[node name="BottomWallRight" parent="Geometry" instance=ExtResource("2")]
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(18.800000, 12.000000)
+artwork = ExtResource("art_border_bottom")
+position = Vector2(1375.400000, 246.000000)
+size = Vector2(18.800000, 12.000000)
+label = ""
+solid = true
+shade = Color(0.35, 0.35, 0.35, 1)
+
+[node name="StairsLeftWall" parent="Geometry" instance=ExtResource("2")]
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(12.000000, 144.000000)
+artwork = ExtResource("art_border_left")
+position = Vector2(1260.000000, 312.000000)
+size = Vector2(12.000000, 144.000000)
+label = ""
+solid = true
+shade = Color(0.35, 0.35, 0.35, 1)
+
+[node name="StairsRightWall" parent="Geometry" instance=ExtResource("2")]
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(12.000000, 144.000000)
+artwork = ExtResource("art_border_left")
+position = Vector2(1372.000000, 312.000000)
+size = Vector2(12.000000, 144.000000)
+label = ""
+solid = true
+shade = Color(0.35, 0.35, 0.35, 1)
+
+[node name="StairsBottomWall" parent="Geometry" instance=ExtResource("2")]
+artwork_offset = Vector2(0.000000, 0.000000)
+artwork_size = Vector2(124.000000, 12.000000)
+artwork = ExtResource("art_border_bottom")
+position = Vector2(1316.000000, 390.000000)
+size = Vector2(124.000000, 12.000000)
+label = ""
+solid = true
+shade = Color(0.35, 0.35, 0.35, 1)
 
 [node name="Interactables" type="Node2D" parent="."]
 
@@ -226,9 +328,10 @@ interaction_id = &"ToBedroom"
 target_scene_path = "res://scenes/bedroom.tscn"
 target_spawn = &"from_corridor"
 prompt_offset = Vector2(85, 10)
+interaction_rect = Rect2(-45, -65, 120, 130)
 
 [node name="ToFirstFloor" type="Area2D" parent="Interactables"]
-position = Vector2(740, 155)
+position = Vector2(1316.000000, 240.000000)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -238,9 +341,10 @@ interaction_id = &"ToFirstFloor"
 target_scene_path = "res://scenes/first_floor.tscn"
 target_spawn = &"from_corridor"
 prompt_offset = Vector2(-95, -35)
+interaction_rect = Rect2(-50.000000, -70.000000, 100.000000, 70.000000)
 
 [node name="ToStudio" type="Area2D" parent="Interactables"]
-position = Vector2(310, 120)
+position = Vector2(379.500000, 120.000000)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -254,7 +358,7 @@ required_key = &"studio_key_01"
 message_offset = Vector2(0, -150)
 
 [node name="CorridorPhoto" type="Area2D" parent="Interactables"]
-position = Vector2(565, 115)
+position = Vector2(574.500000, 115.000000)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -264,7 +368,7 @@ interaction_id = &"corridor_photo"
 fragment_id = &"corridor_photo_02"
 fragment_display_name = "镜面"
 narrative_text = "你搂着某人站在实验室里。照片上，那人的脸庞不知为何被烧了一个洞。"
-prompt_offset = Vector2(0, -145)
+prompt_offset = Vector2(0.000000, -170.000000)
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -273,7 +377,7 @@ prompt_offset = Vector2(0, -145)
 position = Vector2(115, 141)
 
 [node name="from_first_floor" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(680, 155)
+position = Vector2(1316.000000, 190.000000)
 
 [node name="from_studio" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(310, 190)
+position = Vector2(379.500000, 180.000000)

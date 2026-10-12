@@ -4,6 +4,8 @@ const InteractionScript = preload("res://scripts/interactable.gd")
 ## Owns the reusable player/UI/state; only the level instance is replaced.
 @export_file("*.tscn") var initial_scene_path := "res://scenes/bedroom.tscn"
 @export var initial_spawn: StringName = &"start"
+## Visible world area at the reference aspect ratio; map geometry stays unchanged.
+@export var camera_view_size := Vector2(1024, 576)
 @onready var player = $World/Player
 @onready var camera: Camera2D = $World/Camera
 @onready var level_host: Node2D = $World/LevelHost
@@ -36,6 +38,9 @@ func _setup_input() -> void:
 		if not InputMap.action_has_event(action, event):
 			InputMap.action_add_event(action, event)
 
+func _process(_delta: float) -> void:
+	_update_camera()
+
 func _physics_process(_delta: float) -> void:
 	player.input_blocked = transitioning or ui.modal_open
 	_select_target()
@@ -55,11 +60,13 @@ func _input(event: InputEvent) -> void:
 
 func _select_target() -> void:
 	var nearest: InteractionScript
-	var nearest_distance: float = player.interaction_range
+	var nearest_distance: float = INF
 	if is_instance_valid(level) and not transitioning and not ui.modal_open:
 		for node: Node in level.get_interactables():
 			var candidate := node as InteractionScript
 			if candidate == null or not candidate.can_interact(context):
+				continue
+			if not candidate.is_in_interaction_range(player.global_position, player.interaction_range):
 				continue
 			var distance: float = player.global_position.distance_to(candidate.global_position)
 			if distance < nearest_distance:
@@ -116,11 +123,27 @@ func change_level(scene_path: String, spawn_id: StringName) -> bool:
 func _fit_camera() -> void:
 	if not is_instance_valid(level):
 		return
+	var viewport_size := get_viewport().get_visible_rect().size
+	var view_size := camera_view_size.max(Vector2.ONE)
+	var zoom_factor := minf(viewport_size.x / view_size.x, viewport_size.y / view_size.y)
+	camera.zoom = Vector2.ONE * maxf(zoom_factor, 0.001)
+	_update_camera()
+
+func _update_camera() -> void:
+	if not is_instance_valid(level):
+		return
 	var bounds: Rect2 = level.camera_bounds
-	var available := get_viewport().get_visible_rect().size - Vector2(80, 80)
-	var fit := minf(available.x / bounds.size.x, available.y / bounds.size.y)
-	camera.position = bounds.get_center()
-	camera.zoom = Vector2.ONE * fit
+	var half_view := get_viewport().get_visible_rect().size / camera.zoom * 0.5
+	# Player position is at the feet; follow the middle of the visible body.
+	var target: Vector2 = player.global_position - Vector2(0, player.body_height * 0.5)
+	for axis: int in range(2):
+		if bounds.size[axis] <= half_view[axis] * 2.0:
+			target[axis] = bounds.get_center()[axis]
+		else:
+			target[axis] = clampf(target[axis], bounds.position[axis] + half_view[axis], bounds.end[axis] - half_view[axis])
+	camera.global_position = target
+	# Refresh before UI projects its world-anchored interaction labels.
+	camera.force_update_scroll()
 
 func _on_view_state_changed(is_open: bool) -> void:
 	$World.visible = not ui.is_puzzle_open()

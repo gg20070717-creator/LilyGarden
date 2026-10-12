@@ -3,6 +3,16 @@
   "asset_pack": "demo2_art",
   "assets": [
     {
+      "id": "game_font_chill_bitmap_16px",
+      "source_filename": "ChillBitmap_16px.ttf",
+      "path": "res://assets/fonts/chill_bitmap_16px.ttf",
+      "category": "font",
+      "scene": "gameplay",
+      "family": "寒蝉点阵体 16px",
+      "shared_resource": "res://ui_font.tres",
+      "sha256": "9c699de0d24e482700fa0a08ce3abe58ef2ceaf6173323c77b767c72cd538512"
+    },
+    {
       "id": "bedroom_bookshelf",
       "source_filename": "书架.png",
       "path": "res://assets/art/environments/bedroom/props/bedroom_bookshelf.png",
@@ -1645,6 +1655,720 @@
       ],
       "sha256": "0d3dfcd96916f679449dface18314b57930db5070513897c2560457f796e067d",
       "regions": []
+    },
+    {
+      "id": "main_menu_background",
+      "source_filename": "背景.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_background.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "5ec605bbc07b5ed82ac6d78687a711f6338aeafdff7bab2b0e324bf2bdb7a2a3"
+    },
+    {
+      "id": "main_menu_title",
+      "source_filename": "标题.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_title.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        920,
+        440
+      ],
+      "alpha_bounds": [
+        30,
+        36,
+        901,
+        421
+      ],
+      "sha256": "04adb4b379c8a99ec85249cf6b48eab183890810afec4175221826755841177c"
+    },
+    {
+      "id": "main_menu_new_game",
+      "source_filename": "新游戏.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_new_game.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        300,
+        60
+      ],
+      "alpha_bounds": [
+        61,
+        9,
+        236,
+        50
+      ],
+      "sha256": "32cd56305337d4274bc64f6d9a606cf6ae1a153c7d894516792ec6f21603ef6c"
+    },
+    {
+      "id": "main_menu_continue",
+      "source_filename": "继续游戏.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_continue.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        300,
+        60
+      ],
+      "alpha_bounds": [
+        61,
+        8,
+        235,
+        50
+      ],
+      "sha256": "73eda5f571fdb0e6eb0820f33bd1b89f4479b27bf5e4782e1d4a5531192fa350"
+    },
+    {
+      "id": "main_menu_settings",
+      "source_filename": "设置.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_settings.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        300,
+        60
+      ],
+      "alpha_bounds": [
+        62,
+        7,
+        235,
+        48
+      ],
+      "sha256": "2bbab04f7451c6dd5658474f6b863cca4d2ac66b003f3fd7a0bc138df5eed645"
+    },
+    {
+      "id": "main_menu_load_game",
+      "source_filename": "载入游戏.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_load_game.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        300,
+        60
+      ],
+      "alpha_bounds": [
+        62,
+        9,
+        235,
+        50
+      ],
+      "sha256": "b11ac09cc7ef7fb9d3dfbbd373b052f259079a2720ef726dbdace3fa64bfa3fb"
+    },
+    {
+      "id": "main_menu_quit",
+      "source_filename": "退出.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_quit.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        300,
+        60
+      ],
+      "alpha_bounds": [
+        62,
+        9,
+        233,
+        49
+      ],
+      "sha256": "f400990821f5e229c6fd06ef7ceacb635c5d809e549e8f43c5f734df9817b8a9"
+    },
+    {
+      "id": "main_menu_credits",
+      "source_filename": "制作人员名单.png",
+      "path": "res://assets/art/ui/main_menu/main_menu_credits.png",
+      "category": "ui",
+      "scene": "main_menu",
+      "canvas_size": [
+        300,
+        60
+      ],
+      "alpha_bounds": [
+        18,
+        9,
+        280,
+        50
+      ],
+      "sha256": "426ab1c682723f69756a35541c34a789ad746266903acc2a07941a76fea59747"
+    },
+    {
+      "id": "pause_menu_overlay",
+      "source_filename": "暂停+透明背景.png",
+      "path": "res://assets/art/ui/pause_menu/pause_menu_overlay.png",
+      "category": "ui",
+      "scene": "pause_menu",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "1ccfddd28dff34fe3cdca5c97d0094f2dd21dd3987b48eefa7f3f4dba10939ed"
+    },
+    {
+      "id": "pause_menu_resume",
+      "source_filename": "继续游戏.png",
+      "path": "res://assets/art/ui/pause_menu/pause_menu_resume.png",
+      "category": "ui",
+      "scene": "pause_menu",
+      "canvas_size": [
+        390,
+        80
+      ],
+      "alpha_bounds": [
+        48,
+        16,
+        339,
+        66
+      ],
+      "sha256": "47098c8d76396cb78b5a9f62435948e8dcfebd9f49ef8665d04c2a9c1f9e013b"
+    },
+    {
+      "id": "pause_menu_main_menu",
+      "source_filename": "主菜单.png",
+      "path": "res://assets/art/ui/pause_menu/pause_menu_main_menu.png",
+      "category": "ui",
+      "scene": "pause_menu",
+      "canvas_size": [
+        390,
+        80
+      ],
+      "alpha_bounds": [
+        50,
+        11,
+        339,
+        61
+      ],
+      "sha256": "9ba6e58ae6d6c4bccf1314a87835cec1db3f530e18b1d1d44ddcb90ab363a9d8"
+    },
+    {
+      "id": "pause_menu_quit",
+      "source_filename": "退出游戏.png",
+      "path": "res://assets/art/ui/pause_menu/pause_menu_quit.png",
+      "category": "ui",
+      "scene": "pause_menu",
+      "canvas_size": [
+        390,
+        80
+      ],
+      "alpha_bounds": [
+        49,
+        11,
+        339,
+        61
+      ],
+      "sha256": "392dcfb8b209fdd8b307bb51338c1623038dca6bbb7c492398b4fecebbe7f657"
+    },
+    {
+      "id": "first_floor_stool",
+      "source_filename": "凳子.png",
+      "source_archive": "客厅厨房(1).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_stool.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        1129,
+        442,
+        1192,
+        559
+      ],
+      "sha256": "0e214b67e2a34a9066722f04a512c26bc8c68bd1d7d634cab2c33af541a1b6ed",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_stool.tres",
+          "region": [
+            1129,
+            442,
+            63,
+            117
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_floor_wall",
+      "source_filename": "地板墙面.png",
+      "source_archive": "客厅厨房(1).zip",
+      "path": "res://assets/art/environments/first_floor/backgrounds/first_floor_floor_wall.png",
+      "category": "backgrounds",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        4000,
+        2808
+      ],
+      "sha256": "eba1d402a790e91f8926d047d6a66ad5d75cdce120df7a873af856d7ca36edb1",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_floor_wall.tres",
+          "region": [
+            0,
+            0,
+            4000,
+            2808
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_room_floor.tres",
+          "region": [
+            1700,
+            1500,
+            1100,
+            846
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_lower_room_floor.tres",
+          "region": [
+            1700,
+            1500,
+            1177,
+            749
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_upper_room_threshold.tres",
+          "region": [
+            1700,
+            1500,
+            329,
+            103
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_lower_room_doorway.tres",
+          "region": [
+            1700,
+            1500,
+            314,
+            390
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_lower_room_threshold.tres",
+          "region": [
+            1700,
+            1500,
+            314,
+            149
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_room_wall.tres",
+          "region": [
+            1800,
+            30,
+            1100,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_wall_border",
+      "source_filename": "墙体.png",
+      "source_archive": "客厅厨房(1).zip",
+      "path": "res://assets/art/environments/first_floor/backgrounds/first_floor_wall_border.png",
+      "category": "backgrounds",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        4000,
+        2806
+      ],
+      "sha256": "ae662c7322c366a326d6961dfae279a5f95728560315bf679b0c4e12d5880ac1",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_wall_border.tres",
+          "region": [
+            0,
+            0,
+            4000,
+            2806
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_border_horizontal.tres",
+          "region": [
+            1600,
+            0,
+            600,
+            24
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_border_vertical.tres",
+          "region": [
+            1098,
+            100,
+            24,
+            600
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_courtyard_door",
+      "source_filename": "大门.png",
+      "source_archive": "客厅厨房(1).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_courtyard_door.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        1270,
+        47,
+        1614,
+        388
+      ],
+      "sha256": "8af20096c03c5de776bc2767cb25c1c6e66330f76e240462ed27e170c2fe9928",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_courtyard_door.tres",
+          "region": [
+            1270,
+            47,
+            344,
+            341
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_shoe_mat",
+      "source_filename": "毯子.png",
+      "source_archive": "客厅厨房(1).zip",
+      "path": "res://assets/art/environments/first_floor/decals/first_floor_shoe_mat.png",
+      "category": "decals",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        1235,
+        421,
+        1572,
+        634
+      ],
+      "sha256": "aff78cdec71b9e5d5fd78b5ea552bba22f72006bdfa17ce53b7a2b0b11d77172",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_shoe_mat.tres",
+          "region": [
+            1235,
+            421,
+            337,
+            213
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_wall_border",
+      "source_filename": "墙体.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/backgrounds/corridor_wall_border.png",
+      "category": "backgrounds",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        2300,
+        490
+      ],
+      "sha256": "d7b20baba35793679afa2be8f7c120b482fdaf76a0d081d815f5f006dac9f092",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_border_top.tres",
+          "region": [
+            0,
+            0,
+            2300,
+            16
+          ]
+        },
+        {
+          "path": "res://resources/art/corridor/corridor_border_bottom.tres",
+          "region": [
+            0,
+            472,
+            2300,
+            18
+          ]
+        },
+        {
+          "path": "res://resources/art/corridor/corridor_border_left.tres",
+          "region": [
+            0,
+            16,
+            16,
+            456
+          ]
+        },
+        {
+          "path": "res://resources/art/corridor/corridor_border_right.tres",
+          "region": [
+            2284,
+            16,
+            16,
+            456
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_floor_wall",
+      "source_filename": "墙壁地面.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/backgrounds/corridor_floor_wall.png",
+      "category": "backgrounds",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        2300,
+        490
+      ],
+      "sha256": "f279031df7dd8f8cd79aa8643c3dd2bc6c132f3340507650b4d5a8329b8ec628",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_back_wall.tres",
+          "region": [
+            16,
+            16,
+            2268,
+            176
+          ]
+        },
+        {
+          "path": "res://resources/art/corridor/corridor_floor.tres",
+          "region": [
+            16,
+            192,
+            2268,
+            280
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_photo_frame_left",
+      "source_filename": "照片1.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_photo_frame_left.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        584,
+        0,
+        857,
+        176
+      ],
+      "sha256": "95f466bca58aad32dce3cc13af1c562b18d8428fc1e4993c64104750b793ff49",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_photo_frame_left.tres",
+          "region": [
+            787,
+            22,
+            71,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_photo_frame_middle",
+      "source_filename": "照片2.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_photo_frame_middle.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        877,
+        36,
+        922,
+        108
+      ],
+      "sha256": "99706e160ba23fc647e5f804460a475c1e2723e247efe9845e5a8530448f3f2c",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_photo_frame_middle.tres",
+          "region": [
+            876,
+            57,
+            38,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_memory_photo_frame",
+      "source_filename": "照片记忆碎片.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_memory_photo_frame.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        920,
+        35,
+        1881,
+        214
+      ],
+      "sha256": "b850a4fa8b9cbd71e6ac7a55aa8eaa1e66b668b2c234f2e56dedd95b89a9bae7",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_memory_photo_frame.tres",
+          "region": [
+            920,
+            35,
+            67,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_flower_pot",
+      "source_filename": "花盆.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_flower_pot.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        2127,
+        105,
+        2246,
+        303
+      ],
+      "sha256": "36c0f236801dbda177b38f432e5f535bd9176aa743d22e5e1e343e2945469a43",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_flower_pot.tres",
+          "region": [
+            2127,
+            105,
+            119,
+            198
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_bedroom_door",
+      "source_filename": "门1.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_bedroom_door.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        0,
+        198,
+        20,
+        307
+      ],
+      "sha256": "6255e9407f41be0d7e1e290fecba48bf690a3c8e46e4759bcc4167d3d12a41d8",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_bedroom_door.tres",
+          "region": [
+            0,
+            198,
+            20,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_studio_door",
+      "source_filename": "门2.png",
+      "source_archive": "走廊(1).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_studio_door.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        2300,
+        490
+      ],
+      "alpha_bounds": [
+        572,
+        29,
+        721,
+        194
+      ],
+      "sha256": "f31add0edba24f3f160356c6339cb3c9e4d27efe269f806c44f0eae40b96f77d",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_studio_door.tres",
+          "region": [
+            573,
+            28,
+            111,
+            165
+          ]
+        }
+      ]
     }
   ]
 }
