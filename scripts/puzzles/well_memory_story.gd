@@ -40,7 +40,7 @@ const INTRO_PAGES: Array[Dictionary] = [
 	},
 ]
 
-# 水井解密成功后播放 CG1；读完后直接淡出回原游戏界面。
+# 水井解密成功后播放 CG1；读完后淡出回水井，接 FOLLOWUP_PAGES。
 const NARRATIVE_PAGES: Array[Dictionary] = [
 	{
 		"speaker": "",
@@ -125,5 +125,35 @@ const NARRATIVE_PAGES: Array[Dictionary] = [
 		"speaker": "",
 		"text": "你只是知道，每当你拿起画笔，60分的英语成绩不再重要，老师和家长的期待不再重要，虚无缥缈的成功未来不再重要。",
 		"show_protagonist": false,
+	},
+]
+
+# CG1 结束后，在原水井场景继续第二幕对白；幕标题与任务备注不显示。
+const FOLLOWUP_PAGES: Array[Dictionary] = [
+	{
+		"speaker": "",
+		"text": "你已经多久没有拿起画笔了？",
+		"expression": "neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "《铃兰女校弓道部》！你以前最喜欢那个白毛红瞳轻浮役——叫什么来着？",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "你抄她的台词抄了满满一本，还动不动在走廊上表演她的名场面……",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "你无比庆幸自己把这段记忆忘掉了。",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "唉，可惜你不记得了。你高中的画是不是还在二楼画室里放着？",
+		"show_protagonist": true,
 	},
 ]

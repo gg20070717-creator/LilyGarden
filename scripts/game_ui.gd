@@ -12,6 +12,7 @@ var modal_mode := ModalMode.NONE
 var active_puzzle
 var modal_open := false
 var puzzle_returning := false
+var pending_puzzle_dialogue: Array[Dictionary] = []
 var note_remaining := 0.0
 var note_anchor := Vector2.ZERO
 var prompt_anchor := Vector2.ZERO
@@ -291,17 +292,22 @@ func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], 
 	modal_open = true
 	modal_mode = ModalMode.PUZZLE
 	puzzle_returning = false
+	pending_puzzle_dialogue.clear()
 	active_puzzle = PuzzleScene.instantiate()
 	active_puzzle.definition = definition
 	active_puzzle.available_fragment_ids = owned_fragments.duplicate()
 	active_puzzle.show_introduction = show_introduction
 	active_puzzle.exit_requested.connect(close_view)
 	active_puzzle.return_started.connect(_on_puzzle_return_started)
+	active_puzzle.followup_requested.connect(_on_puzzle_followup_requested)
 	active_puzzle.restoration_succeeded.connect(_on_restoration_succeeded)
 	root_control.add_child(active_puzzle)
 	active_puzzle.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	view_state_changed.emit(true)
 	return true
+
+func _on_puzzle_followup_requested(pages: Array[Dictionary]) -> void:
+	pending_puzzle_dialogue.assign(pages.duplicate(true))
 
 func _on_restoration_succeeded(puzzle_id: StringName) -> void:
 	restoration_succeeded.emit(puzzle_id)
@@ -355,6 +361,9 @@ func handle_modal_input(event: InputEvent) -> bool:
 func close_view() -> void:
 	if not modal_open:
 		return
+	var followup_pages: Array[Dictionary] = []
+	followup_pages.assign(pending_puzzle_dialogue)
+	pending_puzzle_dialogue.clear()
 	var viewport := get_viewport()
 	if viewport.gui_is_dragging() and viewport.has_method("gui_cancel_drag"):
 		viewport.call("gui_cancel_drag")
@@ -376,4 +385,8 @@ func close_view() -> void:
 		active_puzzle.queue_free()
 		active_puzzle = null
 	overlay.hide()
-	view_state_changed.emit(false)
+	if followup_pages.is_empty():
+		view_state_changed.emit(false)
+	else:
+		# The CG has faded out; keep movement locked through the new dialogue.
+		show_dialogue(followup_pages)

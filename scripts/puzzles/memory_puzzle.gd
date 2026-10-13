@@ -3,6 +3,7 @@ extends Control
 signal exit_requested
 signal return_started
 signal restoration_succeeded(puzzle_id: StringName)
+signal followup_requested(pages: Array[Dictionary])
 const TokenScript = preload("res://scripts/puzzles/memory_token.gd")
 const FONT = preload("res://ui_font.tres")
 const TextStyle = preload("res://scripts/ui_text_style.gd")
@@ -45,6 +46,7 @@ var story_panels: Dictionary = {}
 const STORY_CANVAS_SIZE := Vector2(3508, 2480)
 var introduction_pages: Array[Dictionary] = []
 var narrative_pages: Array[Dictionary] = []
+var followup_pages: Array[Dictionary] = []
 var closing := false
 
 func _ready() -> void:
@@ -459,6 +461,7 @@ func _setup_story() -> void:
 		var constants: Dictionary = definition.story_script.get_script_constant_map()
 		introduction_pages.assign(constants.get("INTRO_PAGES", []))
 		narrative_pages.assign(constants.get("NARRATIVE_PAGES", []))
+		followup_pages.assign(constants.get("FOLLOWUP_PAGES", []))
 	story_shade = ColorRect.new()
 	story_shade.name = "DialogueShade"
 	story_shade.color = Color(0, 0, 0, 0.45)
@@ -486,6 +489,8 @@ func _on_story_dialogue_finished() -> void:
 	if phase == Phase.INTRO:
 		reset_attempt()
 	elif phase == Phase.STORY:
+		if not followup_pages.is_empty():
+			followup_requested.emit(followup_pages)
 		_return_to_world()
 
 func _return_to_world() -> void:
