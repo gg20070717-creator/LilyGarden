@@ -31,6 +31,10 @@ solid = false
 oval = false
 label_size = 14
 
+[node name="GardenPath" type="Polygon2D" parent="Geometry"]
+polygon = PackedVector2Array(28, 12, 90, 12, 88, 80, 100, 155, 132, 220, 151, 285, 154, 355, 135, 416, 132, 516, 66, 516, 69, 413, 90, 345, 87, 288, 67, 226, 46, 158, 32, 82)
+color = Color(0.78, 0.78, 0.76, 1)
+
 [node name="TopWall" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(330, 6)
 size = Vector2(660, 12)
@@ -102,6 +106,150 @@ shade = Color(0.92, 0.92, 0.92, 1)
 solid = true
 oval = true
 label_size = 18
+
+[node name="BackFence" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(400, 30)
+size = Vector2(460, 18)
+label = "栏杆"
+solid = false
+oval = false
+shade = Color(0.66, 0.66, 0.64, 1)
+label_size = 14
+
+[node name="FencePost01" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(174, 32)
+size = Vector2(8, 36)
+label = ""
+solid = false
+oval = false
+shade = Color(0.62, 0.62, 0.60, 1)
+label_size = 20
+
+[node name="FencePost02" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(286, 32)
+size = Vector2(8, 36)
+label = ""
+solid = false
+oval = false
+shade = Color(0.62, 0.62, 0.60, 1)
+label_size = 20
+
+[node name="FencePost03" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(398, 32)
+size = Vector2(8, 36)
+label = ""
+solid = false
+oval = false
+shade = Color(0.62, 0.62, 0.60, 1)
+label_size = 20
+
+[node name="FencePost04" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(510, 32)
+size = Vector2(8, 36)
+label = ""
+solid = false
+oval = false
+shade = Color(0.62, 0.62, 0.60, 1)
+label_size = 20
+
+[node name="FencePost05" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(624, 32)
+size = Vector2(8, 36)
+label = ""
+solid = false
+oval = false
+shade = Color(0.62, 0.62, 0.60, 1)
+label_size = 20
+
+[node name="TreeTrunk" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(584, 397)
+size = Vector2(32, 72)
+label = "树"
+solid = false
+oval = false
+shade = Color(0.66, 0.65, 0.62, 1)
+label_size = 16
+
+[node name="TreeCanopy" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(584, 320)
+size = Vector2(120, 144)
+label = "树冠"
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 20
+
+[node name="FallenLeaves" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(548, 429)
+size = Vector2(90, 32)
+label = "落叶"
+solid = false
+oval = true
+shade = Color(0.78, 0.78, 0.7, 1)
+label_size = 16
+
+[node name="LowerBush01" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(236, 479)
+size = Vector2(98, 74)
+label = "灌木丛"
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
+
+[node name="LowerBush02" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(341, 474)
+size = Vector2(132, 84)
+label = ""
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
+
+[node name="LowerBush03" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(466, 477)
+size = Vector2(142, 82)
+label = ""
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
+
+[node name="LowerBush04" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(590, 485)
+size = Vector2(96, 62)
+label = ""
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
+
+[node name="GrassPatch01" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(220, 254)
+size = Vector2(48, 26)
+label = "杂草"
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
+
+[node name="GrassPatch02" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(402, 326)
+size = Vector2(44, 22)
+label = ""
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
+
+[node name="GrassPatch03" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(278, 384)
+size = Vector2(38, 20)
+label = ""
+solid = false
+oval = true
+shade = Color(0.69, 0.72, 0.66, 1)
+label_size = 16
 
 [node name="Interactables" type="Node2D" parent="."]
 

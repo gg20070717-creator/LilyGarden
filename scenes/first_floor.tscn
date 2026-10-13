@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=20 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/inspect_object.gd" id="inspect_text"]
 
 [ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
 
@@ -368,7 +369,7 @@ size = Vector2(260, 230)
 label = "地毯"
 solid = false
 oval = true
-shade = Color(0.94, 0.94, 0.94, 1)
+shade = Color(0.42, 0.62, 0.47, 1)
 label_size = 26
 
 [node name="SofaHorizontal" parent="Geometry" instance=ExtResource("2")]
@@ -395,7 +396,7 @@ size = Vector2(100, 60)
 label = "鱼缸"
 solid = true
 oval = false
-shade = Color(0.92, 0.92, 0.92, 1)
+shade = Color(0.68, 0.86, 0.90, 1)
 label_size = 24
 
 [node name="Stairs" parent="Geometry" instance=ExtResource("2")]
@@ -578,6 +579,120 @@ oval = false
 shade = Color(0.88, 0.88, 0.88, 1)
 label_size = 24
 
+[node name="HangingPainting" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(497, 527)
+size = Vector2(110, 28)
+label = "挂画"
+solid = false
+shade = Color(0.94, 0.94, 0.94, 1)
+label_size = 20
+z_index = 2
+
+[node name="UpperRoomPuddle" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(227, 425)
+size = Vector2(125, 65)
+label = "水渍"
+solid = false
+oval = true
+shade = Color(0.55, 0.82, 0.90, 0.72)
+label_size = 20
+
+[node name="HallPuddle" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(155, 605)
+size = Vector2(110, 55)
+label = "水渍"
+solid = false
+oval = true
+shade = Color(0.55, 0.82, 0.90, 0.72)
+label_size = 20
+
+[node name="LivingRoomPuddle" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1300, 550)
+size = Vector2(115, 60)
+label = "水渍"
+solid = false
+oval = true
+shade = Color(0.55, 0.82, 0.90, 0.72)
+label_size = 20
+
+[node name="TentPuddle" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(735, 900)
+size = Vector2(95, 140)
+label = "水渍"
+solid = false
+oval = true
+shade = Color(0.55, 0.82, 0.90, 0.72)
+label_size = 20
+
+[node name="LowerRoomBookcase" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(120, 1015)
+size = Vector2(155, 60)
+label = "书柜"
+solid = true
+oval = false
+shade = Color(0.82, 0.82, 0.82, 1)
+label_size = 20
+
+[node name="LowerRoomWindow" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(320, 1037)
+size = Vector2(220, 14)
+label = "窗"
+solid = false
+oval = false
+shade = Color(0.79, 0.87, 0.89, 1)
+label_size = 20
+z_index = 2
+[node name="DiningPlate" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1055, 739)
+size = Vector2(42, 28)
+label = ""
+solid = false
+oval = true
+shade = Color(0.98, 0.98, 0.98, 1)
+label_size = 20
+z_index = 2
+[node name="DiningCup" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1015, 682)
+size = Vector2(22, 24)
+label = ""
+solid = false
+oval = true
+shade = Color(0.98, 0.98, 0.98, 1)
+label_size = 20
+z_index = 2
+[node name="DiningSmallDish" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1152, 741)
+size = Vector2(25, 18)
+label = ""
+solid = false
+oval = true
+shade = Color(0.98, 0.98, 0.98, 1)
+label_size = 20
+z_index = 2
+[node name="DiningOpenMagazine" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1135, 684)
+size = Vector2(60, 36)
+label = "杂志"
+solid = false
+oval = false
+shade = Color(0.97, 0.97, 0.97, 1)
+label_size = 16
+z_index = 2
+[node name="KitchenWastePaperBasket" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1260, 982)
+size = Vector2(48, 48)
+label = "废纸篓"
+solid = false
+oval = false
+shade = Color(0.84, 0.84, 0.84, 1)
+label_size = 14
+z_index = 2
+rotation = 0.349066
+[node name="MagazineFold" type="Line2D" parent="Geometry/DiningOpenMagazine"]
+points = PackedVector2Array(0, -17, 0, 17)
+width = 1.5
+default_color = Color(0.35, 0.35, 0.35, 1)
+
 [node name="Interactables" type="Node2D" parent="."]
 
 
@@ -605,6 +720,94 @@ interaction_id = &"ToCourtyard"
 target_scene_path = "res://scenes/courtyard.tscn"
 target_spawn = &"from_first_floor"
 prompt_offset = Vector2(0, -160)
+
+[node name="InspectShoeCabinet" type="Area2D" parent="Interactables"]
+position = Vector2(630, 292)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectShoeCabinet"
+visual_path = NodePath("../../Geometry/ShoeCabinet")
+text = "一层放着干净的玛丽珍鞋，一层堆着脏兮兮的运动鞋。"
+
+[node name="InspectHangingPainting" type="Area2D" parent="Interactables"]
+position = Vector2(497, 585)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectHangingPainting"
+visual_path = NodePath("../../Geometry/HangingPainting")
+text = "一个你不认识的白毛漫画角色。"
+
+[node name="InspectRug" type="Area2D" parent="Interactables"]
+position = Vector2(1005, 391.258065)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectRug"
+visual_path = NodePath("../../Geometry/Rug")
+text = "她讨厌绿色，但你实在喜欢上面的图案。"
+
+[node name="InspectFishTank" type="Area2D" parent="Interactables"]
+position = Vector2(1245, 315)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectFishTank"
+visual_path = NodePath("../../Geometry/FishTank")
+text = "水里没有鱼。水面毫无波澜。"
+
+[node name="InspectUpperRoomPuddle" type="Area2D" parent="Interactables"]
+position = Vector2(227, 425)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectUpperRoomPuddle"
+visual_path = NodePath("../../Geometry/UpperRoomPuddle")
+text = "水渍到处都是。这座房子正在被水淹没。"
+
+[node name="InspectHallPuddle" type="Area2D" parent="Interactables"]
+position = Vector2(155, 605)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectHallPuddle"
+visual_path = NodePath("../../Geometry/HallPuddle")
+text = "水渍到处都是。这座房子正在被水淹没。"
+
+[node name="InspectLivingRoomPuddle" type="Area2D" parent="Interactables"]
+position = Vector2(1300, 550)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectLivingRoomPuddle"
+visual_path = NodePath("../../Geometry/LivingRoomPuddle")
+text = "水渍到处都是。这座房子正在被水淹没。"
+
+[node name="InspectTentPuddle" type="Area2D" parent="Interactables"]
+position = Vector2(735, 900)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectTentPuddle"
+visual_path = NodePath("../../Geometry/TentPuddle")
+text = "水渍到处都是。这座房子正在被水淹没。"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

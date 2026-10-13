@@ -23,6 +23,10 @@ func _ready() -> void:
 	state.fragment_acquired.connect(_on_fragment_acquired)
 	get_viewport().size_changed.connect(_fit_camera)
 	change_level(initial_scene_path, initial_spawn)
+	ui.show_controls_hint()
+	player.input_blocked = ui.is_controls_hint_open()
+	player.velocity = Vector2.ZERO
+	_select_target()
 
 func _setup_input() -> void:
 	var bindings := {
@@ -42,16 +46,23 @@ func _process(_delta: float) -> void:
 	_update_camera()
 
 func _physics_process(_delta: float) -> void:
-	player.input_blocked = transitioning or ui.modal_open
+	player.input_blocked = transitioning or ui.modal_open or ui.is_controls_hint_open()
 	_select_target()
 
 func _input(event: InputEvent) -> void:
 	if transitioning:
 		return
+	if ui.handle_controls_hint_input(event):
+		get_viewport().set_input_as_handled()
+		return
 	if ui.modal_open:
 		if ui.handle_modal_input(event):
 			get_viewport().set_input_as_handled()
 		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if _try_click_inspection(event):
+			get_viewport().set_input_as_handled()
+			return
 	if event.is_action_pressed("interact") and not event.is_echo():
 		_select_target()
 		if is_instance_valid(current_target):
@@ -61,7 +72,7 @@ func _input(event: InputEvent) -> void:
 func _select_target() -> void:
 	var nearest: InteractionScript
 	var nearest_distance: float = INF
-	if is_instance_valid(level) and not transitioning and not ui.modal_open:
+	if is_instance_valid(level) and not transitioning and not ui.modal_open and not ui.is_controls_hint_open():
 		for node: Node in level.get_interactables():
 			var candidate := node as InteractionScript
 			if candidate == null or not candidate.can_interact(context):
@@ -78,10 +89,6 @@ func _select_target() -> void:
 		current_target = nearest
 		if is_instance_valid(current_target):
 			current_target.set_highlight(true)
-	if is_instance_valid(current_target):
-		ui.set_prompt("按F交互", current_target.global_position + current_target.prompt_offset)
-	else:
-		ui.set_prompt("")
 
 func change_level(scene_path: String, spawn_id: StringName) -> bool:
 	if transitioning:
@@ -92,7 +99,7 @@ func change_level(scene_path: String, spawn_id: StringName) -> bool:
 	if packed == null:
 		push_error("Cannot load level: " + scene_path)
 		transitioning = false
-		player.input_blocked = ui.modal_open
+		player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
 		return false
 	var next_level := packed.instantiate() as LevelScript
 	var marker: Marker2D = next_level.get_spawn(spawn_id)
@@ -100,7 +107,7 @@ func change_level(scene_path: String, spawn_id: StringName) -> bool:
 		push_error("Missing spawn '%s' in %s" % [spawn_id, scene_path])
 		next_level.free()
 		transitioning = false
-		player.input_blocked = ui.modal_open
+		player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
 		return false
 	if is_instance_valid(current_target):
 		current_target.set_highlight(false)
@@ -116,7 +123,7 @@ func change_level(scene_path: String, spawn_id: StringName) -> bool:
 	_fit_camera()
 	ui.set_status(level.display_name, state.fragment_count())
 	transitioning = false
-	player.input_blocked = ui.modal_open
+	player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
 	_select_target()
 	return true
 
@@ -146,10 +153,21 @@ func _update_camera() -> void:
 	camera.force_update_scroll()
 
 func _on_view_state_changed(is_open: bool) -> void:
-	$World.visible = not ui.is_puzzle_open()
-	player.input_blocked = is_open or transitioning
+	$World.visible = not ui.is_puzzle_covering_world()
+	player.input_blocked = is_open or transitioning or ui.is_controls_hint_open()
 	player.velocity = Vector2.ZERO
 	_select_target()
 
 func _on_fragment_acquired(_fragment_id: StringName) -> void:
 	ui.set_status(level.display_name, state.fragment_count())
+
+func _try_click_inspection(event: InputEventMouseButton) -> bool:
+	if not is_instance_valid(level) or ui.is_controls_hint_open():
+		return false
+	var world_position := get_viewport().get_canvas_transform().affine_inverse() * event.position
+	for node: Node in level.get_interactables():
+		var target := node as InteractionScript
+		if target != null and target.has_method("contains_click") and target.can_interact(context) and bool(target.call("contains_click", world_position)):
+			target.interact(context)
+			return true
+	return false

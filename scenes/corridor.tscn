@@ -314,6 +314,33 @@ label = ""
 solid = true
 shade = Color(0.35, 0.35, 0.35, 1)
 
+[node name="CorridorWaterStain" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1135, -40)
+size = Vector2(92, 138)
+label = "水渍"
+solid = false
+oval = true
+shade = Color(0.68, 0.82, 0.85, 0.78)
+label_size = 20
+
+[node name="CorridorWaterDrop" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1193, -18)
+size = Vector2(12, 22)
+label = ""
+solid = false
+oval = true
+shade = Color(0.68, 0.82, 0.85, 0.78)
+label_size = 20
+
+[node name="CorridorFloorPuddle" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1160, 110)
+size = Vector2(78, 30)
+label = ""
+solid = false
+oval = true
+shade = Color(0.55, 0.82, 0.9, 0.72)
+label_size = 20
+
 [node name="Interactables" type="Node2D" parent="."]
 
 

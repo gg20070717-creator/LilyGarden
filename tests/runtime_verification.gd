@@ -74,7 +74,10 @@ func _capture(filename: String) -> void:
 
 func _portal(portal_name: String, expected: StringName) -> void:
 	var portal: Node2D = game.level.get_node("Interactables/" + portal_name)
-	await _place(portal.global_position)
+	var interaction_point: Vector2 = portal.global_position
+	if portal.interaction_rect.has_area():
+		interaction_point += portal.interaction_rect.get_center()
+	await _place(interaction_point)
 	_check(game.current_target == portal, "F selects portal: " + portal_name)
 	await _press_key(KEY_F)
 	_check(game.level.level_id == expected, "Portal reaches: " + String(expected))
@@ -291,7 +294,7 @@ func _run() -> void:
 	game.state.key_acquired.connect(func(id: StringName): acquired_keys.append(id))
 	game.state.fragment_acquired.connect(func(id: StringName): acquired_fragments.append(id))
 	_check(get_viewport().get_visible_rect().size == Vector2(1920, 1080), "Default viewport is 1920x1080")
-	_check(_visible_ui_texts().is_empty(), "No fixed top or bottom HUD text at startup")
+	_check(_visible_ui_texts().all(func(text: String) -> bool: return text == "按F交互"), "Startup only shows a contextual prompt when near an interactable")
 	_check(game.level.level_id == &"bedroom", "Starts in bedroom")
 	_check(game.player.position.distance_to(game.level.get_spawn(&"start").position) < 1, "Player starts at reference person position")
 	await _capture("01_bedroom")

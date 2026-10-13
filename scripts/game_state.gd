@@ -4,6 +4,7 @@ signal fragment_acquired(fragment_id: StringName)
 signal key_acquired(key_id: StringName)
 var fragments: Dictionary = {}
 var keys: Dictionary = {}
+var seen_story_events: Dictionary = {}
 
 func collect_fragment(fragment_id: StringName) -> bool:
 	if fragments.has(fragment_id):
@@ -33,3 +34,9 @@ func collect_key(key_id: StringName) -> bool:
 
 func has_key(key_id: StringName) -> bool:
 	return keys.has(key_id)
+
+func has_seen_story_event(event_id: StringName) -> bool:
+	return seen_story_events.has(event_id)
+
+func mark_story_event_seen(event_id: StringName) -> void:
+	seen_story_events[event_id] = true

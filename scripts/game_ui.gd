@@ -4,16 +4,21 @@ signal restoration_succeeded(puzzle_id: StringName)
 const FONT = preload("res://ui_font.tres")
 const TextStyle = preload("res://scripts/ui_text_style.gd")
 const PuzzleScene = preload("res://scenes/puzzles/memory_puzzle.tscn")
+const StoryDialogue = preload("res://scripts/ui/story_dialogue.gd")
+const ControlsHint = preload("res://scripts/ui/controls_hint.gd")
 const CollectionPreview = preload("res://scripts/collection_preview.gd")
-enum ModalMode { NONE, IMAGE, PUZZLE, COLLECTION }
+enum ModalMode { NONE, IMAGE, PUZZLE, COLLECTION, DIALOGUE }
 var modal_mode := ModalMode.NONE
 var active_puzzle
 var modal_open := false
+var puzzle_returning := false
 var note_remaining := 0.0
 var note_anchor := Vector2.ZERO
 var prompt_anchor := Vector2.ZERO
 var scene_name := ""
 var current_view_title := ""
+var dialogue: StoryDialogue
+var controls_hint: ControlsHint
 var root_control: Control
 var prompt_label: Label
 var note_label: Label
@@ -88,6 +93,12 @@ func _ready() -> void:
 	collection_panel.add_child(collection_preview)
 	collection_panel.hide()
 	overlay.hide()
+	dialogue = StoryDialogue.new()
+	dialogue.name = "StoryDialogue"
+	root_control.add_child(dialogue)
+	dialogue.finished.connect(close_view)
+	controls_hint = ControlsHint.new()
+	root_control.add_child(controls_hint)
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 
@@ -169,11 +180,19 @@ func set_status(location: String, _count: int) -> void:
 	# Scene state remains available to other systems without displaying a HUD.
 	scene_name = location
 
-func set_prompt(text: String, world_anchor: Vector2 = Vector2.ZERO) -> void:
-	prompt_anchor = world_anchor
-	prompt_label.text = text
-	prompt_label.visible = not text.is_empty() and not modal_open
-	_position_world_labels()
+func set_prompt(_text: String, _world_anchor: Vector2 = Vector2.ZERO) -> void:
+	# Interaction controls are explained once at gameplay entry.
+	prompt_label.text = ""
+	prompt_label.hide()
+
+func show_controls_hint() -> void:
+	controls_hint.present_once()
+
+func is_controls_hint_open() -> bool:
+	return is_instance_valid(controls_hint) and controls_hint.is_open
+
+func handle_controls_hint_input(event: InputEvent) -> bool:
+	return controls_hint.handle_input(event)
 
 func show_note(text: String, world_anchor: Vector2, seconds: float) -> void:
 	note_anchor = world_anchor
@@ -263,30 +282,61 @@ func _advance_collection() -> void:
 		collection_page += 1
 		_show_collection_page()
 
-func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = []) -> void:
+func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], show_introduction: bool = false) -> bool:
 	if modal_open:
-		return
+		return false
 	clear_note()
 	prompt_label.hide()
 	overlay.hide()
 	modal_open = true
 	modal_mode = ModalMode.PUZZLE
+	puzzle_returning = false
 	active_puzzle = PuzzleScene.instantiate()
 	active_puzzle.definition = definition
 	active_puzzle.available_fragment_ids = owned_fragments.duplicate()
+	active_puzzle.show_introduction = show_introduction
 	active_puzzle.exit_requested.connect(close_view)
+	active_puzzle.return_started.connect(_on_puzzle_return_started)
 	active_puzzle.restoration_succeeded.connect(_on_restoration_succeeded)
 	root_control.add_child(active_puzzle)
 	active_puzzle.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	view_state_changed.emit(true)
+	return true
 
 func _on_restoration_succeeded(puzzle_id: StringName) -> void:
 	restoration_succeeded.emit(puzzle_id)
+
+func show_dialogue(pages: Array[Dictionary]) -> void:
+	if modal_open or pages.is_empty():
+		return
+	clear_note()
+	prompt_label.hide()
+	modal_open = true
+	modal_mode = ModalMode.DIALOGUE
+	for control: Control in [view_panel, view_texture, view_caption, view_notice, view_footer, collection_panel]:
+		control.hide()
+	overlay.color = Color(0, 0, 0, 0.6)
+	overlay.show()
+	dialogue.start(pages)
+	view_state_changed.emit(true)
+
+
+func _on_puzzle_return_started() -> void:
+	puzzle_returning = true
+	view_state_changed.emit(true)
+
+func is_puzzle_covering_world() -> bool:
+	return is_puzzle_open() and not puzzle_returning
 
 func is_puzzle_open() -> bool:
 	return modal_mode == ModalMode.PUZZLE
 
 func handle_modal_input(event: InputEvent) -> bool:
+	if modal_mode == ModalMode.DIALOGUE:
+		if not event.is_echo() and event.is_action_pressed("close_view"):
+			close_view()
+			return true
+		return dialogue.handle_input(event)
 	if is_puzzle_open():
 		return active_puzzle.handle_input(event)
 	if not event.is_echo() and event.is_action_pressed("close_view"):
@@ -310,6 +360,8 @@ func close_view() -> void:
 		viewport.call("gui_cancel_drag")
 	modal_open = false
 	modal_mode = ModalMode.NONE
+	puzzle_returning = false
+	dialogue.stop()
 	image_slides.clear()
 	image_slide_index = 0
 	image_slide_elapsed = 0.0

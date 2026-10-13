@@ -5,7 +5,9 @@ extends Resource
 @export var answer_right: StringName = &"B"
 @export var sentence_verb := "看见"
 @export var success_image: Texture2D
-## Optional selection-stage art, expressed in its source canvas coordinates.
+## Optional story constants INTRO_PAGES / NARRATIVE_PAGES.
+@export var story_script: Script
+## Optional well art retained through selection and word restoration, expressed in its source canvas coordinates.
 @export var moon_environment: Texture2D
 @export var moon_well: Texture2D
 @export var moon_reference_size := Vector2(1920, 1080)

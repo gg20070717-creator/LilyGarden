@@ -2398,6 +2398,120 @@
           ]
         }
       ]
+    },
+    {
+      "id": "protagonist_neutral",
+      "source_filename": "立绘 (1).png",
+      "path": "res://assets/art/characters/protagonist/protagonist_neutral.png",
+      "category": "portrait",
+      "scene": "dialogue",
+      "canvas_size": [
+        1100,
+        1900
+      ],
+      "display_region": [
+        180,
+        70,
+        715,
+        1800
+      ],
+      "sha256": "62fbdf9fea5fa4f6e2534db6daac59c9c9e20124bf278bae9b6b9febcd2b3eed"
+    },
+    {
+      "id": "protagonist_speaking",
+      "source_filename": "拆分1 (1).png",
+      "path": "res://assets/art/characters/protagonist/protagonist_speaking.png",
+      "category": "portrait",
+      "scene": "dialogue",
+      "canvas_size": [
+        1100,
+        1900
+      ],
+      "display_region": [
+        180,
+        70,
+        715,
+        1800
+      ],
+      "sha256": "f7da0ca99ca502dea9194e7c03dee85e9ea90cbb4ab53a3c9d62617df24cd6cd"
+    },
+    {
+      "id": "protagonist_smile",
+      "source_filename": "拆分2 (1).png",
+      "path": "res://assets/art/characters/protagonist/protagonist_smile.png",
+      "category": "portrait",
+      "scene": "dialogue",
+      "canvas_size": [
+        1100,
+        1900
+      ],
+      "display_region": [
+        180,
+        70,
+        715,
+        1800
+      ],
+      "sha256": "b751eed7eb5d54ab4593f68b401c751395eec039b998ae26dddaec454db3cb64"
+    },
+    {
+      "id": "protagonist_teary",
+      "source_filename": "拆分3 (1).png",
+      "path": "res://assets/art/characters/protagonist/protagonist_teary.png",
+      "category": "portrait",
+      "scene": "dialogue",
+      "canvas_size": [
+        1100,
+        1900
+      ],
+      "display_region": [
+        180,
+        70,
+        715,
+        1800
+      ],
+      "sha256": "7194faf928a7bda9069cd9bb84573981458c38a661d9c916ca542d870fc6a142"
+    },
+    {
+      "id": "cg_01_rooftop",
+      "source_filename": "CG1.png",
+      "path": "res://assets/art/cg/act_01/cg_01_rooftop.png",
+      "category": "cg",
+      "scene": "well_memory_success",
+      "canvas_size": [
+        3508,
+        2480
+      ],
+      "sha256": "078dae82d7b49f6dc085ca1ca12b5c1c11962464a7e9b70bb18d5c6545858759",
+      "regions": [
+        {
+          "path": "res://resources/art/cg/act_01/cg_01_rooftop_01.tres",
+          "region": [
+            72,
+            89,
+            1260,
+            811
+          ]
+        },
+        {
+          "path": "res://resources/art/cg/act_01/cg_01_rooftop_02.tres",
+          "region": [
+            72,
+            954,
+            1260,
+            1422
+          ]
+        },
+        {
+          "path": "res://resources/art/cg/act_01/cg_01_rooftop_03.tres",
+          "region": [
+            1382,
+            91,
+            2051,
+            2290
+          ]
+        }
+      ],
+      "playback": "按原照片排布逐步叠加：第1页左上→第7页加入左下→第11页加入右侧，已出现画面保留"
     }
   ]
 }
