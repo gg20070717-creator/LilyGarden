@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=11 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
@@ -10,6 +10,12 @@
 [ext_resource type="Script" path="res://scripts/collect_photo.gd" id="4"]
 
 [ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="5"]
+
+[ext_resource type="Script" path="res://scripts/inspect_object.gd" id="inspect_text"]
+[ext_resource type="Script" path="res://scripts/collect_memory_item.gd" id="collect_memory"]
+[ext_resource type="Script" path="res://scripts/studio_genesis_interaction.gd" id="genesis"]
+[ext_resource type="Script" path="res://scripts/brush_wash_interaction.gd" id="brush_wash"]
+[ext_resource type="Texture2D" path="res://assets/art/cg/act_02/studio_sketch_placeholder.svg" id="sketch_artwork"]
 
 [node name="Studio" type="Node2D"]
 script = ExtResource("1")
@@ -230,6 +236,25 @@ oval = false
 shade = Color(0.96, 0.96, 0.96, 1)
 label_size = 20
 
+[node name="SketchPaper" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(80, 514)
+rotation = -0.12
+size = Vector2(34, 42)
+label = "草稿纸"
+solid = false
+oval = false
+shade = Color(0.98, 0.98, 0.98, 1)
+label_size = 10
+
+[node name="GenesisBook" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(437, 303)
+size = Vector2(32, 48)
+label = "创\n世\n纪"
+solid = false
+oval = false
+shade = Color(0.78, 0.8, 0.82, 1)
+label_size = 12
+
 [node name="Interactables" type="Node2D" parent="."]
 
 
@@ -240,10 +265,57 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3")
+visual_path = NodePath("../../Geometry/CorridorDoor")
 interaction_id = &"ToCorridor"
 target_scene_path = "res://scenes/corridor.tscn"
 target_spawn = &"from_studio"
 prompt_offset = Vector2(100, -30)
+
+[node name="CollectSketchPaper" type="Area2D" parent="Interactables"]
+position = Vector2(132, 516)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("collect_memory")
+interaction_id = &"studio_sketch_paper"
+visual_path = NodePath("../../Geometry/SketchPaper")
+text = "这是你高中时的草稿纸。它的正面画着漫画人物，背面则写着密密麻麻的计算过程，以及某个大学的天体物理专业录取分数。"
+fragment_id = &"memory_fragment_03"
+fragment_display_name = "潮汐"
+artwork = ExtResource("sketch_artwork")
+
+[node name="InspectEasel" type="Area2D" parent="Interactables"]
+position = Vector2(170, 330)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"studio_easel"
+visual_path = NodePath("../../Geometry/Easel")
+text = "月亮。这是她最爱的母题。"
+
+[node name="GenesisStory" type="Area2D" parent="Interactables"]
+position = Vector2(377, 303)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("genesis")
+interaction_id = &"studio_genesis"
+visual_path = NodePath("../../Geometry/GenesisBook")
+
+[node name="BrushWashBucket" type="Area2D" parent="Interactables"]
+position = Vector2(308, 270)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("brush_wash")
+interaction_id = &"studio_brush_wash"
+visual_path = NodePath("../../Geometry/BrushWashBucket")
+text = "水面毫无波澜。"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

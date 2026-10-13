@@ -2512,6 +2512,82 @@
         }
       ],
       "playback": "按原照片排布逐步叠加：第1页左上→第7页加入左下→第11页加入右侧，已出现画面保留"
+    },
+    {
+      "id": "studio_sketch_placeholder",
+      "source_filename": "code_generated_placeholder",
+      "path": "res://assets/art/cg/act_02/studio_sketch_placeholder.svg",
+      "category": "placeholder",
+      "scene": "studio_sketch_paper",
+      "canvas_size": [
+        1280,
+        820
+      ],
+      "sha256": "e8504520923528ae8e960b5a2a9a0fbba395eb475484744af0dc2b5fcfb3da7d",
+      "note": "用户确认先用可替换的草稿纸占位图；正式美术通过CollectSketchPaper.artwork替换"
+    },
+    {
+      "id": "fish_tank_environment",
+      "source_filename": "客厅.png",
+      "source_archive": "客厅鱼缸.zip",
+      "path": "res://assets/art/puzzles/fish_tank/backgrounds/fish_tank_environment.png",
+      "category": "puzzle_background",
+      "scene": "fish_tank_memory",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "7467f50b62558a2c286313c03e410a0a6f6fc337640714d57b8c35c0861166b7"
+    },
+    {
+      "id": "fish_tank_composite_reference",
+      "source_filename": "总图.png",
+      "source_archive": "客厅鱼缸.zip",
+      "path": "res://assets/art/puzzles/fish_tank/backgrounds/fish_tank_composite_reference.png",
+      "category": "puzzle_background",
+      "scene": "fish_tank_memory",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "9023d880460c1736f9c00a3bb21e658b6ec1ef53d347c29c08639f68b964f455"
+    },
+    {
+      "id": "fish_tank_layer",
+      "source_filename": "鱼缸.png",
+      "source_archive": "客厅鱼缸.zip",
+      "path": "res://assets/art/puzzles/fish_tank/backgrounds/fish_tank_layer.png",
+      "category": "puzzle_background",
+      "scene": "fish_tank_memory",
+      "canvas_size": [
+        1060,
+        490
+      ],
+      "alpha_bbox": [
+        0,
+        8,
+        1055,
+        490
+      ],
+      "sha256": "608df87ba87fd8ce3aea16926eb76679988f5b5cd19e6e0632c07d56796d3bf3",
+      "display_rect": [
+        701,
+        339,
+        1060,
+        490
+      ]
     }
   ]
 }

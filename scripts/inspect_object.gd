@@ -1,7 +1,6 @@
 extends "res://scripts/interactable.gd"
 ## Text-only inspection, available through a direct click or nearby F.
 @export_multiline var text := ""
-@export_node_path("Node2D") var visual_path: NodePath
 
 func contains_click(world_position: Vector2) -> bool:
 	var visual := get_node_or_null(visual_path) as Node2D

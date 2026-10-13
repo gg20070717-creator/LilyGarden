@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=21 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/inspect_object.gd" id="inspect_text"]
+[ext_resource type="Script" path="res://scripts/fish_tank_interaction.gd" id="fish_tank"]
 
 [ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
 
@@ -564,7 +565,7 @@ label_size = 24
 [node name="KitchenCounter" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1080.000000, 1002.000000)
 size = Vector2(460, 90)
-label = "储物柜 & 厨房流理台"
+label = "厨房流理台"
 solid = true
 oval = false
 shade = Color(0.88, 0.88, 0.88, 1)
@@ -573,7 +574,7 @@ label_size = 24
 [node name="KitchenSideCounter" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1395.000000, 897.000000)
 size = Vector2(80, 300)
-label = "柜\n台"
+label = "储\n物\n柜"
 solid = true
 oval = false
 shade = Color(0.88, 0.88, 0.88, 1)
@@ -693,6 +694,17 @@ points = PackedVector2Array(0, -17, 0, 17)
 width = 1.5
 default_color = Color(0.35, 0.35, 0.35, 1)
 
+[node name="KitchenDraftPaper" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1200, 1008)
+rotation = -0.1
+size = Vector2(48, 34)
+label = "草稿纸"
+solid = false
+oval = false
+shade = Color(0.98, 0.98, 0.98, 1)
+label_size = 14
+z_index = 2
+
 [node name="Interactables" type="Node2D" parent="."]
 
 
@@ -703,6 +715,7 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3")
+visual_path = NodePath("../../Geometry/Stairs")
 interaction_id = &"ToCorridor"
 target_scene_path = "res://scenes/corridor.tscn"
 target_spawn = &"from_first_floor"
@@ -716,6 +729,7 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3")
+visual_path = NodePath("../../Geometry/CourtyardDoor")
 interaction_id = &"ToCourtyard"
 target_scene_path = "res://scenes/courtyard.tscn"
 target_spawn = &"from_first_floor"
@@ -760,10 +774,10 @@ collision_layer = 0
 collision_mask = 0
 monitoring = false
 monitorable = false
-script = ExtResource("inspect_text")
+script = ExtResource("fish_tank")
 interaction_id = &"InspectFishTank"
 visual_path = NodePath("../../Geometry/FishTank")
-text = "水里没有鱼。水面毫无波澜。"
+text = "水面无波澜"
 
 [node name="InspectUpperRoomPuddle" type="Area2D" parent="Interactables"]
 position = Vector2(227, 425)
@@ -808,6 +822,40 @@ script = ExtResource("inspect_text")
 interaction_id = &"InspectTentPuddle"
 visual_path = NodePath("../../Geometry/TentPuddle")
 text = "水渍到处都是。这座房子正在被水淹没。"
+
+[node name="InspectDiningTable" type="Area2D" parent="Interactables"]
+position = Vector2(1080, 800)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectDiningTable"
+visual_path = NodePath("../../Geometry/DiningTable")
+text = "桌上是打开的罐头，空包装袋和未收拾的餐具。房子的主人离开时一定很着急。"
+
+[node name="InspectKitchenStorageCabinet" type="Area2D" parent="Interactables"]
+position = Vector2(1305, 890)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectKitchenStorageCabinet"
+visual_path = NodePath("../../Geometry/KitchenSideCounter")
+text = "里面堆满了牛肉罐头，压缩饼干和瓶装水。"
+interaction_rect = Rect2(-15, -110, 65, 190)
+
+[node name="InspectKitchenDraftPaper" type="Area2D" parent="Interactables"]
+position = Vector2(1200, 930)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+interaction_id = &"InspectKitchenDraftPaper"
+visual_path = NodePath("../../Geometry/KitchenDraftPaper")
+text = "上面写着引力波波动方程和加粗加大的两个字：错误。"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://scripts/portal.gd" id="3"]
 
 [ext_resource type="Script" path="res://scripts/collect_photo.gd" id="4"]
+
+[ext_resource type="Script" path="res://scripts/inspect_object.gd" id="inspect_text"]
 
 [ext_resource type="PackedScene" path="res://scenes/movement_bounds.tscn" id="5"]
 
@@ -351,6 +353,7 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3")
+visual_path = NodePath("../../Geometry/BedroomDoor")
 interaction_id = &"ToBedroom"
 target_scene_path = "res://scenes/bedroom.tscn"
 target_spawn = &"from_corridor"
@@ -364,6 +367,7 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3")
+visual_path = NodePath("../../Geometry/Stairs")
 interaction_id = &"ToFirstFloor"
 target_scene_path = "res://scenes/first_floor.tscn"
 target_spawn = &"from_corridor"
@@ -377,6 +381,7 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("3")
+visual_path = NodePath("../../Geometry/StudioDoor")
 interaction_id = &"ToStudio"
 target_scene_path = "res://scenes/studio.tscn"
 target_spawn = &"from_corridor"
@@ -391,11 +396,36 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 script = ExtResource("4")
+visual_path = NodePath("../../Geometry/LabPhoto")
 interaction_id = &"corridor_photo"
 fragment_id = &"corridor_photo_02"
 fragment_display_name = "镜面"
 narrative_text = "你搂着某人站在实验室里。照片上，那人的脸庞不知为何被烧了一个洞。"
 prompt_offset = Vector2(0.000000, -170.000000)
+
+[node name="CorridorWaterStain" type="Area2D" parent="Interactables"]
+position = Vector2(1135, 90)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+visual_path = NodePath("../../Geometry/CorridorWaterStain")
+interaction_id = &"corridor_water_stain"
+interaction_rect = Rect2(-72, -18, 90, 85)
+text = "水渍到处都是。这座房子正在被水淹没。"
+
+[node name="CorridorFloorPuddle" type="Area2D" parent="Interactables"]
+position = Vector2(1160, 135)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("inspect_text")
+visual_path = NodePath("../../Geometry/CorridorFloorPuddle")
+interaction_id = &"corridor_floor_puddle"
+interaction_rect = Rect2(-45, -20, 95, 80)
+text = "水渍到处都是。这座房子正在被水淹没。"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 

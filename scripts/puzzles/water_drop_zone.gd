@@ -1,5 +1,6 @@
 extends Control
 var puzzle
+var drop_polygon := PackedVector2Array()
 var draw_surface := true:
 	set(value):
 		if draw_surface != value:
@@ -13,6 +14,8 @@ func _ready() -> void:
 func contains_local(point: Vector2) -> bool:
 	if size.x <= 0 or size.y <= 0:
 		return false
+	if drop_polygon.size() >= 3:
+		return Geometry2D.is_point_in_polygon(point, drop_polygon)
 	var normalized := (point - size * 0.5) / (size * 0.5)
 	return normalized.length_squared() <= 1.0
 

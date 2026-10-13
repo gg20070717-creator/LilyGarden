@@ -74,6 +74,7 @@ func _ready() -> void:
 		underwater_words.add_child(label)
 		underwater_labels[option.choice_id] = label
 	verb.text = definition.sentence_verb
+	feedback.text = definition.failure_text
 	resized.connect(_layout)
 	feedback_timer.timeout.connect(reset_attempt)
 	_setup_story()
@@ -113,6 +114,11 @@ func _layout() -> void:
 	else:
 		water.position = Vector2(w * 0.16, h * 0.72)
 		water.size = Vector2(w * 0.68, h * 0.20)
+	water.drop_polygon = PackedVector2Array()
+	if art_visible and definition.water_drop_polygon.size() >= 3:
+		var water_fit := _art_fit()
+		for point: Vector2 in definition.water_drop_polygon:
+			water.drop_polygon.append(point * water_fit)
 	water_ripple.position = Vector2.ZERO
 	water_ripple.size = water.size
 	if phase not in [Phase.MOON, Phase.RISING]:
@@ -122,14 +128,20 @@ func _layout() -> void:
 		var option: Resource = definition.options[index]
 		var t := float(index) / maxf(1.0, total - 1.0)
 		var token: Control = moon_tokens[option.choice_id]
-		token.size = Vector2(144, 144) * minf(w / 1920.0, h / 1080.0)
-		token.position = Vector2(w * (0.12 + 0.76 * t), h * (0.14 + 0.26 * pow(absf(t - 0.5) * 2.0, 1.4))) - token.size * 0.5
+		token.size = definition.moon_token_size * minf(w / definition.moon_reference_size.x, h / definition.moon_reference_size.y)
+		if art_visible and index < definition.moon_centers.size():
+			token.position = _reference_point(definition.moon_centers[index]) - token.size * 0.5
+		else:
+			token.position = Vector2(w * (0.12 + 0.76 * t), h * (0.14 + 0.26 * pow(absf(t - 0.5) * 2.0, 1.4))) - token.size * 0.5
 		var label: Label = underwater_labels[option.choice_id]
 		label.size = Vector2(64, 62) if art_visible else Vector2(140, 48)
-		label.position = water.position + Vector2(water.size.x * (0.12 + 0.76 * t), water.size.y * 0.5) - label.size * 0.5 if art_visible else water.position + Vector2(water.size.x * (0.12 + 0.76 * t), water.size.y * 0.13) - Vector2(70, 0)
+		if art_visible and index < definition.underwater_word_centers.size():
+			label.position = _reference_point(definition.underwater_word_centers[index]) - label.size * 0.5
+		else:
+			label.position = water.position + Vector2(water.size.x * (0.12 + 0.76 * t), water.size.y * 0.5) - label.size * 0.5 if art_visible else water.position + Vector2(water.size.x * (0.12 + 0.76 * t), water.size.y * 0.13) - Vector2(70, 0)
 	if phase != Phase.RISING:
 		sentence.position = _sentence_position()
-	sentence.size = size * (Vector2(0.48, 0.09) if phase == Phase.MOON else Vector2(0.56, 0.10))
+	sentence.size = definition.sentence_rect.size * _art_fit() if art_visible and definition.sentence_rect.has_area() else size * (Vector2(0.48, 0.09) if phase == Phase.MOON else Vector2(0.56, 0.10))
 	sentence_backing.position = Vector2(-12, -12)
 	sentence_backing.size = sentence.size + Vector2(24, 24)
 	slots[0].position = Vector2.ZERO
@@ -146,6 +158,10 @@ func _layout() -> void:
 	enter_hint.position = Vector2((w - enter_hint.size.x) * 0.5, h * 0.58 if art_visible else h - 76)
 	feedback.size = Vector2(540, 66)
 	feedback.position = Vector2((w - feedback.size.x) * 0.5, water.position.y - 85)
+	if art_visible and definition.enter_hint_center.x >= 0.0:
+		enter_hint.position = _reference_point(definition.enter_hint_center) - enter_hint.size * 0.5
+	if art_visible and definition.feedback_center.x >= 0.0:
+		feedback.position = _reference_point(definition.feedback_center) - feedback.size * 0.5
 	story_panel.position = Vector2.ZERO if not narrative_pages.is_empty() else size * Vector2(0.1, 0.1)
 	story_panel.size = size if not narrative_pages.is_empty() else size * Vector2(0.8, 0.8)
 	if not narrative_pages.is_empty():
@@ -161,7 +177,16 @@ func _layout() -> void:
 			story_image.size = Vector2(w, dialogue_top)
 			story_image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 
+func _art_fit() -> float:
+	return maxf(size.x / definition.moon_reference_size.x, size.y / definition.moon_reference_size.y)
+
+func _reference_point(point: Vector2) -> Vector2:
+	var fit := _art_fit()
+	return (size - definition.moon_reference_size * fit) * 0.5 + point * fit
+
 func _sentence_position() -> Vector2:
+	if _has_moon_art() and definition.sentence_rect.has_area():
+		return _reference_point(definition.sentence_rect.position)
 	if _has_moon_art():
 		return size * Vector2(0.26, 0.66) if phase == Phase.MOON else size * Vector2(0.22, 0.66)
 	return size * Vector2(0.26, 0.78) if phase == Phase.MOON else size * Vector2(0.22, 0.22)
@@ -201,7 +226,10 @@ func add_moon(choice_id: StringName) -> void:
 	selected_ids.append(choice_id)
 	moon_tokens[choice_id].hide()
 	underwater_labels[choice_id].add_theme_color_override("font_color", Color.BLACK)
-	water_ripple.play()
+	if definition.water_ripple != null:
+		water_ripple.play()
+	if definition.rise_on_drop:
+		_rise_dropped_word(choice_id)
 	_refresh_hint()
 
 func assign_word(choice_id: StringName, slot_index: int) -> void:
@@ -243,6 +271,38 @@ func confirm_restoration() -> void:
 			_refresh_hint()
 			feedback_timer.start(definition.failure_duration)
 
+func _surface_word_position(choice_id: StringName, token: Control) -> Vector2:
+	if not definition.underwater_word_centers.is_empty():
+		var underwater: Label = underwater_labels[choice_id]
+		var center := underwater.position + underwater.size * 0.5
+		center.x = clampf(center.x, water.position.x + water.size.x * 0.08, water.position.x + water.size.x * 0.92)
+		center.y = water.position.y + water.size.y * 0.5
+		return center - token.size * 0.5
+	return token.position - Vector2(0, maxf(32.0, water.size.y * 0.7))
+
+func _rise_dropped_word(choice_id: StringName) -> void:
+	phase = Phase.RISING
+	var underwater: Label = underwater_labels[choice_id]
+	var token := _make_token(choices[choice_id], &"word")
+	token.size = Vector2(120, 72)
+	token.position = underwater.position + underwater.size * 0.5 - token.size * 0.5
+	token.modulate.a = 0.0
+	word_tokens[choice_id] = token
+	underwater.hide()
+	var surface := _surface_word_position(choice_id, token)
+	var rise_time: float = definition.rise_duration * 0.35
+	var flight_time: float = definition.rise_duration * 0.65
+	rise_tween = create_tween().set_parallel(true)
+	rise_tween.tween_property(token, "position", surface, rise_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	rise_tween.tween_property(token, "modulate:a", 1.0, rise_time)
+	rise_tween.tween_property(token, "position", _word_home(choice_id), flight_time).from(surface).set_delay(rise_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	rise_tween.finished.connect(_finish_dropped_word)
+
+func _finish_dropped_word() -> void:
+	phase = Phase.MOON
+	_layout()
+	_refresh_hint()
+
 func _rise_words() -> void:
 	# Order follows the configuration, independently of drop order.
 	var ordered: Array[StringName] = []
@@ -250,6 +310,14 @@ func _rise_words() -> void:
 		if selected_ids.has(option.choice_id):
 			ordered.append(option.choice_id)
 	selected_ids = ordered
+	if definition.rise_on_drop:
+		for moon: Control in moon_tokens.values():
+			moon.hide()
+		underwater_words.hide()
+		phase = Phase.WORD
+		_layout()
+		_refresh_hint()
+		return
 	phase = Phase.RISING
 	for token: Control in moon_tokens.values():
 		token.hide()
@@ -265,7 +333,7 @@ func _rise_words() -> void:
 		token.position = underwater.position + underwater.size * 0.5 - token.size * 0.5
 		token.modulate.a = 0.0
 		word_tokens[choice_id] = token
-		var surface := token.position - Vector2(0, maxf(32.0, water.size.y * 0.7))
+		var surface := _surface_word_position(choice_id, token)
 		var rise_time: float = definition.rise_duration * 0.35
 		var flight_time: float = definition.rise_duration * 0.65
 		rise_tween.tween_property(token, "position", surface, rise_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -282,6 +350,10 @@ func _finish_rise() -> void:
 	_refresh_hint()
 
 func _show_story() -> void:
+	if not definition.play_success_story:
+		restoration_succeeded.emit(definition.puzzle_id)
+		_return_to_world()
+		return
 	phase = Phase.STORY
 	_refresh_hint()
 	water.hide()
@@ -331,6 +403,7 @@ func reset_attempt() -> void:
 	for choice_id: StringName in moon_tokens:
 		moon_tokens[choice_id].visible = available_fragment_ids.has(choices[choice_id].fragment_id)
 	for label: Label in underwater_labels.values():
+		label.show()
 		label.add_theme_color_override("font_color", Color.BLACK)
 	water.show()
 	sentence.show()
@@ -413,15 +486,19 @@ func _on_story_dialogue_finished() -> void:
 	if phase == Phase.INTRO:
 		reset_attempt()
 	elif phase == Phase.STORY:
-		phase = Phase.RETURNING
-		_refresh_hint()
-		if is_instance_valid(story_tween):
-			story_tween.kill()
-		# Reveal the original world behind the CG while modal input stays locked.
-		return_started.emit()
-		story_tween = create_tween()
-		story_tween.tween_property(self, "modulate:a", 0.0, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		story_tween.tween_callback(request_exit)
+		_return_to_world()
+
+func _return_to_world() -> void:
+	phase = Phase.RETURNING
+	_refresh_hint()
+	water_ripple.stop()
+	if is_instance_valid(story_tween):
+		story_tween.kill()
+	# Keep modal input locked until the puzzle/CG has faded off the original world.
+	return_started.emit()
+	story_tween = create_tween()
+	story_tween.tween_property(self, "modulate:a", 0.0, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	story_tween.tween_callback(request_exit)
 
 func _on_story_page_changed(index: int) -> void:
 	if phase != Phase.STORY:

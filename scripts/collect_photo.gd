@@ -6,6 +6,9 @@ extends "res://scripts/interactable.gd"
 @export_multiline var placeholder_caption := "照片占位符\n（前妻在月光前的照片）"
 @export var artwork: Texture2D
 
+func get_highlight_color() -> Color:
+	return MEMORY_GLOW_COLOR
+
 func interact(context: Dictionary) -> void:
 	interacted.emit(context)
 	context["state"].collect_fragment(fragment_id)
