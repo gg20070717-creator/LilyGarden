@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c1dqk1dp730cm" path="res://scripts/ui/menu_hover_button.gd" id="5_8fwbo"]
 [ext_resource type="Texture2D" uid="uid://dnablsf2xq2nq" path="res://assets/art/ui/pause_menu/pause_menu_main_menu.png" id="5_main_menu"]
 [ext_resource type="Texture2D" uid="uid://cqd2kmgcrbf7q" path="res://assets/art/ui/pause_menu/pause_menu_quit.png" id="6_quit"]
+[ext_resource type="Shader" path="res://shaders/pause_title.gdshader" id="7_title"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_horizontal"]
 shader = ExtResource("2_blur")
@@ -17,6 +18,13 @@ shader_parameter/radius = 4.0
 shader = ExtResource("2_blur")
 shader_parameter/direction = Vector2(0, 1)
 shader_parameter/radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pause_title"]
+atlas = ExtResource("3_overlay")
+region = Rect2(896, 352, 128, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pause_title"]
+shader = ExtResource("7_title")
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=791274504]
 layer = 20
@@ -61,12 +69,22 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 
-[node name="Overlay" type="TextureRect" parent="Root/Artwork" unique_id=2070418750]
+[node name="Overlay" type="ColorRect" parent="Root/Artwork" unique_id=2070418750]
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-texture = ExtResource("3_overlay")
+color = Color(0.1019608, 0.1803922, 0.3960784, 0.5568628)
+
+[node name="PauseTitle" type="TextureRect" parent="Root/Artwork"]
+material = SubResource("ShaderMaterial_pause_title")
+layout_mode = 0
+offset_left = 880.0
+offset_top = 284.0
+offset_right = 1040.0
+offset_bottom = 364.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_pause_title")
 expand_mode = 1
 
 [node name="ResumeGame" type="TextureButton" parent="Root/Artwork" unique_id=910305035]

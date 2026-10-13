@@ -8,7 +8,10 @@ const TokenScript = preload("res://scripts/puzzles/memory_token.gd")
 const FONT = preload("res://ui_font.tres")
 const TextStyle = preload("res://scripts/ui_text_style.gd")
 const StoryDialogue = preload("res://scripts/ui/story_dialogue.gd")
-enum Phase { MOON, RISING, WORD, FEEDBACK, STORY, INTRO, RETURNING }
+const MoonlightHint = preload("res://scripts/puzzles/moonlight_hint.gd")
+const MoonlightEffects = preload("res://scripts/puzzles/moonlight_effects.gd")
+const MoonlightSentenceMist = preload("res://scripts/puzzles/moonlight_sentence_mist.gd")
+enum Phase { MOON, RISING, WORD, FEEDBACK, STORY, INTRO, RETURNING, RESOLVING }
 @export var definition: Resource = preload("res://resources/well_memory_puzzle.tres")
 ## Caller-owned inventory snapshot. The scene never grants or consumes fragments.
 @export var available_fragment_ids: Array[StringName] = []
@@ -48,30 +51,41 @@ var introduction_pages: Array[Dictionary] = []
 var narrative_pages: Array[Dictionary] = []
 var followup_pages: Array[Dictionary] = []
 var closing := false
+var moonlight_enter: Control
+var moonlight_esc: Control
+var moonlight_effects: Control
+var moonlight_hint_tween: Tween
+var moonlight_result_tween: Tween
+var moonlight_sentence_mist: Control
 
 func _ready() -> void:
 	var ui_theme := Theme.new()
 	ui_theme.default_font = FONT
 	ui_theme.default_font_size = 36
-	ui_theme.set_color("font_color", "Label", Color.BLACK)
+	ui_theme.set_color("font_color", "Label", _puzzle_text_color())
 	theme = ui_theme
 	for hint: Label in [esc_hint, enter_hint, feedback]:
-		TextStyle.apply(hint)
+		_apply_puzzle_text_style(hint)
 	water.puzzle = self
 	water_ripple.configure(definition.water_ripple, definition.ripple_source_uv)
 	moon_environment.texture = definition.moon_environment
 	moon_well.texture = definition.moon_well
 	for slot in slots:
 		slot.puzzle = self
+		slot.set("moonlight_style", definition.moonlight_ui_enabled)
+		slot.set("line_width", definition.slot_line_width)
+		slot.set("empty_opacity", definition.slot_empty_opacity)
+		if not definition.ui_backing_enabled:
+			slot.line_color = _puzzle_text_color()
 	for option: Resource in definition.options:
 		choices[option.choice_id] = option
 		moon_tokens[option.choice_id] = _make_token(option, &"moon")
 		var label := Label.new()
 		label.text = option.word
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.add_theme_font_size_override("font_size", 32)
+		label.add_theme_font_size_override("font_size", definition.underwater_word_font_size)
 		if _has_moon_art():
-			TextStyle.apply(label, 32)
+			_apply_puzzle_text_style(label, definition.underwater_word_font_size)
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		underwater_words.add_child(label)
 		underwater_labels[option.choice_id] = label
@@ -79,10 +93,85 @@ func _ready() -> void:
 	feedback.text = definition.failure_text
 	resized.connect(_layout)
 	feedback_timer.timeout.connect(reset_attempt)
+	_setup_moonlight_ui()
 	_setup_story()
 	reset_attempt()
 	if show_introduction and not introduction_pages.is_empty():
 		_show_introduction()
+
+func _setup_moonlight_ui() -> void:
+	if not definition.moonlight_ui_enabled:
+		return
+	if definition.moonlight_sentence_mist_opacity > 0.0:
+		moonlight_sentence_mist = MoonlightSentenceMist.new()
+		moonlight_sentence_mist.name = "SentenceMist"
+		moonlight_sentence_mist.set("opacity_value", definition.moonlight_sentence_mist_opacity)
+		sentence.add_child(moonlight_sentence_mist)
+		sentence.move_child(moonlight_sentence_mist, 1)
+	moonlight_enter = MoonlightHint.new()
+	moonlight_enter.name = "MoonlightConfirm"
+	add_child(moonlight_enter)
+	moonlight_enter.call("set_hint", "Enter", "开始还原")
+	moonlight_enter.hide()
+	moonlight_esc = MoonlightHint.new()
+	moonlight_esc.name = "MoonlightExit"
+	add_child(moonlight_esc)
+	moonlight_esc.call("set_hint", "Esc", "退出")
+	moonlight_effects = MoonlightEffects.new()
+	moonlight_effects.name = "MoonlightEffects"
+	add_child(moonlight_effects)
+	verb.add_theme_color_override("font_shadow_color", Color(0.03, 0.07, 0.11, 0.9))
+	verb.add_theme_color_override("font_outline_color", Color(0.51, 0.78, 0.91, 0.10))
+	verb.add_theme_constant_override("outline_size", 3)
+	verb.add_theme_constant_override("shadow_offset_x", 1)
+	verb.add_theme_constant_override("shadow_offset_y", 2)
+
+func _add_word_trail(token: Control, surface: Vector2, destination: Vector2, rise_time: float, flight_time: float) -> void:
+	if not definition.moonlight_ui_enabled:
+		return
+	var trail := Callable(moonlight_effects, "emit_word_trail").bind(surface + token.size * 0.5, destination + token.size * 0.5, flight_time)
+	rise_tween.tween_callback(trail).set_delay(rise_time)
+
+func _confirm_success() -> void:
+	if not definition.moonlight_ui_enabled:
+		_show_story()
+		return
+	phase = Phase.RESOLVING
+	_refresh_hint()
+	moonlight_effects.call("pulse_sentence", Rect2(sentence.position, sentence.size), 0.5)
+	moonlight_result_tween = create_tween()
+	moonlight_result_tween.tween_interval(0.5)
+	moonlight_result_tween.tween_callback(_show_story)
+
+func _animate_failure() -> void:
+	feedback.modulate.a = 0.0
+	moonlight_result_tween = create_tween().set_parallel(true)
+	moonlight_result_tween.tween_property(feedback, "modulate:a", 1.0, 0.25)
+	for token: Control in word_tokens.values():
+		moonlight_result_tween.tween_property(token, "modulate:a", 0.32, definition.failure_duration * 0.65).set_trans(Tween.TRANS_SINE)
+
+func _clear_moonlight_effects() -> void:
+	if is_instance_valid(moonlight_hint_tween):
+		moonlight_hint_tween.kill()
+	if is_instance_valid(moonlight_result_tween):
+		moonlight_result_tween.kill()
+	if is_instance_valid(moonlight_effects):
+		moonlight_effects.call("clear_effects")
+
+func _puzzle_text_color() -> Color:
+	return Color.BLACK if definition.ui_backing_enabled else Color(0.88, 0.94, 1.0)
+
+func _apply_puzzle_text_style(label: Label, font_size: int = 36) -> void:
+	TextStyle.apply(label, font_size)
+	if not definition.ui_backing_enabled:
+		# Keep existing margins and text placement; remove only the white fill.
+		var backing := label.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
+		backing.bg_color = Color.TRANSPARENT
+		label.add_theme_stylebox_override("normal", backing)
+		label.add_theme_color_override("font_color", _puzzle_text_color())
+		label.add_theme_color_override("font_shadow_color", Color(0.03, 0.07, 0.11, 0.9))
+		label.add_theme_constant_override("shadow_offset_x", 1)
+		label.add_theme_constant_override("shadow_offset_y", 2)
 
 func _make_token(option: Resource, kind: StringName) -> Control:
 	var token = Control.new()
@@ -90,7 +179,10 @@ func _make_token(option: Resource, kind: StringName) -> Control:
 	token.choice = option
 	token.token_kind = kind
 	token.puzzle = self
-	token.light_backing = _has_moon_art()
+	token.light_backing = _has_moon_art() and definition.ui_backing_enabled
+	token.word_color = _puzzle_text_color()
+	token.word_font_size = definition.word_font_size
+	token.moonlight_style = definition.moonlight_ui_enabled
 	cards.add_child(token)
 	return token
 
@@ -102,7 +194,7 @@ func _layout() -> void:
 	var art_visible := _has_moon_art() and phase not in [Phase.STORY, Phase.RETURNING]
 	moon_environment.visible = art_visible
 	moon_well.visible = art_visible
-	sentence_backing.visible = art_visible
+	sentence_backing.visible = art_visible and definition.ui_backing_enabled
 	water.draw_surface = not art_visible
 	if art_visible:
 		var fit := maxf(w / definition.moon_reference_size.x, h / definition.moon_reference_size.y)
@@ -136,7 +228,7 @@ func _layout() -> void:
 		else:
 			token.position = Vector2(w * (0.12 + 0.76 * t), h * (0.14 + 0.26 * pow(absf(t - 0.5) * 2.0, 1.4))) - token.size * 0.5
 		var label: Label = underwater_labels[option.choice_id]
-		label.size = Vector2(64, 62) if art_visible else Vector2(140, 48)
+		label.size = Vector2(maxf(64.0, definition.underwater_word_font_size + 32.0), maxf(62.0, definition.underwater_word_font_size + 30.0)) if art_visible else Vector2(140, 48)
 		if art_visible and index < definition.underwater_word_centers.size():
 			label.position = _reference_point(definition.underwater_word_centers[index]) - label.size * 0.5
 		else:
@@ -152,6 +244,9 @@ func _layout() -> void:
 	slots[1].size = slots[0].size
 	verb.position = sentence.size * Vector2(0.35, 0)
 	verb.size = sentence.size * Vector2(0.30, 1)
+	if is_instance_valid(moonlight_sentence_mist):
+		moonlight_sentence_mist.position = -sentence.size * Vector2(0.07, 0.35)
+		moonlight_sentence_mist.size = sentence.size * Vector2(1.14, 1.7)
 	if phase != Phase.RISING:
 		_position_words()
 	esc_hint.position = Vector2(w - 310, 26)
@@ -164,6 +259,13 @@ func _layout() -> void:
 		enter_hint.position = _reference_point(definition.enter_hint_center) - enter_hint.size * 0.5
 	if art_visible and definition.feedback_center.x >= 0.0:
 		feedback.position = _reference_point(definition.feedback_center) - feedback.size * 0.5
+	if definition.moonlight_ui_enabled and is_instance_valid(moonlight_enter):
+		moonlight_enter.size = enter_hint.size
+		var confirm_center: Vector2 = definition.enter_hint_center if definition.enter_hint_center.x >= 0.0 else Vector2(960, 1032)
+		moonlight_enter.position = _reference_point(confirm_center) - moonlight_enter.size * 0.5
+		moonlight_esc.position = esc_hint.position
+		moonlight_esc.size = esc_hint.size
+		moonlight_effects.size = size
 	story_panel.position = Vector2.ZERO if not narrative_pages.is_empty() else size * Vector2(0.1, 0.1)
 	story_panel.size = size if not narrative_pages.is_empty() else size * Vector2(0.8, 0.8)
 	if not narrative_pages.is_empty():
@@ -199,15 +301,15 @@ func _has_moon_art() -> bool:
 func _word_home(choice_id: StringName) -> Vector2:
 	if _has_moon_art():
 		var moon: Control = moon_tokens[choice_id]
-		return moon.position + moon.size * 0.5 - Vector2(60, 36)
+		return moon.position + moon.size * 0.5 - definition.word_token_size * 0.5
 	var index := selected_ids.find(choice_id)
 	var t := float(index) / maxf(1.0, selected_ids.size() - 1.0) if selected_ids.size() > 1 else 0.5
-	return size * Vector2(0.20 + 0.60 * t, 0.50) - Vector2(60, 36)
+	return size * Vector2(0.20 + 0.60 * t, 0.50) - definition.word_token_size * 0.5
 
 func _position_words() -> void:
 	for choice_id: StringName in word_tokens:
 		var token: Control = word_tokens[choice_id]
-		token.size = Vector2(120, 72)
+		token.size = definition.word_token_size
 		var slot_index := slot_ids.find(choice_id)
 		if slot_index >= 0:
 			token.position = sentence.position + slots[slot_index].position + slots[slot_index].size * Vector2(0.5, 0.43) - token.size * 0.5
@@ -227,7 +329,7 @@ func add_moon(choice_id: StringName) -> void:
 		return
 	selected_ids.append(choice_id)
 	moon_tokens[choice_id].hide()
-	underwater_labels[choice_id].add_theme_color_override("font_color", Color.BLACK)
+	underwater_labels[choice_id].add_theme_color_override("font_color", _puzzle_text_color())
 	if definition.water_ripple != null:
 		water_ripple.play()
 	if definition.rise_on_drop:
@@ -245,6 +347,10 @@ func assign_word(choice_id: StringName, slot_index: int) -> void:
 		slot_ids[source] = displaced
 	slot_ids[slot_index] = choice_id
 	_position_words()
+	if definition.moonlight_ui_enabled:
+		slots[slot_index].call("pulse")
+		if source >= 0:
+			slots[source].call("pulse")
 	_refresh_hint()
 
 func remove_word(choice_id: StringName) -> void:
@@ -257,20 +363,36 @@ func remove_word(choice_id: StringName) -> void:
 		_refresh_hint()
 
 func _refresh_hint() -> void:
-	enter_hint.visible = (phase == Phase.MOON and not selected_ids.is_empty()) or (phase == Phase.WORD and (slot_ids[0] != &"" or slot_ids[1] != &""))
+	var can_confirm := (phase == Phase.MOON and not selected_ids.is_empty()) or (phase == Phase.WORD and (slot_ids[0] != &"" or slot_ids[1] != &""))
+	enter_hint.visible = can_confirm and not definition.moonlight_ui_enabled
+	if definition.moonlight_ui_enabled:
+		esc_hint.hide()
+		moonlight_esc.visible = phase not in [Phase.INTRO, Phase.STORY, Phase.RETURNING]
+		moonlight_enter.call("set_hint", "Enter", "开始还原" if phase == Phase.MOON else "确认还原")
+		if can_confirm != moonlight_enter.visible:
+			if is_instance_valid(moonlight_hint_tween):
+				moonlight_hint_tween.kill()
+			moonlight_enter.visible = can_confirm
+			if can_confirm:
+				moonlight_enter.modulate.a = 0.0
+				moonlight_hint_tween = create_tween()
+				moonlight_hint_tween.tween_property(moonlight_enter, "modulate:a", 1.0, 0.22)
 	for slot in slots:
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP if phase == Phase.WORD else Control.MOUSE_FILTER_IGNORE
+		slot.queue_redraw()
 
 func confirm_restoration() -> void:
 	if phase == Phase.MOON and not selected_ids.is_empty():
 		_rise_words()
 	elif phase == Phase.WORD and (slot_ids[0] != &"" or slot_ids[1] != &""):
 		if slot_ids[0] == definition.answer_left and slot_ids[1] == definition.answer_right:
-			_show_story()
+			_confirm_success()
 		else:
 			phase = Phase.FEEDBACK
 			feedback.show()
 			_refresh_hint()
+			if definition.moonlight_ui_enabled:
+				_animate_failure()
 			feedback_timer.start(definition.failure_duration)
 
 func _surface_word_position(choice_id: StringName, token: Control) -> Vector2:
@@ -286,7 +408,7 @@ func _rise_dropped_word(choice_id: StringName) -> void:
 	phase = Phase.RISING
 	var underwater: Label = underwater_labels[choice_id]
 	var token := _make_token(choices[choice_id], &"word")
-	token.size = Vector2(120, 72)
+	token.size = definition.word_token_size
 	token.position = underwater.position + underwater.size * 0.5 - token.size * 0.5
 	token.modulate.a = 0.0
 	word_tokens[choice_id] = token
@@ -298,6 +420,7 @@ func _rise_dropped_word(choice_id: StringName) -> void:
 	rise_tween.tween_property(token, "position", surface, rise_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	rise_tween.tween_property(token, "modulate:a", 1.0, rise_time)
 	rise_tween.tween_property(token, "position", _word_home(choice_id), flight_time).from(surface).set_delay(rise_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_add_word_trail(token, surface, _word_home(choice_id), rise_time, flight_time)
 	rise_tween.finished.connect(_finish_dropped_word)
 
 func _finish_dropped_word() -> void:
@@ -330,7 +453,7 @@ func _rise_words() -> void:
 	rise_tween.tween_property(sentence, "position", _sentence_position(), definition.rise_duration).set_trans(Tween.TRANS_SINE)
 	for choice_id: StringName in selected_ids:
 		var token := _make_token(choices[choice_id], &"word")
-		token.size = Vector2(120, 72)
+		token.size = definition.word_token_size
 		var underwater: Label = underwater_labels[choice_id]
 		token.position = underwater.position + underwater.size * 0.5 - token.size * 0.5
 		token.modulate.a = 0.0
@@ -341,17 +464,20 @@ func _rise_words() -> void:
 		rise_tween.tween_property(token, "position", surface, rise_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		rise_tween.tween_property(token, "modulate:a", 1.0, rise_time)
 		rise_tween.tween_property(token, "position", _word_home(choice_id), flight_time).from(surface).set_delay(rise_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		_add_word_trail(token, surface, _word_home(choice_id), rise_time, flight_time)
 	rise_tween.finished.connect(_finish_rise)
 
 func _finish_rise() -> void:
 	phase = Phase.WORD
 	for token: Control in word_tokens.values():
-		token.light_backing = _has_moon_art()
+		token.light_backing = _has_moon_art() and definition.ui_backing_enabled
 		token.queue_redraw()
 	_layout()
 	_refresh_hint()
 
 func _show_story() -> void:
+	if is_instance_valid(moonlight_effects):
+		moonlight_effects.call("clear_effects")
 	if not definition.play_success_story:
 		restoration_succeeded.emit(definition.puzzle_id)
 		_return_to_world()
@@ -385,6 +511,7 @@ func _show_story() -> void:
 	restoration_succeeded.emit(definition.puzzle_id)
 
 func reset_attempt() -> void:
+	_clear_moonlight_effects()
 	if is_instance_valid(story_tween):
 		story_tween.kill()
 	if is_instance_valid(story_dialogue):
@@ -406,13 +533,15 @@ func reset_attempt() -> void:
 		moon_tokens[choice_id].visible = available_fragment_ids.has(choices[choice_id].fragment_id)
 	for label: Label in underwater_labels.values():
 		label.show()
-		label.add_theme_color_override("font_color", Color.BLACK)
+		label.modulate.a = 0.55 if definition.moonlight_ui_enabled else 1.0
+		label.add_theme_color_override("font_color", _puzzle_text_color())
 	water.show()
 	sentence.show()
 	cards.show()
 	underwater_words.show()
 	feedback.hide()
 	story_panel.hide()
+	feedback.modulate.a = 1.0
 	for panel: TextureRect in story_panels.values():
 		panel.hide()
 	esc_hint.show()
@@ -423,6 +552,7 @@ func request_exit() -> void:
 	if closing:
 		return
 	closing = true
+	_clear_moonlight_effects()
 	if is_instance_valid(rise_tween):
 		rise_tween.kill()
 	if is_instance_valid(story_tween):

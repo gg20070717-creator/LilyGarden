@@ -6,6 +6,7 @@ const InteractionScript = preload("res://scripts/interactable.gd")
 @export var initial_spawn: StringName = &"start"
 ## Visible world area at the reference aspect ratio; map geometry stays unchanged.
 @export var camera_view_size := Vector2(1024, 576)
+@export var room_fade_duration := 0.3
 @onready var player = $World/Player
 @onready var camera: Camera2D = $World/Camera
 @onready var level_host: Node2D = $World/LevelHost
@@ -15,6 +16,7 @@ var level: LevelScript
 var current_target: InteractionScript
 var transitioning := false
 var context: Dictionary
+var room_transition_mask: ColorRect
 
 func _ready() -> void:
 	_setup_input()
@@ -22,7 +24,8 @@ func _ready() -> void:
 	ui.view_state_changed.connect(_on_view_state_changed)
 	state.fragment_acquired.connect(_on_fragment_acquired)
 	get_viewport().size_changed.connect(_fit_camera)
-	change_level(initial_scene_path, initial_spawn)
+	_setup_room_transition()
+	_replace_level(load(initial_scene_path) as PackedScene, initial_scene_path, initial_spawn)
 	ui.show_controls_hint()
 	player.input_blocked = ui.is_controls_hint_open()
 	player.velocity = Vector2.ZERO
@@ -51,6 +54,7 @@ func _physics_process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if transitioning:
+		get_viewport().set_input_as_handled()
 		return
 	if ui.handle_controls_hint_input(event):
 		get_viewport().set_input_as_handled()
@@ -90,24 +94,75 @@ func _select_target() -> void:
 		if is_instance_valid(current_target):
 			current_target.set_highlight(true)
 
-func change_level(scene_path: String, spawn_id: StringName) -> bool:
+func change_level(scene_path: String, spawn_id: StringName, arrival_note: String = "", note_offset: Vector2 = Vector2.ZERO) -> bool:
 	if transitioning:
 		return false
 	transitioning = true
 	player.input_blocked = true
-	var packed := load(scene_path) as PackedScene
+	player.velocity = Vector2.ZERO
+	_select_target()
+	ui.clear_note()
+	await _fade_room_to(1.0)
+	# Present the opaque frame before any loading or scene instantiation.
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+	var packed := await _load_level(scene_path)
+	var changed := _replace_level(packed, scene_path, spawn_id)
+	await _fade_room_to(0.0)
+	transitioning = false
+	player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
+	_select_target()
+	if changed and not arrival_note.is_empty():
+		ui.show_note(arrival_note, player.global_position + note_offset, 4.0)
+	return changed
+
+func _setup_room_transition() -> void:
+	var transition_layer := CanvasLayer.new()
+	transition_layer.name = "RoomTransition"
+	transition_layer.layer = 90
+	add_child(transition_layer)
+	room_transition_mask = ColorRect.new()
+	room_transition_mask.name = "BlackFade"
+	room_transition_mask.color = Color(0, 0, 0, 0)
+	room_transition_mask.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	room_transition_mask.mouse_filter = Control.MOUSE_FILTER_STOP
+	transition_layer.add_child(room_transition_mask)
+	room_transition_mask.hide()
+
+func _fade_room_to(alpha: float) -> void:
+	room_transition_mask.show()
+	var tween := create_tween()
+	tween.tween_property(room_transition_mask, "color:a", alpha, maxf(0.01, room_fade_duration)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+	if alpha == 0.0:
+		room_transition_mask.hide()
+
+func _load_level(scene_path: String) -> PackedScene:
+	var request_error := ResourceLoader.load_threaded_request(scene_path, "PackedScene")
+	if request_error != OK:
+		push_error("Cannot request level: " + scene_path)
+		return null
+	var status := ResourceLoader.load_threaded_get_status(scene_path)
+	while status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().process_frame
+		status = ResourceLoader.load_threaded_get_status(scene_path)
+	if status != ResourceLoader.THREAD_LOAD_LOADED:
+		push_error("Cannot load level: " + scene_path)
+		return null
+	return ResourceLoader.load_threaded_get(scene_path) as PackedScene
+
+func _replace_level(packed: PackedScene, scene_path: String, spawn_id: StringName) -> bool:
 	if packed == null:
 		push_error("Cannot load level: " + scene_path)
-		transitioning = false
-		player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
 		return false
 	var next_level := packed.instantiate() as LevelScript
+	if next_level == null:
+		push_error("Invalid level scene: " + scene_path)
+		return false
 	var marker: Marker2D = next_level.get_spawn(spawn_id)
 	if marker == null:
 		push_error("Missing spawn '%s' in %s" % [spawn_id, scene_path])
 		next_level.free()
-		transitioning = false
-		player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
 		return false
 	if is_instance_valid(current_target):
 		current_target.set_highlight(false)
@@ -122,9 +177,6 @@ func change_level(scene_path: String, spawn_id: StringName) -> bool:
 	player.velocity = Vector2.ZERO
 	_fit_camera()
 	ui.set_status(level.display_name, state.fragment_count())
-	transitioning = false
-	player.input_blocked = ui.modal_open or ui.is_controls_hint_open()
-	_select_target()
 	return true
 
 func _fit_camera() -> void:

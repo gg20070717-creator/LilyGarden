@@ -61,17 +61,20 @@ func _fit_artwork() -> void:
 func start_new_game() -> void:
 	if transitioning:
 		return
-	var packed := load(GAME_SCENE_PATH) as PackedScene
-	if packed == null:
-		push_error("Cannot load gameplay scene: " + GAME_SCENE_PATH)
-		return
+	# Lock input before any loading work so the menu responds immediately.
 	transitioning = true
 	current_page = &"transition"
 	pause_menu.hide()
 	await _fade_to(1.0)
+	await _wait_for_black_frame()
 	_suspend_game()
 	menu_root.hide()
 	empty_page.hide()
+	var packed := await _load_game_scene()
+	if packed == null:
+		push_error("Cannot load gameplay scene: " + GAME_SCENE_PATH)
+		await _restore_menu_after_load_failure()
+		return
 	# Every New Game starts with the entire story; Continue resumes its session.
 	opening.prepare()
 	await _fade_to(0.0)
@@ -81,6 +84,8 @@ func start_new_game() -> void:
 	await opening.finished
 	current_page = &"transition"
 	await _fade_to(1.0)
+	# Scene instantiation stays on the main thread behind an already drawn mask.
+	await _wait_for_black_frame()
 	opening.stop()
 	if is_instance_valid(_game):
 		game_host.remove_child(_game)
@@ -92,6 +97,37 @@ func start_new_game() -> void:
 	await _fade_to(0.0)
 	transitioning = false
 	continue_game()
+
+
+func _wait_for_black_frame() -> void:
+	await get_tree().process_frame
+	# Headless servers do not emit rendering signals.
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+
+
+func _load_game_scene() -> PackedScene:
+	var request_error := ResourceLoader.load_threaded_request(GAME_SCENE_PATH, "PackedScene", true)
+	if request_error != OK:
+		push_error("Cannot request gameplay scene load: " + error_string(request_error))
+		return null
+	while true:
+		var status := ResourceLoader.load_threaded_get_status(GAME_SCENE_PATH)
+		if status == ResourceLoader.THREAD_LOAD_LOADED:
+			return ResourceLoader.load_threaded_get(GAME_SCENE_PATH) as PackedScene
+		if status == ResourceLoader.THREAD_LOAD_FAILED or status == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+			return null
+		await get_tree().process_frame
+	return null
+
+
+func _restore_menu_after_load_failure() -> void:
+	empty_page.hide()
+	menu_root.show()
+	continue_button.disabled = not is_instance_valid(_game)
+	await _fade_to(0.0)
+	current_page = &"main"
+	transitioning = false
 
 
 func _fade_to(alpha: float) -> void:

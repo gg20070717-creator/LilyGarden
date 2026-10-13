@@ -5,6 +5,18 @@ extends Resource
 @export var answer_right: StringName = &"B"
 @export var sentence_verb := "看见"
 @export var failure_text := "水面很平静，毫无波澜"
+## Disable white UI backings while retaining the original moon shapes and hit areas.
+@export var ui_backing_enabled := true
+## Opt-in moonlight text, curved slots and quiet interaction effects.
+@export var moonlight_ui_enabled := false
+## Optional local contrast mist for sentences over bright water; zero leaves it off.
+@export_range(0.0, 0.6) var moonlight_sentence_mist_opacity := 0.0
+## Independent readability settings; defaults preserve the well layout.
+@export_range(16, 96) var underwater_word_font_size: int = 32
+@export_range(24, 96) var word_font_size: int = 46
+@export var word_token_size := Vector2(120, 72)
+@export_range(1.0, 6.0) var slot_line_width: float = 1.4
+@export_range(0.0, 1.0) var slot_empty_opacity: float = 0.66
 ## False completes the puzzle and fades back to exploration without a CG.
 @export var play_success_story := true
 @export var success_image: Texture2D

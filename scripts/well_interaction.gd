@@ -3,6 +3,9 @@ extends "res://scripts/interactable.gd"
 @export var message_duration := 4.0
 @export var message_offset := Vector2(0, -195)
 
+func get_highlight_color() -> Color:
+	return MEMORY_GLOW_COLOR
+
 func interact(context: Dictionary) -> void:
 	if context["ui"].modal_open:
 		return

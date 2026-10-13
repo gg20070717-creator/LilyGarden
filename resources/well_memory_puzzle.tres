@@ -48,6 +48,8 @@ moon_fraction = 1.0
 [resource]
 script = ExtResource("1")
 options = Array[Resource]([SubResource("A"), SubResource("B"), SubResource("C"), SubResource("D"), SubResource("E")])
+ui_backing_enabled = false
+moonlight_ui_enabled = true
 moon_environment = ExtResource("3")
 moon_well = ExtResource("4")
 water_ripple = ExtResource("5")

@@ -2,6 +2,9 @@ extends "res://scripts/inspect_object.gd"
 ## Assign the dedicated brush-wash puzzle when its fragments and answer are supplied.
 @export var puzzle_definition: Resource
 
+func get_highlight_color() -> Color:
+	return MEMORY_GLOW_COLOR
+
 func interact(context: Dictionary) -> void:
 	if context["ui"].modal_open or not can_interact(context):
 		return
