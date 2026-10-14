@@ -2,7 +2,7 @@
 
 ## 文档职责
 
-本文说明 Lunar 在 `D:/godot/demo/demo2` 内的运行结构、模块职责、接口及扩展方式。静态核对日期：2026-10-15，依据当前 `.gd`、`.tscn`、`.tres` 与项目配置整理。当前同步三处谜题的碎片中文名、有序组合剧情与浮现组件；未由 Codex 启动试玩、验证场景或自动化测试，文中描述不构成运行验收结论。
+本文说明 Lunar 在 `D:/godot/demo/demo2` 内的运行结构、模块职责、接口及扩展方式。静态核对日期：2026-10-15，依据当前 `.gd`、`.tscn`、`.tres` 与项目配置整理。当前包含三处谜题的有序组合剧情、微剧情浮现及洗笔桶情节块 2 的黑底对白接入；未由 Codex 启动试玩、验证场景或自动化测试，文中描述不构成运行验收结论。
 
 - 开发操作、项目边界及验证要求见 [AGENTS.md](../AGENTS.md)。
 - 当前接入内容、占位与后续事项见 [项目状态](project_status.md)。
@@ -270,7 +270,7 @@ context["ui"].open_puzzle(definition, context["state"].owned_fragment_ids())
 
 阶段为 `MOON`、`RISING`、`WORD`、`FEEDBACK`、`INTRO`、`RESOLVING`、`STORY`、`ECHO`、`RETURNING`。常规流程是选月相 -> 浮词 -> 两槽填词 -> 组合判定；前置对白、成功扫光、CG 与微剧情在相应阶段衔接。
 
-未持有的月相隐藏并拒绝拖动；至少投入一块才可 Enter 进入填词，至少填入一槽才可再次确认。可替换、交换槽中词牌或拖回水面取消。三处谜题先用稳定 `choice_id` 匹配 `BY_PUZZLE` 中的有序路由，显示文字独立维护为 A=港湾、B=涌泉、C=潮汐。路由表外组合或少填沿用失败反馈，按 `failure_duration` 清空本轮投入和槽位，库存保留；只有未定义组合路由的入口才使用 `answer_left/answer_right` 与 `play_success_story` 的旧行为。
+未持有的月相隐藏并拒绝拖动；至少投入一块才可 Enter 进入填词，至少填入一槽才可再次确认。可替换、交换槽中词牌或拖回水面取消。三处谜题先用稳定 `choice_id` 匹配 `BY_PUZZLE` 中的有序路由，显示文字独立维护为 A=港湾、B=涌泉、C=潮汐。路由表外组合或少填沿用失败反馈，按 `failure_duration` 清空本轮投入和槽位，库存保留；未定义组合路由的入口使用 `answer_left/answer_right` 判定。`play_success_story` 继续控制现有成功演出路径是否播放对白，水井与洗笔桶均启用；微剧情和代码 CG 占位走各自的浮现路径。
 
 拖拽数据带 `{kind, choice_id, puzzle_instance}`，`accepts_drag()` 同时检查实例身份、阶段和资格。实例深拷贝路由及待播 payload，单轮操作不修改共享 Resource 或常量数据。退出或重置时清理动画、浮现 Tween、计时器、临时词牌与待播内容；GameUI 关闭时取消仍在进行的 GUI 拖拽并释放解谜实例。
 
@@ -299,7 +299,7 @@ context["ui"].open_puzzle(definition, context["state"].owned_fragment_ids())
 | `memory_combination_stories.gd` | 三处谜题共 12 条有序组合路由及微剧情文字、CG 占位数据 |
 | `memory_echo.gd` | 原谜题背景上的淡雾、月光文字浮现与 CG 占位；补齐、继续、淡出及 Tween 清理 |
 | `well_memory_story.gd` | 水井 `INTRO_PAGES`、`NARRATIVE_PAGES`、`FOLLOWUP_PAGES` 数据 |
-| `brush_wash_memory_story.gd` | 洗笔桶 `INTRO_PAGES` 三句前置对白 |
+| `brush_wash_memory_story.gd` | 洗笔桶 `INTRO_PAGES` 三句前置对白及情节块 2 的 `NARRATIVE_PAGES` |
 
 ### 三处谜题配置差异
 
@@ -308,13 +308,13 @@ context["ui"].open_puzzle(definition, context["state"].owned_fragment_ids())
 | 定义 | `resources/well_memory_puzzle.tres` | `resources/fish_tank_memory_puzzle.tres` | `resources/brush_wash_memory_puzzle.tres` |
 | 入口 | 靠近 F，任意匹配碎片可尝试 | 点击或靠近 F，任意匹配碎片可尝试 | 点击或靠近 F，任意匹配碎片可尝试 |
 | 阶段编号 / 动词 | 1 / 看见 | 3 / 选择了 | 2 / 之中有 |
-| 组合路由 | A→B 为情节块 1；B→A 为微剧情 | A→B 为情节块 3 占位；其余五种 A/B/C 异词组合为微剧情 | A→C 为情节块 2 占位；C→A、B→C、C→B 为微剧情 |
+| 组合路由 | A→B 为情节块 1；B→A 为微剧情 | A→B 为情节块 3 占位；其余五种 A/B/C 异词组合为微剧情 | A→C 为情节块 2 黑底对白；C→A、B→C、C→B 为微剧情 |
 | 前置对白 | A+B 首次齐备时请求水井对白 | 不请求前置对白 | 本局首次有匹配碎片进入时播放三句对白 |
 | 碎片接收 | 水井外接矩形 `(600, 842, 750, 230)`，margin 24 | 鱼缸外接矩形 `(701, 339, 1060, 490)`，margin 24 | 洗笔桶外接矩形 `(760, 310, 700, 770)`，margin 24 |
 | 水面效果 / 词语取消 | `moon_water_rect` 内椭圆 | `water_drop_polygon` 四边形 | `water_drop_polygon` 贴合桶内水面 |
 | 拖拽引导 | 左上 `(32, 32)`，目标名“水井” | 右上 `(1290, 112)`，目标名“鱼缸” | 左下 `(48, 710)`，目标名“洗笔桶”；三处共享已显示状态 |
 | 浮词时机 | Enter 后统一浮词，`rise_on_drop=false` | 每次投入后立即浮词，动画结束可继续投入 | 每次投入后立即浮词，`rise_on_drop=true`，0.9 秒后可继续投入 |
-| CG 后 / 微剧情后 | 情节块 1 完整读完后返回探索并衔接后续对白；微剧情回选碎片 | 情节块 3 占位读完后返回探索；微剧情回选碎片 | 情节块 2 占位读完后返回探索；微剧情回选碎片 |
+| CG 后 / 微剧情后 | 情节块 1 完整读完后返回探索并衔接后续对白；微剧情回选碎片 | 情节块 3 占位读完后返回探索；微剧情回选碎片 | 情节块 2 读完后返回画室原位置；微剧情回选碎片，无后续普通对白 |
 | 水波纹 | 配置 SpriteFrames | 未配置 | 未配置 |
 | 可选 UI | 无白底、月光文字/槽位 | 无白底、月光文字/槽位，独立字号与句子柔雾 | 无白底、月光文字/槽位，句子柔雾透明度 0.21 |
 
@@ -322,11 +322,11 @@ context["ui"].open_puzzle(definition, context["state"].owned_fragment_ids())
 
 三处共 12 条组合的剧情 ID 与对应词见 [项目状态的组合剧情映射](project_status.md#组合剧情映射)。`micro` 在 `ECHO` 阶段调用 `memory_echo.gd`，淡化原背景并让文字轻微上浮显现，配细光线与稀疏光点；沿用项目字体，不显示常规对白框或角色立绘。左键/Enter/空格/F 先补齐浮现，再继续淡出，读完清空本轮尝试并返回 `MOON`，库存与共享拖拽引导标记保留，不发出 `restoration_succeeded`，不请求水井后续对白。
 
-`cg_existing` 复用水井 `NARRATIVE_PAGES` 与现有 CG，`cg_placeholder` 通过浮现组件展示“情节块 2/3 · CG 占位”和“画面待补充”。CG 路由开始显示时发出 `restoration_succeeded(puzzle_id)`，由 GameUI 转发，读完后返回探索。水井完整读完 `NARRATIVE_PAGES` 后才发出 `followup_requested(pages)`；Esc 提前退出演出不会排入后续对白，微剧情与占位 CG 均沿用 Esc 退出谜题规则。
+`cg_existing` 读取当前定义的 `story_script:NARRATIVE_PAGES` 并进入 `STORY`：水井使用现有分段 CG，洗笔桶的 `cg_02` 使用全屏黑底和通用对白框。洗笔桶启用 `play_success_story`，`success_image` 未配置，剧情页没有 `cg_image`，因此整段不显示图片；各页 `show_protagonist = false`，仅以“妈妈”“你”“小泠”等说话人标签与旁白呈现用户提供的文本。`cg_placeholder` 保留鱼缸“情节块 3 · CG 占位”和“画面待补充”的浮现组件。CG 路由开始显示时发出 `restoration_succeeded(puzzle_id)`，由 GameUI 转发，读完后返回探索。水井完整读完 `NARRATIVE_PAGES` 后才发出 `followup_requested(pages)`；洗笔桶没有 `FOLLOWUP_PAGES`。Esc 提前退出演出不会排入后续对白，微剧情与占位 CG 均沿用 Esc 退出谜题规则。
 
 GameUI 暂存后续页，收到 `return_started` 时恢复探索世界显示但继续锁定输入，等待解谜淡出和 `exit_requested`。`close_view()` 释放解谜后直接打开待续对白，避免恢复移动后再重新锁定。
 
-`story_script` 通过脚本常量加载三类页数据。普通页格式由 StoryDialogue 解析；解谜演出额外读取 `cg_image`。当前水井将 AtlasTexture 区域作为 3508 x 2480 合成画布中的位置与尺寸，首次遇到各分镜时淡入并保留先前分镜。普通图片路径使用单图显示。新增剧情结构若超出这些规则，需要同时扩展演出逻辑。
+`story_script` 通过脚本常量加载三类页数据。普通页格式由 StoryDialogue 解析；解谜演出额外读取 `cg_image`。当前水井将 AtlasTexture 区域作为 3508 x 2480 合成画布中的位置与尺寸，首次遇到各分镜时淡入并保留先前分镜。普通图片路径使用单图显示。洗笔桶情节块 2 的长段落按自然句分页，保留台词与旁白顺序，复用左键/Enter/空格/F 补齐和翻页及黑底、对白框的淡入淡出；雨声与新增演出待后续素材和需求。新增剧情结构若超出这些规则，需要同时扩展演出逻辑。
 
 洗笔桶 `puzzle_definition` 绑定独立资源，使用稳定的 A—E 库存映射；未持有选项隐藏，D/E 来源继续预留。首次前置对白沿用实例的 `INTRO` 阶段、`introduction_started` 与 GameState 剧情标记机制。创世纪已在 `studio_genesis_interaction.gd` 默认 `story_pages` 中接入五页对白，复用普通查看物件的交互范围、白色光晕与输入分发；每次交互从第一页开始，具体故事时序见项目状态文档。
 
