@@ -2,7 +2,7 @@
 
 ## 范围与阅读顺序
 
-- 本文件仅适用于本目录及子目录。项目本机路径为 `D:/godot/demo/demo2`，项目显示名为 `Lunar`，Git 仓库名为 `LilyGarden`。
+- 本文件仅适用于本目录及子目录。项目本机路径为 `D:/godot/demo/demo2`，项目显示名与 Git 仓库名均为 `Lunar`。
 - 继承上层 `D:/godot/AGENTS.md` 的表达、Godot MCP 和测试偏好；优先遵循用户当前指令。
 - 开始任务先读 [README](README.md)，按任务查阅 [架构说明](docs/architecture.md)、[项目状态与待办](docs/project_status.md)、[美术资产规范](docs/art_assets.md) 和 [音频资源规范](docs/audio_assets.md)。
 - 以实际脚本、场景和资源核对实现。发现文档与文件不一致时说明差异；玩法和剧情调整以用户确认内容为准。

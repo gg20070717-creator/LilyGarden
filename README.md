@@ -1,6 +1,6 @@
 # Lunar
 
-Godot 4.7.2 / GDScript / 2D 叙事探索与记忆还原游戏。本机项目目录为 `D:/godot/demo/demo2`，仓库名为 `LilyGarden`。
+Godot 4.7.2 / GDScript / 2D 叙事探索与记忆还原游戏。本机项目目录为 `D:/godot/demo/demo2`，仓库名为 `Lunar`。
 
 ## 运行与操作
 
