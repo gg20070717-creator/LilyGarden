@@ -1,9 +1,10 @@
-[gd_resource type="Resource" load_steps=10 format=3]
+[gd_resource type="Resource" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/puzzles/memory_puzzle_definition.gd" id="definition"]
 [ext_resource type="Script" path="res://scripts/puzzles/memory_option.gd" id="option"]
 [ext_resource type="Texture2D" path="res://assets/art/puzzles/fish_tank/backgrounds/fish_tank_environment.png" id="environment"]
 [ext_resource type="Texture2D" path="res://assets/art/puzzles/fish_tank/backgrounds/fish_tank_layer.png" id="tank"]
+[ext_resource type="Script" path="res://scripts/puzzles/fish_tank_memory_story.gd" id="story"]
 
 [sub_resource type="Resource" id="A"]
 script = ExtResource("option")
@@ -59,7 +60,8 @@ word_font_size = 64
 word_token_size = Vector2(144, 96)
 slot_line_width = 3.2
 slot_empty_opacity = 0.95
-play_success_story = false
+play_success_story = true
+story_script = ExtResource("story")
 moon_environment = ExtResource("environment")
 moon_well = ExtResource("tank")
 moon_reference_size = Vector2(1920, 1080)

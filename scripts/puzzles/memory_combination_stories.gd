@@ -52,9 +52,7 @@ const BY_PUZZLE: Dictionary = {
 			"left": &"A",
 			"right": &"B",
 			"id": "cg_03",
-			"kind": &"cg_placeholder",
-			"title": "情节块 3 · CG 占位",
-			"text": "画面待补充",
+			"kind": &"cg_existing",
 		},
 		{
 			"left": &"A",
