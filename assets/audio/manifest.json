@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "asset_pack": "demo2_audio",
+  "assets": [
+    {
+      "id": "bgm_hide",
+      "source_filename": "Hide.wav",
+      "path": "res://assets/audio/bgm/hide.wav",
+      "category": "bgm",
+      "usage": "exploration",
+      "container": "wav",
+      "encoding": "pcm_s32le",
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 32,
+      "sample_frames": 5285648,
+      "duration_seconds": 110.117666666667,
+      "file_bytes": 42287278,
+      "sha256": "95fe88298f5d2943f52542c516240af11a04e6f864476137ba6214425f8e6acb",
+      "loop_begin_frame": 0,
+      "loop_last_frame": 5285647,
+      "import_loop_end": -1,
+      "import_compression": "pcm",
+      "note": "Original source preserved; Godot imports PCM32 as PCM16 without trimming, normalization or resampling."
+    },
+    {
+      "id": "bgm_seek",
+      "source_filename": "SEEK.wav",
+      "path": "res://assets/audio/bgm/seek.wav",
+      "category": "bgm",
+      "usage": "well_fish_tank_and_brush_wash_puzzles",
+      "container": "wav",
+      "encoding": "pcm_s32le",
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 32,
+      "sample_frames": 5285648,
+      "duration_seconds": 110.117666666667,
+      "file_bytes": 42287278,
+      "sha256": "f501cb832e0a07bc8947b030d01ebadf43f366d6c0e102596cfc4462d9bbc7cd",
+      "loop_begin_frame": 0,
+      "loop_last_frame": 5285647,
+      "import_loop_end": -1,
+      "import_compression": "pcm",
+      "note": "Shares the same sample count and loop points with bgm_hide."
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 extends Control
 var puzzle
 var drop_polygon := PackedVector2Array()
+## Fragment-only bounds in local coordinates, including the caller's scaled margin.
+var fragment_drop_rect := Rect2()
 var draw_surface := true:
 	set(value):
 		if draw_surface != value:
@@ -19,8 +21,22 @@ func contains_local(point: Vector2) -> bool:
 	var normalized := (point - size * 0.5) / (size * 0.5)
 	return normalized.length_squared() <= 1.0
 
+func contains_fragment_local(point: Vector2) -> bool:
+	return fragment_drop_rect.has_point(point) if fragment_drop_rect.has_area() else contains_local(point)
+
+func _has_point(point: Vector2) -> bool:
+	if puzzle != null and get_viewport().gui_is_dragging():
+		var data: Variant = get_viewport().gui_get_drag_data()
+		if puzzle.accepts_drag(data, &"moon"):
+			return contains_fragment_local(point)
+	return contains_local(point)
+
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
-	return puzzle != null and contains_local(at_position) and (puzzle.accepts_drag(data, &"moon") or puzzle.accepts_drag(data, &"word"))
+	if puzzle == null:
+		return false
+	if puzzle.accepts_drag(data, &"moon"):
+		return contains_fragment_local(at_position)
+	return puzzle.accepts_drag(data, &"word") and contains_local(at_position)
 
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	if data["kind"] == &"moon":

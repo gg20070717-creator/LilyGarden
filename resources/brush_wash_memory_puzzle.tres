@@ -1,0 +1,79 @@
+[gd_resource type="Resource" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/puzzles/memory_puzzle_definition.gd" id="definition"]
+[ext_resource type="Script" path="res://scripts/puzzles/memory_option.gd" id="option"]
+[ext_resource type="Texture2D" path="res://assets/art/puzzles/brush_wash/backgrounds/brush_wash_environment.png" id="environment"]
+[ext_resource type="Script" path="res://scripts/puzzles/brush_wash_memory_story.gd" id="story"]
+
+[sub_resource type="Resource" id="A"]
+script = ExtResource("option")
+choice_id = &"A"
+fragment_id = &"bedroom_photo_01"
+fragment_display_name = "港湾"
+word = "港湾"
+moon_fraction = 0.18
+
+[sub_resource type="Resource" id="B"]
+script = ExtResource("option")
+choice_id = &"B"
+fragment_id = &"corridor_photo_02"
+fragment_display_name = "涌泉"
+word = "涌泉"
+moon_fraction = 0.35
+
+[sub_resource type="Resource" id="C"]
+script = ExtResource("option")
+choice_id = &"C"
+fragment_id = &"memory_fragment_03"
+fragment_display_name = "潮汐"
+word = "潮汐"
+moon_fraction = 0.5
+
+[sub_resource type="Resource" id="D"]
+script = ExtResource("option")
+choice_id = &"D"
+fragment_id = &"memory_fragment_04"
+word = "D"
+moon_fraction = 0.78
+
+[sub_resource type="Resource" id="E"]
+script = ExtResource("option")
+choice_id = &"E"
+fragment_id = &"memory_fragment_05"
+word = "E"
+moon_fraction = 1.0
+
+[resource]
+script = ExtResource("definition")
+puzzle_id = &"brush_wash_memory"
+options = Array[Resource]([SubResource("A"), SubResource("B"), SubResource("C"), SubResource("D"), SubResource("E")])
+answer_left = &"B"
+answer_right = &"C"
+sentence_verb = "之中有"
+failure_text = "水面毫无波澜。"
+ui_backing_enabled = false
+moonlight_ui_enabled = true
+moonlight_sentence_mist_opacity = 0.21
+underwater_word_font_size = 46
+word_font_size = 64
+word_token_size = Vector2(144, 96)
+slot_line_width = 3.2
+slot_empty_opacity = 0.95
+play_success_story = false
+story_script = ExtResource("story")
+moon_environment = ExtResource("environment")
+moon_reference_size = Vector2(1920, 1080)
+moon_water_rect = Rect2(820, 415, 570, 385)
+fragment_drop_rect = Rect2(760, 310, 700, 770)
+fragment_drop_margin = 24.0
+drag_hint_target_name = "洗笔桶"
+drag_hint_rect = Rect2(48, 710, 460, 224)
+moon_centers = PackedVector2Array(442, 345, 815, 172, 1314, 148, 1682, 364, 1762, 710)
+moon_token_size = Vector2(350, 350)
+underwater_word_centers = PackedVector2Array(960, 545, 1050, 500, 1160, 545, 1080, 595, 1260, 585)
+sentence_rect = Rect2(800, 640, 680, 88)
+water_drop_polygon = PackedVector2Array(23, 106, 96, 61, 291, 13, 359, 0, 416, 42, 481, 120, 552, 241, 564, 272, 544, 286, 222, 375, 168, 377, 133, 348, 61, 215)
+enter_hint_center = Vector2(1110, 980)
+feedback_center = Vector2(1110, 970)
+rise_on_drop = true
+rise_duration = 0.9

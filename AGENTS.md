@@ -1,0 +1,79 @@
+# demo2 / Lunar 开发约定
+
+## 范围与阅读顺序
+
+- 本文件仅适用于本目录及子目录。项目本机路径为 `D:/godot/demo/demo2`，项目显示名为 `Lunar`，Git 仓库名为 `LilyGarden`。
+- 继承上层 `D:/godot/AGENTS.md` 的表达、Godot MCP 和测试偏好；优先遵循用户当前指令。
+- 开始任务先读 [README](README.md)，按任务查阅 [架构说明](docs/architecture.md)、[项目状态与待办](docs/project_status.md)、[美术资产规范](docs/art_assets.md) 和 [音频资源规范](docs/audio_assets.md)。
+- 以实际脚本、场景和资源核对实现。发现文档与文件不一致时说明差异；玩法和剧情调整以用户确认内容为准。
+- 修改限定在任务涉及的模块，保留用户已有修改。新增功能、剧情、答案、道具消耗及美术生成按用户要求进行。
+
+## 工具与验证
+
+- 引擎为 `D:/godot/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64.exe`，运行入口为 `res://scenes/ui/main_menu.tscn`。
+- 操作编辑器优先 `godot-ai`，调用前核对会话的项目绝对路径。连接不可用或需要独立命令行/批处理时使用 `godot-solo`。
+- 同一次修改、保存和验证流程使用同一个 MCP。切换前保存场景、等待资源刷新并停止上一工具启动的游戏；禁止同时修改同一文件或重复启动同一游戏。
+- `addons/godot_ai` 已在 `project.godot` 启用，并注册 `_mcp_game_helper`。调整插件时同步这些引用；本机 MCP 客户端配置不随项目提交。
+- 常规功能开发不主动运行自动化测试、验证场景或试玩，手工测试由用户进行。用户明确要求测试或修复 bug 时，再按影响范围验证。
+- 当前脚本使用 GDScript。后续 C# 修改需要 `dotnet build`，Godot AI 的文本编辑结果不代表 C# 编译通过。
+- 文档修改只核对内容、链接与差异，无需运行引擎。`tests/` 中的历史验证脚本先核对当前接口与需求，再按需运行；保留源文件，生成物放忽略的 `verification/`。
+
+## 场景与生命周期
+
+- `scenes/ui/main_menu.tscn` 管理菜单、开场、暂停和游戏会话。新游戏完整播放开场并重建游玩实例；继续游戏恢复本次运行的内存实例。
+- `main.tscn` 保留 `GameState`、`BGM`、`World/Player`、`World/Camera`、`World/LevelHost` 和 `UI`。地点切换通过 `game.change_level()` 替换 `LevelHost` 内的地点，保持玩家、UI、BGM 和状态。
+- `change_level()` 包含异步加载与淡入淡出，需要切换结果的调用方使用 `await`。旧地点的交互节点会释放，到达提示交给常驻主场景处理。
+- 地点根节点使用 `scripts/level.gd`；沿用 `MovementBounds`、`Geometry`、`Interactables`、`SpawnPoints` 结构，以及 `level_id`、`camera_bounds` 配置。
+- 可被主场景发现的交互节点直接放在 `Interactables` 下。门户配置目标场景与 `SpawnPoints/<spawn_id>`，新增或调整通路时同步往返出生点。
+- 镜头视野由 `main.gd` 的 `camera_view_size` 管理，物理边界由 `movement_bounds.gd` 管理，家具与内墙另设碰撞；分别维护这些配置。
+
+## 交互与状态
+
+- 新交互继承 `scripts/interactable.gd`，沿用 `can_interact(context)`、`interact(context)` 和 `{game, player, state, ui}` 四个上下文键。
+- F 交互以角色脚点选择范围内最近目标。`interaction_rect` 为相对交互锚点的局部矩形，空矩形使用角色默认距离；按需求配置可接近的锚点。
+- 点击查看通过 `contains_click(world_position)` 接入现有分发；仅为需要点击交互的物件实现该接口。
+- `visual_path` 绑定可见物件，交互范围与图片尺寸独立。普通目标为白色光晕，记忆收集物和解谜入口使用幽蓝色；收集后保留记忆物件的颜色。
+- 收集与剧情标记通过 GameState 的 `collect_fragment`、`collect_key`、`mark_story_event_seen` 等接口更新。碎片、钥匙、剧情事件及谜题 ID 保持稳定，重复奖励由状态接口去重。
+- 门户只检查钥匙持有条件，现有钥匙不消耗；无钥匙保留“已上锁”提示，成功进入后不自动显示“已解锁”。状态跨地点保留，新游戏或关闭进程后重置。
+- `restoration_succeeded(puzzle_id)` 当前作为完成事件转发，尚未写入谜题完成集合；新增完成记录或后果时显式设计状态接入。
+
+## UI、对白与谜题
+
+- 弹窗、CG、收集、对白和谜题通过 GameUI 的现有方法打开，维护 `modal_open`、`view_state_changed` 与关闭清理。
+- 保持场景过渡、首次操作说明、模态输入的拦截顺序。Esc 优先关闭当前模态，一级探索界面再打开暂停；同次输入不连带触发下一层操作。
+- 当前以首次游玩键帽说明和物件光晕引导交互。场景内常驻“按F交互”提示已移除；剧情文字、字条和解谜阶段提示按现有规则显示。
+- 水井、鱼缸与洗笔桶共用每局一次的拖拽引导，显示状态由 GameUI 的 `puzzle_drag_hint_seen` 管理。只有有可拖碎片并实际进入选碎片阶段时，才通过 `drag_hint_presented` 记录已显示；已配置前置对白先于引导，重试和重新进入不重复，新游戏重置。
+- 拖拽引导保持非阻塞：可直接拖拽，首块成功投入后淡出；任意非 Esc 按键收起并消耗事件，Esc 继续退出谜题。样式与摆放复用 `memory_drag_hint.gd` 及定义中的 `drag_hint_target_name/drag_hint_rect`，按窗口等比适配并限制在视口内。
+- 普通正文与收集界面沿用项目字体、黑字浅底和既有字号；菜单使用图片文字，开场与对白沿用各自主题，水井、鱼缸与洗笔桶使用独立的月光文字样式。避免将通用样式强制覆盖这些界面。
+- 通用对白复用 `scripts/ui/story_dialogue.gd`，通过页数据配置 speaker、text、expression、shake 等字段。主角首次出现后在本段对白中持续保留，Luna 使用画外音；不自行添加未提供的演出或声音。页震动由共用对白管理，翻页、结束或关闭时清理偏移。
+- 水井、鱼缸与洗笔桶复用 `scenes/puzzles/memory_puzzle.tscn`，各自使用独立的 `MemoryPuzzleDefinition` 资源；优先配置现有字段扩展布局和行为。整图背景允许仅配置 `moon_environment`，`moon_well` 为可选叠加层。
+- 谜题接收库存快照，尝试状态属于该实例；拖拽、失败重试和退出不消耗库存、不修改共享定义。组合剧情按 `memory_combination_stories.gd:BY_PUZZLE` 的谜题 ID 与左右有序 `choice_id` 匹配，实例深拷贝路由和待播数据；有路由定义时优先使用路由，旧答案字段只作无路由定义的兼容配置。
+- 碎片名称与稳定 ID 分离维护：A/`bedroom_photo_01` 为港湾，B/`corridor_photo_02` 为涌泉，C/`memory_fragment_03` 为潮汐；收集提示、谜题展示名和词牌同步，D/E 名称与来源按已有预留维护。
+- 月相碎片接收范围使用绝对参考坐标 `fragment_drop_rect` 与 `fragment_drop_margin`，当前三处谜题覆盖整个物体外接矩形并各加 24 像素参考容错。`moon_water_rect/water_drop_polygon` 继续管理水面效果和词语拖回取消；调整碎片接收范围不放大图片、涟漪、浮词或词槽。`Water._has_point()` 与 `_can_drop_data()` 保持一致的范围、实例和阶段校验。
+- 微剧情在当前谜题背景上直接浮现文字，读完返回选碎片阶段并保留库存与共享引导标记，不发出完成事件。CG 路由进入完成处理并返回探索；完整读完水井情节块 1 才衔接后续对白。Esc 提前退出沿用当前规则，关闭或重置时清理拖拽、浮现 Tween、临时控件与待播放内容。
+- 洗笔桶前置对白以 `brush_wash_memory_intro` 记录本局已开始，提前退出保留标记，新游戏重置。三处句型、布局和组合剧情独立维护；碎片 D/E 来源、待补 CG 和菜单空页面保持明确的预留状态，接入条件见项目状态文档。
+
+## 背景音乐
+
+- BGM 位于常驻游戏根的 `BGM` 节点，复用 `scripts/audio/bgm_controller.gd` 和 `resources/audio/gameplay_bgm.tres` 的单播放器双 clip，沿用 `start_or_resume/suspend/set_puzzle_active/stop` 接口。
+- 整段开场与卧室淡入结束前无音乐，可自由操作界面开始 Hide；水井、鱼缸或洗笔桶谜题打开后含前置剧情、微剧情与 CG 使用 SEEK，微剧情读完继续解谜保持 SEEK，`return_started` 或 Esc 关闭时切回 Hide，后续普通对白保持 Hide。普通收集、图片和地点切换保留当前播放时间。
+- 暂停与回主菜单显式冻结音频时间，继续恢复；新游戏重建后从 0 开始。主菜单无新增 BGM。
+- Hide/SEEK 双向转换保留 `IMMEDIATE + SAME_POSITION + FADE_CROSS` 及 `fade_beats = 0.03`，当前无 BPM 的 WAV 对应约 30 ms 逐采样平滑。默认 `-6 dB`、Master bus，音效和设置页仍待后续需求。
+- 音轨原文件、导入与循环参数遵循音频规范。成对维护帧长、采样率、音乐起点和循环范围；源文件校验与静态参数相同不代表听感已验收。
+
+## 资源与交付
+
+- 运行资源存放在项目内并使用 `res://` 引用。运行文件名用英文小写与下划线；现有 `LunarTitleFX/` 为已接入的独立模块，移动时同步脚本和场景引用。
+- 图片、AtlasTexture 显示区域、实体占地、碰撞、遮挡层级和交互锚点分别维护。`whitebox.gd` 的 `artwork*` 控制显示，`size`、`solid` 控制物理占地。
+- 沿用约 100 世界单位/米的尺度。替换美术保持角色、家具和通道的尺度关系；缺少素材的物件继续使用白模或代码占位。
+- 字体通过 `ui_font.tres` 引用项目内寒蝉点阵体；具体过滤、导入、裁图、来源清单要求见美术资产规范。
+- 美术导入或替换时更新 `assets/art/manifest.json` 中对应来源、路径、区域及校验信息。保留必要 `.uid`、资源和 `.import` 设置，忽略 `.godot/` 与验证输出。
+- 音频独立维护 `assets/audio/manifest.json` 与 `docs/audio_assets.md`，运行引用项目内 `res://assets/audio/`；微信来源路径不作为运行依赖，原文件字节保持。
+- Git 根目录是本目录，交付完整项目。未经要求不创建提交、推送、发布或变更仓库配置。
+
+## 文档维护
+
+- 架构、接口或生命周期变化同步 `docs/architecture.md`；完成情况、占位与待办变化同步 `docs/project_status.md`；美术资源约定变化同步 `docs/art_assets.md`，音频资源和切换约定变化同步 `docs/audio_assets.md`。
+- README 保持运行与导航简洁。AGENTS 保留稳定约束，任务清单放状态文档，避免将单次工作日志长期叠加到规范中。
+- 项目本机路径、入口或工作约定变化时，同步 `D:/godot/AGENTS.md` 和 `D:/godot/demo2_交接说明.md` 的对应信息。
+- 状态文档记录核对日期、依据和待确认事项。区分静态核对与实际验证，保留验证范围和未验证项。

@@ -12,6 +12,7 @@ const InteractionScript = preload("res://scripts/interactable.gd")
 @onready var level_host: Node2D = $World/LevelHost
 @onready var state = $GameState
 @onready var ui = $UI
+@onready var bgm = $BGM
 var level: LevelScript
 var current_target: InteractionScript
 var transitioning := false
@@ -22,6 +23,7 @@ func _ready() -> void:
 	_setup_input()
 	context = {"game": self, "player": player, "state": state, "ui": ui}
 	ui.view_state_changed.connect(_on_view_state_changed)
+	ui.dialogue.shake_offset_changed.connect(_on_dialogue_shake_offset_changed)
 	state.fragment_acquired.connect(_on_fragment_acquired)
 	get_viewport().size_changed.connect(_fit_camera)
 	_setup_room_transition()
@@ -204,8 +206,18 @@ func _update_camera() -> void:
 	# Refresh before UI projects its world-anchored interaction labels.
 	camera.force_update_scroll()
 
+func _on_dialogue_shake_offset_changed(offset: Vector2) -> void:
+	# Convert reference-canvas motion to world units; move the world with the dialogue.
+	var pixel_offset: Vector2 = offset * ui.dialogue.artwork.scale
+	camera.offset = -pixel_offset / camera.zoom
+	camera.force_update_scroll()
+
 func _on_view_state_changed(is_open: bool) -> void:
 	$World.visible = not ui.is_puzzle_covering_world()
+	var puzzle_music: bool = ui.is_puzzle_covering_world()
+	if puzzle_music:
+		puzzle_music = ui.active_puzzle.definition.puzzle_id in [&"well_memory", &"fish_tank_memory", &"brush_wash_memory"]
+	bgm.set_puzzle_active(puzzle_music)
 	player.input_blocked = is_open or transitioning or ui.is_controls_hint_open()
 	player.velocity = Vector2.ZERO
 	_select_target()

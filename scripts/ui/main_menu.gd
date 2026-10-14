@@ -159,6 +159,7 @@ func continue_game() -> void:
 	_game.process_mode = Node.PROCESS_MODE_INHERIT
 	_game.get_node("UI").show()
 	_game.get_node("World/Camera").enabled = true
+	_game.get_node("BGM").call("start_or_resume")
 	get_viewport().set_input_as_handled()
 
 
@@ -196,6 +197,7 @@ func request_load_slot(slot_id: StringName) -> void:
 func _suspend_game() -> void:
 	if not is_instance_valid(_game):
 		return
+	_game.get_node("BGM").call("suspend")
 	_game.process_mode = Node.PROCESS_MODE_DISABLED
 	_game.hide()
 	_game.get_node("UI").hide()
@@ -211,6 +213,7 @@ func pause_game() -> void:
 	if bool(_game.get_node("UI").get("modal_open")) or bool(_game.get("transitioning")):
 		return
 	# Keep the world, camera and UI rendered for the two Gaussian blur passes.
+	_game.get_node("BGM").call("suspend")
 	_game.process_mode = Node.PROCESS_MODE_DISABLED
 	_game.get_node("World/Player").velocity = Vector2.ZERO
 	current_page = &"pause"

@@ -1,6 +1,7 @@
 extends "res://scripts/inspect_object.gd"
-## Assign the dedicated brush-wash puzzle when its fragments and answer are supplied.
-@export var puzzle_definition: Resource
+## The studio bucket shares inventory and the common memory-puzzle flow.
+const INTRO_EVENT: StringName = &"brush_wash_memory_intro"
+@export var puzzle_definition: Resource = preload("res://resources/brush_wash_memory_puzzle.tres")
 
 func get_highlight_color() -> Color:
 	return MEMORY_GLOW_COLOR
@@ -13,6 +14,9 @@ func interact(context: Dictionary) -> void:
 		for option: Resource in puzzle_definition.options:
 			if option != null and owned_ids.has(option.fragment_id):
 				interacted.emit(context)
-				context["ui"].open_puzzle(puzzle_definition, owned_ids)
+				var show_intro: bool = not context["state"].has_seen_story_event(INTRO_EVENT)
+				var opened: bool = context["ui"].open_puzzle(puzzle_definition, owned_ids, show_intro)
+				if opened and show_intro and context["ui"].active_puzzle.introduction_started:
+					context["state"].mark_story_event_seen(INTRO_EVENT)
 				return
 	super.interact(context)

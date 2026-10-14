@@ -16,8 +16,6 @@ const PAGES: Array[Dictionary] = [
 ]
 var dialogue: StoryDialogue
 var black: ColorRect
-var _shake_remaining := 0.0
-var _shake_elapsed := 0.0
 var _reveal_tween: Tween
 
 func _ready() -> void:
@@ -32,12 +30,10 @@ func _ready() -> void:
 	dialogue.name = "Dialogue"
 	add_child(dialogue)
 	dialogue.finished.connect(_on_finished)
-	dialogue.page_changed.connect(_on_page_changed)
 	hide()
 
 func prepare() -> void:
 	dialogue.stop()
-	_shake_remaining = 0.0
 	show()
 
 func start() -> void:
@@ -49,26 +45,10 @@ func start() -> void:
 func handle_input(event: InputEvent) -> bool:
 	return dialogue.handle_input(event)
 
-func _on_page_changed(index: int) -> void:
-	if bool(PAGES[index].get("shake", false)):
-		_shake_remaining = 0.55
-		_shake_elapsed = 0.0
-
-func _process(delta: float) -> void:
-	if _shake_remaining <= 0.0:
-		return
-	_shake_elapsed += delta
-	_shake_remaining = maxf(0.0, _shake_remaining - delta)
-	var strength := 16.0 * _shake_remaining / 0.55
-	dialogue.set_shake_offset(Vector2(sin(_shake_elapsed * 91.0), cos(_shake_elapsed * 113.0)) * strength)
-	if _shake_remaining == 0.0:
-		dialogue.set_shake_offset(Vector2.ZERO)
-
 func _on_finished() -> void:
 	finished.emit()
 
 func stop() -> void:
-	_shake_remaining = 0.0
 	if is_instance_valid(_reveal_tween):
 		_reveal_tween.kill()
 	dialogue.stop()

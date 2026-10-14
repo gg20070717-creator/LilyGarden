@@ -4,12 +4,16 @@
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
 [ext_resource type="Script" uid="uid://djmi165a121po" path="res://scripts/game_state.gd" id="3"]
 [ext_resource type="Script" uid="uid://cbopt08wvchip" path="res://scripts/game_ui.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/audio/bgm_controller.gd" id="5_bgm"]
 
 [node name="Demo2" type="Node2D" unique_id=1288137776]
 script = ExtResource("1")
 
 [node name="GameState" type="Node" parent="." unique_id=159430701]
 script = ExtResource("3")
+
+[node name="BGM" type="Node" parent="."]
+script = ExtResource("5_bgm")
 
 [node name="World" type="Node2D" parent="." unique_id=1295240299]
 

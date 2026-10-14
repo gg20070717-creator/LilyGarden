@@ -15,5 +15,4 @@ func interact(context: Dictionary) -> void:
 		context["ui"].show_note("已上锁", global_position + message_offset, 4.0)
 		return
 	# The old portal is freed during the fade; the persistent game owns completion.
-	var arrival_note := "已解锁" if required_key != &"" else ""
-	context["game"].change_level(target_scene_path, target_spawn, arrival_note, message_offset)
+	context["game"].change_level(target_scene_path, target_spawn)

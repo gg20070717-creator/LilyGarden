@@ -10,15 +10,15 @@ script = ExtResource("option")
 choice_id = &"A"
 fragment_id = &"bedroom_photo_01"
 fragment_display_name = "港湾"
-word = "A"
+word = "港湾"
 moon_fraction = 0.18
 
 [sub_resource type="Resource" id="B"]
 script = ExtResource("option")
 choice_id = &"B"
 fragment_id = &"corridor_photo_02"
-fragment_display_name = "镜面"
-word = "B"
+fragment_display_name = "涌泉"
+word = "涌泉"
 moon_fraction = 0.35
 
 [sub_resource type="Resource" id="C"]
@@ -26,7 +26,7 @@ script = ExtResource("option")
 choice_id = &"C"
 fragment_id = &"memory_fragment_03"
 fragment_display_name = "潮汐"
-word = "C"
+word = "潮汐"
 moon_fraction = 0.5
 
 [sub_resource type="Resource" id="D"]
@@ -65,6 +65,10 @@ moon_well = ExtResource("tank")
 moon_reference_size = Vector2(1920, 1080)
 moon_well_rect = Rect2(701, 339, 1060, 490)
 moon_water_rect = Rect2(737, 383, 863, 128)
+fragment_drop_rect = Rect2(701, 339, 1060, 490)
+fragment_drop_margin = 24.0
+drag_hint_target_name = "鱼缸"
+drag_hint_rect = Rect2(1290, 112, 460, 224)
 moon_centers = PackedVector2Array(200, 860, 250, 570, 410, 225, 735, 185, 1005, 200)
 moon_token_size = Vector2(160, 160)
 underwater_word_centers = PackedVector2Array(855, 615, 1005, 670, 1160, 630, 1320, 680, 1480, 610)

@@ -22,12 +22,18 @@ extends Resource
 @export var success_image: Texture2D
 ## Optional story constants INTRO_PAGES / NARRATIVE_PAGES.
 @export var story_script: Script
-## Optional well art retained through selection and word restoration, expressed in its source canvas coordinates.
+## Background retained through selection and word restoration; moon_well is an optional foreground layer.
 @export var moon_environment: Texture2D
 @export var moon_well: Texture2D
 @export var moon_reference_size := Vector2(1920, 1080)
 @export var moon_well_rect := Rect2(600, 842, 750, 230)
 @export var moon_water_rect := Rect2(630, 877, 690, 105)
+## Fragment-only bounds in reference canvas coordinates; empty uses the water shape.
+@export var fragment_drop_rect: Rect2 = Rect2()
+@export var fragment_drop_margin: float = 0.0
+## First-drag guide target and layout in reference canvas coordinates.
+@export var drag_hint_target_name: String = "水面"
+@export var drag_hint_rect: Rect2 = Rect2(32, 32, 460, 224)
 ## A one-shot animation below the word layer; source UVs trim transparent margins.
 @export var water_ripple: SpriteFrames
 @export var ripple_source_uv := Rect2(0.036, 0.4448, 0.9216, 0.254)

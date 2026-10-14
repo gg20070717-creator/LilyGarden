@@ -4,6 +4,7 @@ signal exit_requested
 signal return_started
 signal restoration_succeeded(puzzle_id: StringName)
 signal followup_requested(pages: Array[Dictionary])
+signal drag_hint_presented
 const TokenScript = preload("res://scripts/puzzles/memory_token.gd")
 const FONT = preload("res://ui_font.tres")
 const TextStyle = preload("res://scripts/ui_text_style.gd")
@@ -11,11 +12,15 @@ const StoryDialogue = preload("res://scripts/ui/story_dialogue.gd")
 const MoonlightHint = preload("res://scripts/puzzles/moonlight_hint.gd")
 const MoonlightEffects = preload("res://scripts/puzzles/moonlight_effects.gd")
 const MoonlightSentenceMist = preload("res://scripts/puzzles/moonlight_sentence_mist.gd")
-enum Phase { MOON, RISING, WORD, FEEDBACK, STORY, INTRO, RETURNING, RESOLVING }
+const MemoryDragHint = preload("res://scripts/puzzles/memory_drag_hint.gd")
+const MemoryEcho = preload("res://scripts/puzzles/memory_echo.gd")
+const CombinationStories = preload("res://scripts/puzzles/memory_combination_stories.gd")
+enum Phase { MOON, RISING, WORD, FEEDBACK, STORY, INTRO, RETURNING, RESOLVING, ECHO }
 @export var definition: Resource = preload("res://resources/well_memory_puzzle.tres")
 ## Caller-owned inventory snapshot. The scene never grants or consumes fragments.
 @export var available_fragment_ids: Array[StringName] = []
 @export var show_introduction := false
+@export var show_drag_hint := true
 @onready var water = $Water
 @onready var water_ripple = $Water/Ripple
 @onready var moon_environment: TextureRect = $MoonEnvironment
@@ -57,6 +62,10 @@ var moonlight_effects: Control
 var moonlight_hint_tween: Tween
 var moonlight_result_tween: Tween
 var moonlight_sentence_mist: Control
+var drag_hint: MemoryDragHint
+var memory_echo: MemoryEcho
+var combination_outcomes: Array[Dictionary] = []
+var active_outcome: Dictionary = {}
 
 func _ready() -> void:
 	var ui_theme := Theme.new()
@@ -94,10 +103,45 @@ func _ready() -> void:
 	resized.connect(_layout)
 	feedback_timer.timeout.connect(reset_attempt)
 	_setup_moonlight_ui()
+	_setup_drag_hint()
 	_setup_story()
 	reset_attempt()
 	if show_introduction and not introduction_pages.is_empty():
 		_show_introduction()
+	else:
+		_present_drag_hint()
+
+func _setup_drag_hint() -> void:
+	drag_hint = MemoryDragHint.new()
+	add_child(drag_hint)
+
+func _present_drag_hint() -> void:
+	if not show_drag_hint or phase != Phase.MOON:
+		return
+	var has_fragment := false
+	for choice_id: StringName in moon_tokens:
+		if can_drag(&"moon", choice_id):
+			has_fragment = true
+			break
+	if not has_fragment:
+		return
+	show_drag_hint = false
+	drag_hint.present(definition.drag_hint_target_name)
+	_layout_drag_hint()
+	drag_hint_presented.emit()
+
+func _layout_drag_hint() -> void:
+	if not is_instance_valid(drag_hint):
+		return
+	var hint_rect: Rect2 = definition.drag_hint_rect
+	var reference_size: Vector2 = definition.moon_reference_size.max(Vector2.ONE)
+	var fit := minf(size.x / reference_size.x, size.y / reference_size.y)
+	drag_hint.size = hint_rect.size if hint_rect.has_area() else Vector2(460, 224)
+	drag_hint.scale = Vector2.ONE * fit
+	var origin := (size - reference_size * fit) * 0.5
+	var edge_padding := Vector2.ONE * 16.0 * fit
+	var maximum := (size - drag_hint.size * fit - edge_padding).max(edge_padding)
+	drag_hint.position = (origin + hint_rect.position * fit).clamp(edge_padding, maximum)
 
 func _setup_moonlight_ui() -> void:
 	if not definition.moonlight_ui_enabled:
@@ -193,7 +237,7 @@ func _layout() -> void:
 	var h := size.y
 	var art_visible := _has_moon_art() and phase not in [Phase.STORY, Phase.RETURNING]
 	moon_environment.visible = art_visible
-	moon_well.visible = art_visible
+	moon_well.visible = art_visible and definition.moon_well != null
 	sentence_backing.visible = art_visible and definition.ui_backing_enabled
 	water.draw_surface = not art_visible
 	if art_visible:
@@ -213,6 +257,11 @@ func _layout() -> void:
 		var water_fit := _art_fit()
 		for point: Vector2 in definition.water_drop_polygon:
 			water.drop_polygon.append(point * water_fit)
+	water.fragment_drop_rect = Rect2()
+	if art_visible and definition.fragment_drop_rect.has_area():
+		# Broaden fragment input independently of water effects and word placement.
+		var drop_rect: Rect2 = definition.fragment_drop_rect.grow(maxf(0.0, definition.fragment_drop_margin))
+		water.fragment_drop_rect = Rect2(_reference_point(drop_rect.position) - water.position, drop_rect.size * _art_fit())
 	water_ripple.position = Vector2.ZERO
 	water_ripple.size = water.size
 	if phase not in [Phase.MOON, Phase.RISING]:
@@ -266,6 +315,7 @@ func _layout() -> void:
 		moonlight_esc.position = esc_hint.position
 		moonlight_esc.size = esc_hint.size
 		moonlight_effects.size = size
+	_layout_drag_hint()
 	story_panel.position = Vector2.ZERO if not narrative_pages.is_empty() else size * Vector2(0.1, 0.1)
 	story_panel.size = size if not narrative_pages.is_empty() else size * Vector2(0.8, 0.8)
 	if not narrative_pages.is_empty():
@@ -296,7 +346,7 @@ func _sentence_position() -> Vector2:
 	return size * Vector2(0.26, 0.78) if phase == Phase.MOON else size * Vector2(0.22, 0.22)
 
 func _has_moon_art() -> bool:
-	return definition.moon_environment != null and definition.moon_well != null
+	return definition.moon_environment != null
 
 func _word_home(choice_id: StringName) -> Vector2:
 	if _has_moon_art():
@@ -327,6 +377,7 @@ func accepts_drag(data: Variant, kind: StringName) -> bool:
 func add_moon(choice_id: StringName) -> void:
 	if not can_drag(&"moon", choice_id):
 		return
+	drag_hint.dismiss()
 	selected_ids.append(choice_id)
 	moon_tokens[choice_id].hide()
 	underwater_labels[choice_id].add_theme_color_override("font_color", _puzzle_text_color())
@@ -367,7 +418,7 @@ func _refresh_hint() -> void:
 	enter_hint.visible = can_confirm and not definition.moonlight_ui_enabled
 	if definition.moonlight_ui_enabled:
 		esc_hint.hide()
-		moonlight_esc.visible = phase not in [Phase.INTRO, Phase.STORY, Phase.RETURNING]
+		moonlight_esc.visible = phase not in [Phase.INTRO, Phase.STORY, Phase.RETURNING, Phase.ECHO]
 		moonlight_enter.call("set_hint", "Enter", "开始还原" if phase == Phase.MOON else "确认还原")
 		if can_confirm != moonlight_enter.visible:
 			if is_instance_valid(moonlight_hint_tween):
@@ -385,7 +436,11 @@ func confirm_restoration() -> void:
 	if phase == Phase.MOON and not selected_ids.is_empty():
 		_rise_words()
 	elif phase == Phase.WORD and (slot_ids[0] != &"" or slot_ids[1] != &""):
-		if slot_ids[0] == definition.answer_left and slot_ids[1] == definition.answer_right:
+		active_outcome = _find_combination_outcome()
+		var matched := not active_outcome.is_empty()
+		if combination_outcomes.is_empty():
+			matched = slot_ids[0] == definition.answer_left and slot_ids[1] == definition.answer_right
+		if matched:
 			_confirm_success()
 		else:
 			phase = Phase.FEEDBACK
@@ -394,6 +449,12 @@ func confirm_restoration() -> void:
 			if definition.moonlight_ui_enabled:
 				_animate_failure()
 			feedback_timer.start(definition.failure_duration)
+
+func _find_combination_outcome() -> Dictionary:
+	for outcome: Dictionary in combination_outcomes:
+		if slot_ids[0] == StringName(outcome.get("left", &"")) and slot_ids[1] == StringName(outcome.get("right", &"")):
+			return outcome.duplicate(true)
+	return {}
 
 func _surface_word_position(choice_id: StringName, token: Control) -> Vector2:
 	if not definition.underwater_word_centers.is_empty():
@@ -476,8 +537,12 @@ func _finish_rise() -> void:
 	_refresh_hint()
 
 func _show_story() -> void:
+	drag_hint.stop()
 	if is_instance_valid(moonlight_effects):
 		moonlight_effects.call("clear_effects")
+	if StringName(active_outcome.get("kind", &"")) in [&"micro", &"cg_placeholder"]:
+		_show_memory_outcome()
+		return
 	if not definition.play_success_story:
 		restoration_succeeded.emit(definition.puzzle_id)
 		_return_to_world()
@@ -510,8 +575,32 @@ func _show_story() -> void:
 		esc_hint.move_to_front()
 	restoration_succeeded.emit(definition.puzzle_id)
 
+func _show_memory_outcome() -> void:
+	phase = Phase.ECHO
+	water_ripple.stop()
+	for control: Control in [water, sentence, cards, underwater_words, esc_hint, enter_hint, feedback]:
+		control.hide()
+	_refresh_hint()
+	var is_cg := StringName(active_outcome.get("kind", &"")) == &"cg_placeholder"
+	var title := String(active_outcome.get("title", "")) if is_cg else ""
+	memory_echo.move_to_front()
+	memory_echo.present(String(active_outcome.get("text", "")), title)
+	if is_cg:
+		restoration_succeeded.emit(definition.puzzle_id)
+
+func _on_memory_echo_finished() -> void:
+	if closing or phase != Phase.ECHO:
+		return
+	if StringName(active_outcome.get("kind", &"")) == &"micro":
+		reset_attempt()
+	else:
+		_return_to_world()
+
 func reset_attempt() -> void:
 	_clear_moonlight_effects()
+	active_outcome.clear()
+	if is_instance_valid(memory_echo):
+		memory_echo.stop()
 	if is_instance_valid(story_tween):
 		story_tween.kill()
 	if is_instance_valid(story_dialogue):
@@ -552,6 +641,10 @@ func request_exit() -> void:
 	if closing:
 		return
 	closing = true
+	active_outcome.clear()
+	if is_instance_valid(memory_echo):
+		memory_echo.stop()
+	drag_hint.stop()
 	_clear_moonlight_effects()
 	if is_instance_valid(rise_tween):
 		rise_tween.kill()
@@ -570,8 +663,13 @@ func handle_input(event: InputEvent) -> bool:
 		if event.physical_keycode == KEY_ESCAPE or event.keycode == KEY_ESCAPE:
 			request_exit()
 			return true
+	if phase == Phase.ECHO:
+		return memory_echo.handle_input(event)
 	if phase in [Phase.INTRO, Phase.STORY] and story_dialogue.active:
 		return story_dialogue.handle_input(event)
+	if phase == Phase.MOON and drag_hint.is_open and event is InputEventKey and event.pressed and not event.echo:
+		drag_hint.dismiss()
+		return true
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode in [KEY_ENTER, KEY_KP_ENTER] or event.keycode in [KEY_ENTER, KEY_KP_ENTER]:
 			confirm_restoration()
@@ -587,6 +685,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		viewport.set_input_as_handled()
 
 func _setup_story() -> void:
+	combination_outcomes.assign(CombinationStories.BY_PUZZLE.get(definition.puzzle_id, []).duplicate(true))
+	memory_echo = MemoryEcho.new()
+	memory_echo.name = "MemoryEcho"
+	add_child(memory_echo)
+	memory_echo.finished.connect(_on_memory_echo_finished)
 	if definition.story_script != null:
 		var constants: Dictionary = definition.story_script.get_script_constant_map()
 		introduction_pages.assign(constants.get("INTRO_PAGES", []))
@@ -608,6 +711,7 @@ func _setup_story() -> void:
 
 func _show_introduction() -> void:
 	phase = Phase.INTRO
+	drag_hint.stop()
 	introduction_started = true
 	for control: Control in [water, sentence, cards, underwater_words, esc_hint, enter_hint, feedback]:
 		control.hide()
@@ -618,6 +722,7 @@ func _show_introduction() -> void:
 func _on_story_dialogue_finished() -> void:
 	if phase == Phase.INTRO:
 		reset_attempt()
+		_present_drag_hint()
 	elif phase == Phase.STORY:
 		if not followup_pages.is_empty():
 			followup_requested.emit(followup_pages)
@@ -625,6 +730,7 @@ func _on_story_dialogue_finished() -> void:
 
 func _return_to_world() -> void:
 	phase = Phase.RETURNING
+	drag_hint.stop()
 	_refresh_hint()
 	water_ripple.stop()
 	if is_instance_valid(story_tween):

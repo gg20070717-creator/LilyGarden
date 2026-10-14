@@ -399,7 +399,7 @@ script = ExtResource("4")
 visual_path = NodePath("../../Geometry/LabPhoto")
 interaction_id = &"corridor_photo"
 fragment_id = &"corridor_photo_02"
-fragment_display_name = "镜面"
+fragment_display_name = "涌泉"
 narrative_text = "你搂着某人站在实验室里。照片上，那人的脸庞不知为何被烧了一个洞。"
 prompt_offset = Vector2(0.000000, -170.000000)
 

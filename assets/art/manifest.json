@@ -2588,6 +2588,44 @@
         1060,
         490
       ]
+    },
+    {
+      "id": "brush_wash_environment",
+      "source_filename": "画室洗笔桶.png",
+      "path": "res://assets/art/puzzles/brush_wash/backgrounds/brush_wash_environment.png",
+      "category": "puzzle_background",
+      "scene": "brush_wash_memory",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "bea8c3c7fd433acad9524928d66ba76ed3420d9446bb1265128b82ebd433cfa4",
+      "note": "用户原图按原字节归档；运行以单张整图显示，前景层留空。"
+    },
+    {
+      "id": "brush_wash_layout_reference",
+      "source_filename": "画室洗笔桶 记忆碎片示意.png",
+      "path": "res://assets/art/puzzles/brush_wash/backgrounds/brush_wash_layout_reference.png",
+      "category": "puzzle_layout_reference",
+      "scene": "brush_wash_memory",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "48b0b33a94490707d47f1032aadcf294bd79c7f08143f3b9c68b19af6c8a065b",
+      "note": "用户提供的月相布局参考，仅归档对照；运行使用独立谜题定义绘制月相，不叠加本图。"
     }
   ]
 }

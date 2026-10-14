@@ -13,6 +13,7 @@ var active_puzzle
 var modal_open := false
 var puzzle_returning := false
 var pending_puzzle_dialogue: Array[Dictionary] = []
+var puzzle_drag_hint_seen := false
 var note_remaining := 0.0
 var note_anchor := Vector2.ZERO
 var prompt_anchor := Vector2.ZERO
@@ -297,6 +298,8 @@ func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], 
 	active_puzzle.definition = definition
 	active_puzzle.available_fragment_ids = owned_fragments.duplicate()
 	active_puzzle.show_introduction = show_introduction
+	active_puzzle.show_drag_hint = not puzzle_drag_hint_seen
+	active_puzzle.drag_hint_presented.connect(_on_puzzle_drag_hint_presented)
 	active_puzzle.exit_requested.connect(close_view)
 	active_puzzle.return_started.connect(_on_puzzle_return_started)
 	active_puzzle.followup_requested.connect(_on_puzzle_followup_requested)
@@ -305,6 +308,9 @@ func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], 
 	active_puzzle.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	view_state_changed.emit(true)
 	return true
+
+func _on_puzzle_drag_hint_presented() -> void:
+	puzzle_drag_hint_seen = true
 
 func _on_puzzle_followup_requested(pages: Array[Dictionary]) -> void:
 	pending_puzzle_dialogue.assign(pages.duplicate(true))

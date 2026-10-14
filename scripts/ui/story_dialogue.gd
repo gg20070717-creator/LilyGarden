@@ -2,9 +2,12 @@ extends Control
 ## Once introduced, the protagonist stays visible for this dialogue sequence.
 signal finished
 signal page_changed(index: int)
+signal shake_offset_changed(offset: Vector2)
 
 const FONT = preload("res://ui_font.tres")
 const REFERENCE_SIZE := Vector2(1920, 1080)
+const SHAKE_DURATION := 0.55
+const SHAKE_STRENGTH := 16.0
 const PORTRAIT_REGION := Rect2(180, 70, 715, 1800)
 const PORTRAIT_POSITION := Vector2(1285, 105)
 const PORTRAIT_FILES := {
@@ -31,6 +34,8 @@ var _mouth_time := 0.0
 var _expression: StringName = &"neutral"
 var _base_position := Vector2.ZERO
 var _shake_offset := Vector2.ZERO
+var _shake_remaining := 0.0
+var _shake_elapsed := 0.0
 var _portrait_tween: Tween
 var _portrait_present := false
 
@@ -100,6 +105,22 @@ func set_shake_offset(offset: Vector2) -> void:
 	_shake_offset = offset
 	if is_instance_valid(artwork):
 		artwork.position = _base_position + offset * artwork.scale
+	shake_offset_changed.emit(offset)
+
+func _reset_shake() -> void:
+	_shake_remaining = 0.0
+	_shake_elapsed = 0.0
+	set_shake_offset(Vector2.ZERO)
+
+func _update_shake(delta: float) -> void:
+	if _shake_remaining <= 0.0:
+		return
+	_shake_elapsed += delta
+	_shake_remaining = maxf(0.0, _shake_remaining - delta)
+	var strength := SHAKE_STRENGTH * _shake_remaining / SHAKE_DURATION
+	set_shake_offset(Vector2(sin(_shake_elapsed * 91.0), cos(_shake_elapsed * 113.0)) * strength)
+	if _shake_remaining == 0.0:
+		set_shake_offset(Vector2.ZERO)
 
 func start(story_pages: Array[Dictionary]) -> void:
 	if story_pages.is_empty():
@@ -114,6 +135,9 @@ func start(story_pages: Array[Dictionary]) -> void:
 
 func _show_page() -> void:
 	var page: Dictionary = pages[page_index]
+	_reset_shake()
+	if bool(page.get("shake", false)):
+		_shake_remaining = SHAKE_DURATION
 	var speaker := String(page.get("speaker", ""))
 	speaker_label.text = speaker + "：" if not speaker.is_empty() else ""
 	speaker_label.visible = not speaker.is_empty()
@@ -149,6 +173,7 @@ func _show_page() -> void:
 func _process(delta: float) -> void:
 	if not active:
 		return
+	_update_shake(delta)
 	_input_cooldown = maxf(0.0, _input_cooldown - delta)
 	var text_length := body_label.text.length()
 	_revealed = minf(text_length, _revealed + delta * characters_per_second)
@@ -179,6 +204,7 @@ func advance() -> void:
 		return
 	if page_index + 1 >= pages.size():
 		active = false
+		_reset_shake()
 		finished.emit()
 	else:
 		page_index += 1
@@ -198,7 +224,7 @@ func stop() -> void:
 	_portrait_present = false
 	portrait.hide()
 	pages.clear()
-	set_shake_offset(Vector2.ZERO)
+	_reset_shake()
 	if is_instance_valid(_portrait_tween):
 		_portrait_tween.kill()
 	hide()
