@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3]
+[gd_scene load_steps=29 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_chair.tres" id="art_chair"]
 [ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_bed.tres" id="art_bed"]
 [ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_desk_lamp.tres" id="art_desk_lamp"]
+[ext_resource type="Texture2D" path="res://resources/art/bedroom/bedroom_note.tres" id="art_note"]
 [ext_resource type="Texture2D" path="res://assets/art/cg/act_01/bedroom_photo.png" id="photo_artwork"]
 [ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_01_crescent_left.png" id="cg_01"]
 [ext_resource type="Texture2D" path="res://assets/art/cg/act_01/window_moon/window_moon_02_crescent_right.png" id="cg_02"]
@@ -186,9 +187,11 @@ oval = false
 label_size = 18
 
 [node name="Note" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_note")
+artwork_size = Vector2(27.258065, 15)
 position = Vector2(73.5, 447)
 size = Vector2(15, 21)
-label = "字条"
+label = ""
 shade = Color(1, 1, 1, 1)
 solid = false
 oval = false

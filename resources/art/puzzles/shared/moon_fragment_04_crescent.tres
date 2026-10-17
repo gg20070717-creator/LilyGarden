@@ -1,0 +1,10 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/puzzles/shared/moon_fragments/moon_fragment_04_crescent.png" id="1"]
+
+[resource]
+atlas = ExtResource("1")
+region = Rect2(97, 69, 137, 137)
+filter_clip = true
+metadata/moon_reference_center = Vector2(68.5, 68.5)
+metadata/moon_reference_diameter = 88.0

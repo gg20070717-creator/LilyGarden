@@ -4,6 +4,10 @@ extends Resource
 @export var answer_left: StringName = &"A"
 @export var answer_right: StringName = &"B"
 @export var sentence_verb := "看见"
+## Optional complete sentence forms. Empty preserves the original two-slot layout.
+## Each form has an integer id, fixed middle text and optional suffix text.
+@export var sentence_templates: Array[Dictionary] = []
+@export var sentence_selector_rect := Rect2()
 @export var failure_text := "水面很平静，毫无波澜"
 ## Disable white UI backings while retaining the original moon shapes and hit areas.
 @export var ui_backing_enabled := true
@@ -20,7 +24,7 @@ extends Resource
 ## False completes the puzzle and fades back to exploration without a CG.
 @export var play_success_story := true
 @export var success_image: Texture2D
-## Optional story constants INTRO_PAGES / NARRATIVE_PAGES.
+## Optional story constants INTRO_PAGES / NARRATIVE_PAGES / STORY_BRANCHES.
 @export var story_script: Script
 ## Background retained through selection and word restoration; moon_well is an optional foreground layer.
 @export var moon_environment: Texture2D
@@ -49,5 +53,5 @@ extends Resource
 @export var water_drop_polygon := PackedVector2Array()
 @export var enter_hint_center := Vector2(-1, -1)
 @export var feedback_center := Vector2(-1, -1)
-## Reveal each deposited word immediately; Enter then opens the filling phase.
+## Legacy serialized field. Deposits reveal water words; Enter always starts their flight.
 @export var rise_on_drop := false

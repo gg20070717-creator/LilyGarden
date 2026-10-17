@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=23 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
@@ -25,6 +25,11 @@
 [ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_photo_frame_middle.tres" id="art_photo_frame_middle"]
 [ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_memory_photo_frame.tres" id="art_memory_photo_frame"]
 [ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_flower_pot.tres" id="art_flower_pot"]
+[ext_resource type="Script" path="res://scripts/embedded_art_glow_proxy.gd" id="embedded_glow_proxy"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/corridor/props/corridor_native_water_stain_mask.svg" id="art_native_water_stain_mask"]
+[ext_resource type="Texture2D" path="res://resources/art/shared/floor_stain_01.tres" id="art_floor_stain"]
+
+[ext_resource type="Texture2D" path="res://resources/art/corridor/corridor_stairs_down.tres" id="art_stairs_down"]
 
 [node name="Corridor" type="Node2D"]
 texture_filter = 1
@@ -209,6 +214,9 @@ solid = true
 oval = false
 shade = Color(0.8, 0.8, 0.8, 1)
 label_size = 24
+artwork = ExtResource("art_stairs_down")
+artwork_size = Vector2(100, 141.076487)
+artwork_offset = Vector2(0, -1.461756)
 
 [node name="Step0" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1316.000000, 252.000000)
@@ -218,6 +226,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step1" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1316.000000, 276.000000)
@@ -227,6 +236,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step2" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1316.000000, 300.000000)
@@ -236,15 +246,17 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step3" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1316.000000, 324.000000)
 size = Vector2(96, 22.0)
-label = "下楼"
+label = ""
 solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step4" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1316.000000, 348.000000)
@@ -254,6 +266,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step5" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1316.000000, 372.000000)
@@ -263,6 +276,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="FlowerPot" parent="Geometry" instance=ExtResource("2")]
 artwork_offset = Vector2(0.000000, -53.000000)
@@ -316,25 +330,16 @@ label = ""
 solid = true
 shade = Color(0.35, 0.35, 0.35, 1)
 
-[node name="CorridorWaterStain" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1135, -40)
-size = Vector2(92, 138)
-label = "水渍"
-solid = false
-oval = true
-shade = Color(0.68, 0.82, 0.85, 0.78)
-label_size = 20
-
-[node name="CorridorWaterDrop" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1193, -18)
-size = Vector2(12, 22)
-label = ""
-solid = false
-oval = true
-shade = Color(0.68, 0.82, 0.85, 0.78)
-label_size = 20
+[node name="CorridorWaterStain" type="Node2D" parent="Geometry"]
+position = Vector2(1036.8, -37.090909)
+script = ExtResource("embedded_glow_proxy")
+size = Vector2(91.2, 181.818182)
+artwork = ExtResource("art_native_water_stain_mask")
+artwork_size = Vector2(91.2, 181.818182)
 
 [node name="CorridorFloorPuddle" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_floor_stain")
+artwork_size = Vector2(78, 17.597561)
 position = Vector2(1160, 110)
 size = Vector2(78, 30)
 label = ""
@@ -404,7 +409,7 @@ narrative_text = "你搂着某人站在实验室里。照片上，那人的脸�
 prompt_offset = Vector2(0.000000, -170.000000)
 
 [node name="CorridorWaterStain" type="Area2D" parent="Interactables"]
-position = Vector2(1135, 90)
+position = Vector2(1036.8, 90)
 collision_layer = 0
 collision_mask = 0
 monitoring = false

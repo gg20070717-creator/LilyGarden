@@ -33,30 +33,34 @@
 - F 交互以角色脚点选择范围内最近目标。`interaction_rect` 为相对交互锚点的局部矩形，空矩形使用角色默认距离；按需求配置可接近的锚点。
 - 点击查看通过 `contains_click(world_position)` 接入现有分发；仅为需要点击交互的物件实现该接口。
 - `visual_path` 绑定可见物件，交互范围与图片尺寸独立。普通目标为白色光晕，记忆收集物和解谜入口使用幽蓝色；收集后保留记忆物件的颜色。
-- 收集与剧情标记通过 GameState 的 `collect_fragment`、`collect_key`、`mark_story_event_seen` 等接口更新。碎片、钥匙、剧情事件及谜题 ID 保持稳定，重复奖励由状态接口去重。
+- 收集与剧情标记通过 GameState 的 `collect_fragment`、`collect_key`、`mark_story_event_seen`、`mark_memory_story_seen` 等接口更新。碎片、钥匙、剧情事件及谜题 ID 保持稳定，重复奖励由状态接口去重。
 - 门户只检查钥匙持有条件，现有钥匙不消耗；无钥匙保留“已上锁”提示，成功进入后不自动显示“已解锁”。状态跨地点保留，新游戏或关闭进程后重置。
-- `restoration_succeeded(puzzle_id)` 当前作为完成事件转发，尚未写入谜题完成集合；新增完成记录或后果时显式设计状态接入。
+- `restoration_succeeded(puzzle_id)` 在 CG 演出开始时转发，未写入谜题完成集合。完整读完正式组合剧情后，`memory_story_completed(story_id)` 经 GameUI 和 main 写入 GameState 的 `seen_memory_stories`；门槛使用稳定剧情 ID 与 `has_seen_memory_story()` 查询，前置对白、微剧情与提前 Esc 不记已读完，状态随新游戏重置。
 
 ## UI、对白与谜题
 
 - 弹窗、CG、收集、对白和谜题通过 GameUI 的现有方法打开，维护 `modal_open`、`view_state_changed` 与关闭清理。
 - 保持场景过渡、首次操作说明、模态输入的拦截顺序。Esc 优先关闭当前模态，一级探索界面再打开暂停；同次输入不连带触发下一层操作。
 - 当前以首次游玩键帽说明和物件光晕引导交互。场景内常驻“按F交互”提示已移除；剧情文字、字条和解谜阶段提示按现有规则显示。
-- 水井、鱼缸与洗笔桶共用每局一次的拖拽引导，显示状态由 GameUI 的 `puzzle_drag_hint_seen` 管理。只有有可拖碎片并实际进入选碎片阶段时，才通过 `drag_hint_presented` 记录已显示；已配置前置对白先于引导，重试和重新进入不重复，新游戏重置。
+- 水井、鱼缸、洗笔桶与帐篷收纳盒共用每局一次的拖拽引导，显示状态由 GameUI 的 `puzzle_drag_hint_seen` 管理。只有有可拖碎片并实际进入选碎片阶段时，才通过 `drag_hint_presented` 记录已显示；已配置前置对白先于引导，重试和重新进入不重复，新游戏重置。
 - 拖拽引导保持非阻塞：可直接拖拽，首块成功投入后淡出；任意非 Esc 按键收起并消耗事件，Esc 继续退出谜题。样式与摆放复用 `memory_drag_hint.gd` 及定义中的 `drag_hint_target_name/drag_hint_rect`，按窗口等比适配并限制在视口内。
-- 普通正文与收集界面沿用项目字体、黑字浅底和既有字号；菜单使用图片文字，开场与对白沿用各自主题，水井、鱼缸与洗笔桶使用独立的月光文字样式。避免将通用样式强制覆盖这些界面。
-- 通用对白复用 `scripts/ui/story_dialogue.gd`，通过页数据配置 speaker、text、expression、shake 等字段。主角首次出现后在本段对白中持续保留，Luna 使用画外音；不自行添加未提供的演出或声音。页震动由共用对白管理，翻页、结束或关闭时清理偏移。
-- 水井、鱼缸与洗笔桶复用 `scenes/puzzles/memory_puzzle.tscn`，各自使用独立的 `MemoryPuzzleDefinition` 资源；优先配置现有字段扩展布局和行为。整图背景允许仅配置 `moon_environment`，`moon_well` 为可选叠加层。
-- 谜题接收库存快照，尝试状态属于该实例；拖拽、失败重试和退出不消耗库存、不修改共享定义。组合剧情按 `memory_combination_stories.gd:BY_PUZZLE` 的谜题 ID 与左右有序 `choice_id` 匹配，实例深拷贝路由和待播数据；有路由定义时优先使用路由，旧答案字段只作无路由定义的兼容配置。
-- 碎片名称与稳定 ID 分离维护：A/`bedroom_photo_01` 为港湾，B/`corridor_photo_02` 为涌泉，C/`memory_fragment_03` 为潮汐；收集提示、谜题展示名和词牌同步，D/E 名称与来源按已有预留维护。
-- 月相碎片接收范围使用绝对参考坐标 `fragment_drop_rect` 与 `fragment_drop_margin`，当前三处谜题覆盖整个物体外接矩形并各加 24 像素参考容错。`moon_water_rect/water_drop_polygon` 继续管理水面效果和词语拖回取消；调整碎片接收范围不放大图片、涟漪、浮词或词槽。`Water._has_point()` 与 `_can_drop_data()` 保持一致的范围、实例和阶段校验。
-- 微剧情在当前谜题背景上直接浮现文字，读完返回选碎片阶段并保留库存与共享引导标记，不发出完成事件。CG 路由进入完成处理并返回探索；完整读完水井情节块 1 才衔接后续对白。Esc 提前退出沿用当前规则，关闭或重置时清理拖拽、浮现 Tween、临时控件与待播放内容。
-- 洗笔桶前置对白以 `brush_wash_memory_intro` 记录本局已开始，提前退出保留标记，新游戏重置。三处句型、布局和组合剧情独立维护；碎片 D/E 来源、待补 CG 和菜单空页面保持明确的预留状态，接入条件见项目状态文档。
+- 普通剧情对白、开场、查看与收集使用各自原白色/浅灰矩形底框，保留项目字体、黑字与字号。`prompt_bubble`、`note_bubble` 世界提示保留气泡素材及原点镜像修复；菜单使用图片文字，月光谜题沿用各自样式。
+- 通用对白复用 `scripts/ui/story_dialogue.gd`，通过页数据配置 speaker、text、expression、shake 等字段。可选页配置 `choices: [{id, text}]`，正文显示完整后在底部原对白框显示编号文字选项，发出 `choice_selected(choice_id)`；选择页普通翻页不可跳过，选择前停用并清理控件，翻页和关闭清理焦点。主角首次出现后在本段对白中持续保留，Luna 使用画外音；不自行添加未提供的演出或声音。页震动由共用对白管理，翻页、结束或关闭时清理偏移。
+- 水井、鱼缸、洗笔桶与帐篷收纳盒复用 `scenes/puzzles/memory_puzzle.tscn`，各自使用独立的 `MemoryPuzzleDefinition` 资源；优先配置现有字段扩展布局和行为。整图背景允许仅配置 `moon_environment`，`moon_well` 为可选叠加层。
+- 四处记忆谜题 MOON 初始隐藏水面词与句槽，每投入一块仅显现对应词；Enter 后已投词统一飞出再进入 WORD。A—E 月相按原文件 5/4/3/2/1 从残到满绑定，稳定碎片与剧情 ID 保留；重置和退出清理显词及飞词 Tween。
+- 谜题接收库存快照，尝试状态属于该实例；拖拽、失败重试和退出不消耗库存、不修改共享定义。组合剧情按 `memory_combination_stories.gd:BY_PUZZLE` 的谜题 ID 与左右有序 `choice_id` 匹配；配置 `template_id` 的路由还检查当前句型，阶段四独立启用可选 `sentence_templates`，前三处空列表保持原布局，实例深拷贝路由和待播数据；有路由定义时优先使用路由，旧答案字段只作无路由定义的兼容配置。
+- 碎片名称与稳定 ID 分离维护：A/`bedroom_photo_01` 为港湾，B/`corridor_photo_02` 为涌泉，C/`memory_fragment_03` 为潮汐，D/`memory_fragment_04` 为月影，E/`memory_fragment_05` 为镜面。阶段四剧情编号依次为港湾 1、镜面 2、涌泉 3、潮汐 4、月影 5，编号独立于稳定选项 ID；镜面从完整 `cg_03` 后可收集的餐桌椅下电影票获得。阶段四五碎片与 20 条有序路由独立配置，前三处保留原路由，E 同步展示名及词牌“镜面”，没有新增 E 组合。
+- 月相碎片接收范围使用绝对参考坐标 `fragment_drop_rect` 与 `fragment_drop_margin`，当前四处谜题覆盖整个目标物体外接矩形并各加 24 像素参考容错。`moon_water_rect/water_drop_polygon` 继续管理水面效果和词语拖回取消；调整碎片接收范围不放大图片、涟漪、浮词或词槽。`Water._has_point()` 与 `_can_drop_data()` 保持一致的范围、实例和阶段校验。
+- 微剧情在当前谜题背景上直接浮现文字，读完返回选碎片阶段并保留库存与共享引导标记，不发出完成事件或衔接后续对白。前三处 CG 完整读完后返回探索并衔接各自 `FOLLOWUP_PAGES`；阶段四同黑屏衔接第五幕。洗笔桶后续旁白与鱼缸第四幕对白沿用 GameUI 普通对白，每页显示右侧主角立绘，Luna 使用画外音；原情节块 2、3 黑屏对白继续关闭立绘。情节块提前 Esc 不接后续，关闭或重置时清理拖拽、浮现 Tween、临时控件与待播放内容。
+- 洗笔桶与鱼缸前置对白分别以 `brush_wash_memory_intro`、`fish_tank_memory_intro` 记录本局已开始，实际播放时记标记，提前退出保留，新游戏重置。鱼缸另要求完整读完 `cg_02`；无匹配碎片或未满足剧情门槛时查看静水正文且不记鱼缸前置标记。储物间钥匙在玄关花盆里，`PlantStorageKey` 沿用完整 `cg_04` 门槛，条件未满足时无交互高亮；地毯保留原查看。鱼缸后的第四幕普通对白不等同于 `cg_04`。四处句型、布局和组合剧情独立维护；待补 CG、美术和菜单空页面见项目状态文档。
+
+- 帐篷收纳盒要求完整 `cg_03` 与匹配碎片，首次三页前置对白以 `tent_storage_memory_intro` 记录已开始，提前退出保留，新游戏重置。阶段四仅配置 `template_id=3`“【A】从【B】中涌现”，不显示切换按钮或响应 Tab；20 条有序路由包含 18 条用户微剧情与两条正式分支。月影→潮汐直接进入 Luna 正式回忆；连续三次潮汐→月影进入真实正式回忆，前两次不同幅度震动、词牌归位并播放 Luna 对白，保留投入与库存。确认其他组合清零计数，退出重建实例后重新计算。正式分支完整读完才发出 `memory_story_branch_completed` 和 `memory_story_completed`，记录导向、后续剧情 ID 及 `cg_04`；提前退出保留原记录。正文沿用黑底、关闭立绘，CG 图片与乱码内容待提供，不自行补写。
+- 第五幕正文集中在 `scripts/ending_story.gd`。GameUI 在完整 `cg_04` 后同黑屏衔接 `cg_05_false` 假结局正文或 `cg_05_true` 真结局前 CG；真回忆完整读完后返回探索并提示玄关花盆钥匙。一楼 `StorageRoomGate/OpenStorageRoom` 原地开门，不消耗钥匙，以 `storage_room_opened` 跨地点重载恢复；装置要求门已开、完整 `cg_05_true`、最近 `cg_04=truth` 且玩家进入房内。装置底部两选项分别进入真结局 `end2` 与假结局 `end1`。完整结局正文结束后才写入 GameState 的会话结局记录并进入黑屏终局，按钮/Esc 返回主菜单，继续恢复终局；无磁盘存档。第五幕提前 Esc 不记未读完内容，可重新完成阶段四分支或重进装置。
 
 ## 背景音乐
 
 - BGM 位于常驻游戏根的 `BGM` 节点，复用 `scripts/audio/bgm_controller.gd` 和 `resources/audio/gameplay_bgm.tres` 的单播放器双 clip，沿用 `start_or_resume/suspend/set_puzzle_active/stop` 接口。
-- 整段开场与卧室淡入结束前无音乐，可自由操作界面开始 Hide；水井、鱼缸或洗笔桶谜题打开后含前置剧情、微剧情与 CG 使用 SEEK，微剧情读完继续解谜保持 SEEK，`return_started` 或 Esc 关闭时切回 Hide，后续普通对白保持 Hide。普通收集、图片和地点切换保留当前播放时间。
+- 整段开场与卧室淡入结束前无音乐，可自由操作界面开始 Hide；四处谜题的前置、微剧情和 CG 使用 SEEK，微剧情回谜题保持 SEEK。第五幕黑底 CG、装置对白及结局正文继续使用 SEEK；探索提示、终局或退出全部剧情切回 Hide。原三处后续普通对白保持 Hide，普通收集、图片和地点切换保留当前播放时间。
 - 暂停与回主菜单显式冻结音频时间，继续恢复；新游戏重建后从 0 开始。主菜单无新增 BGM。
 - Hide/SEEK 双向转换保留 `IMMEDIATE + SAME_POSITION + FADE_CROSS` 及 `fade_beats = 0.03`，当前无 BPM 的 WAV 对应约 30 ms 逐采样平滑。默认 `-6 dB`、Master bus，音效和设置页仍待后续需求。
 - 音轨原文件、导入与循环参数遵循音频规范。成对维护帧长、采样率、音乐起点和循环范围；源文件校验与静态参数相同不代表听感已验收。

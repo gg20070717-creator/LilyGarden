@@ -1,18 +1,29 @@
 extends CanvasLayer
 signal view_state_changed(is_open: bool)
 signal restoration_succeeded(puzzle_id: StringName)
+signal memory_story_completed(story_id: StringName)
+signal memory_story_branch_completed(story_id: StringName, branch_id: StringName, next_story_id: StringName)
+signal ending_unlocked(ending_id: StringName)
+signal main_menu_requested
 const FONT = preload("res://ui_font.tres")
+const DialogueBubble = preload("res://scripts/ui/dialogue_bubble.gd")
 const TextStyle = preload("res://scripts/ui_text_style.gd")
 const PuzzleScene = preload("res://scenes/puzzles/memory_puzzle.tscn")
 const StoryDialogue = preload("res://scripts/ui/story_dialogue.gd")
 const ControlsHint = preload("res://scripts/ui/controls_hint.gd")
 const CollectionPreview = preload("res://scripts/collection_preview.gd")
-enum ModalMode { NONE, IMAGE, PUZZLE, COLLECTION, DIALOGUE }
+const EndingStory = preload("res://scripts/ending_story.gd")
+enum ModalMode { NONE, IMAGE, PUZZLE, COLLECTION, DIALOGUE, ENDING }
 var modal_mode := ModalMode.NONE
 var active_puzzle
 var modal_open := false
 var puzzle_returning := false
 var pending_puzzle_dialogue: Array[Dictionary] = []
+var pending_ending_story: StringName = &""
+var active_story_id: StringName = &""
+var opaque_dialogue := false
+var ending_screen: VBoxContainer
+var ending_title: Label
 var puzzle_drag_hint_seen := false
 var note_remaining := 0.0
 var note_anchor := Vector2.ZERO
@@ -24,6 +35,8 @@ var controls_hint: ControlsHint
 var root_control: Control
 var prompt_label: Label
 var note_label: Label
+var prompt_bubble: DialogueBubble
+var note_bubble: DialogueBubble
 var overlay: ColorRect
 var view_notice: Label
 var view_caption: Label
@@ -53,12 +66,16 @@ func _ready() -> void:
 	theme.default_font = FONT
 	theme.default_font_size = 36
 	root_control.theme = theme
-	prompt_label = _label(root_control, "", 36, Color.BLACK)
+	prompt_bubble = _bubble(root_control)
+	prompt_label = _label(prompt_bubble, "", 36, Color.BLACK)
 	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prompt_label.hide()
-	note_label = _label(root_control, "", 36, Color.BLACK)
+	prompt_bubble.hide()
+	note_bubble = _bubble(root_control)
+	note_label = _label(note_bubble, "", 36, Color.BLACK)
 	note_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	note_label.hide()
+	note_bubble.hide()
 	overlay = ColorRect.new()
 	overlay.color = Color(0.1, 0.1, 0.1)
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -74,11 +91,14 @@ func _ready() -> void:
 	view_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	overlay.add_child(view_texture)
 	view_caption = _label(overlay, "", 36, Color.BLACK)
+	TextStyle.apply(view_caption, 36)
 	view_caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	view_caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	view_notice = _label(overlay, "", 40, Color.BLACK)
+	TextStyle.apply(view_notice, 40)
 	view_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view_footer = _label(overlay, "左键点击屏幕任意位置退出", 36, Color.BLACK)
+	TextStyle.apply(view_footer, 36)
 	view_footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	collection_panel = ColorRect.new()
 	collection_panel.color = Color.WHITE
@@ -98,7 +118,22 @@ func _ready() -> void:
 	dialogue = StoryDialogue.new()
 	dialogue.name = "StoryDialogue"
 	root_control.add_child(dialogue)
-	dialogue.finished.connect(close_view)
+	dialogue.finished.connect(_on_dialogue_finished)
+	dialogue.choice_selected.connect(_on_dialogue_choice_selected)
+	ending_screen = VBoxContainer.new()
+	ending_screen.name = "EndingScreen"
+	ending_screen.alignment = BoxContainer.ALIGNMENT_CENTER
+	ending_screen.add_theme_constant_override("separation", 48)
+	root_control.add_child(ending_screen)
+	ending_title = _label(ending_screen, "", 56, Color.WHITE)
+	ending_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var menu_button := Button.new()
+	menu_button.text = "返回主菜单"
+	menu_button.custom_minimum_size = Vector2(320, 80)
+	menu_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	menu_button.pressed.connect(_request_main_menu)
+	ending_screen.add_child(menu_button)
+	ending_screen.hide()
 	controls_hint = ControlsHint.new()
 	root_control.add_child(controls_hint)
 	get_viewport().size_changed.connect(_layout)
@@ -110,12 +145,21 @@ func _label(parent: Node, text: String, font_size: int, color: Color) -> Label:
 	result.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	result.add_theme_font_size_override("font_size", font_size)
 	result.add_theme_color_override("font_color", color)
-	TextStyle.apply(result, font_size)
+	result.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
+	result.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	result.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	parent.add_child(result)
+	return result
+
+func _bubble(parent: Node) -> DialogueBubble:
+	var result := DialogueBubble.new()
 	parent.add_child(result)
 	return result
 
 func _layout() -> void:
 	var viewport := get_viewport().get_visible_rect().size
+	ending_screen.position = viewport * Vector2(0.1, 0.25)
+	ending_screen.size = viewport * Vector2(0.8, 0.5)
 	var has_caption := not view_caption.text.is_empty()
 	var panel_rect := Rect2(viewport * Vector2(0.1, 0.28 if has_caption else 0.1), viewport * Vector2(0.8, 0.60 if has_caption else 0.7))
 	view_panel.position = panel_rect.position
@@ -150,18 +194,29 @@ func _layout() -> void:
 func _line_width(label: Label) -> float:
 	return FONT.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x + 40.0
 
-func _place_world_label(label: Label, anchor: Vector2) -> void:
+func _place_world_label(label: Label, bubble: DialogueBubble, anchor: Vector2) -> void:
 	var viewport := get_viewport().get_visible_rect().size
-	label.size = Vector2(minf(_line_width(label), viewport.x - 40), 66)
-	label.position = get_viewport().get_canvas_transform() * anchor - Vector2(label.size.x * 0.5, 40)
-	label.position.x = clampf(label.position.x, 20, maxf(20, viewport.x - label.size.x - 20))
-	label.position.y = clampf(label.position.y, 20, maxf(20, viewport.y - label.size.y - 20))
+	var fit := minf(viewport.x / 1920.0, viewport.y / 1080.0)
+	var padding := 20 * fit
+	var font_size := maxi(1, roundi(36 * fit))
+	label.add_theme_font_size_override("font_size", font_size)
+	var max_width := minf(720 * fit, viewport.x - padding * 2)
+	var width := clampf((_line_width(label) + 8 * fit) / DialogueBubble.BODY_SIZE.x, minf(260 * fit, max_width), max_width)
+	var text_size := FONT.get_multiline_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, width * DialogueBubble.BODY_SIZE.x, font_size)
+	var height := minf(maxf(128 * fit, (text_size.y + 16 * fit) / DialogueBubble.BODY_SIZE.y), viewport.y - padding * 2)
+	bubble.size = Vector2(width, height)
+	DialogueBubble.fit_text(label, bubble.content_rect(), font_size, maxi(1, roundi(24 * fit)))
+	var screen_anchor := get_viewport().get_canvas_transform() * anchor
+	bubble.tail_on_right = screen_anchor.x > viewport.x * 0.5
+	var tail_x := width * (0.86 if bubble.tail_on_right else 0.14)
+	bubble.position = screen_anchor - Vector2(tail_x, height + 12 * fit)
+	bubble.position = bubble.position.clamp(Vector2.ONE * padding, (viewport - bubble.size - Vector2.ONE * padding).max(Vector2.ONE * padding))
 
 func _position_world_labels() -> void:
-	_place_world_label(prompt_label, prompt_anchor)
-	_place_world_label(note_label, note_anchor)
-	if note_label.visible and prompt_label.visible and note_label.get_rect().intersects(prompt_label.get_rect()):
-		prompt_label.position.y = note_label.position.y + note_label.size.y + 10
+	if prompt_bubble.visible:
+		_place_world_label(prompt_label, prompt_bubble, prompt_anchor)
+	if note_bubble.visible:
+		_place_world_label(note_label, note_bubble, note_anchor)
 
 func _process(delta: float) -> void:
 	_position_world_labels()
@@ -176,7 +231,8 @@ func _process(delta: float) -> void:
 				view_texture.texture = image_slides[image_slide_index]
 	if note_remaining > 0:
 		note_remaining = maxf(0, note_remaining - delta)
-		note_label.visible = note_remaining > 0 and not modal_open
+		note_bubble.visible = note_remaining > 0 and not modal_open
+		note_label.visible = note_bubble.visible
 
 func set_status(location: String, _count: int) -> void:
 	# Scene state remains available to other systems without displaying a HUD.
@@ -185,7 +241,7 @@ func set_status(location: String, _count: int) -> void:
 func set_prompt(_text: String, _world_anchor: Vector2 = Vector2.ZERO) -> void:
 	# Interaction controls are explained once at gameplay entry.
 	prompt_label.text = ""
-	prompt_label.hide()
+	prompt_bubble.hide()
 
 func show_controls_hint() -> void:
 	controls_hint.present_once()
@@ -201,11 +257,13 @@ func show_note(text: String, world_anchor: Vector2, seconds: float) -> void:
 	note_remaining = seconds
 	note_label.text = text
 	note_label.show()
+	note_bubble.show()
 	_process(0)
 
 func clear_note() -> void:
 	note_remaining = 0
 	note_label.hide()
+	note_bubble.hide()
 
 func show_view(title: String, _caption: String, artwork: Texture2D = null, notice: String = "", show_exit_hint: bool = false, narrative_text: String = "") -> void:
 	clear_note()
@@ -213,7 +271,7 @@ func show_view(title: String, _caption: String, artwork: Texture2D = null, notic
 	modal_open = true
 	modal_mode = ModalMode.IMAGE
 	current_view_title = title
-	prompt_label.hide()
+	prompt_bubble.hide()
 	collection_panel.hide()
 	overlay.color = Color(0.1, 0.1, 0.1)
 	view_panel.show()
@@ -256,7 +314,7 @@ func show_collection(pages: Array[String], artwork: Texture2D = null, placeholde
 	collection_reward_page = reward_page
 	collection_exit_hint = show_exit_hint
 	collection_large_artwork = large_artwork and artwork != null
-	prompt_label.hide()
+	prompt_bubble.hide()
 	for control: Control in [view_panel, view_texture, view_caption, view_notice, view_footer]:
 		control.hide()
 	overlay.color = Color(0, 0, 0, 0.6)
@@ -284,17 +342,18 @@ func _advance_collection() -> void:
 		collection_page += 1
 		_show_collection_page()
 
-func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], show_introduction: bool = false) -> bool:
-	if modal_open:
+func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], show_introduction: bool = false, puzzle_scene: PackedScene = PuzzleScene) -> bool:
+	if modal_open or puzzle_scene == null:
 		return false
 	clear_note()
-	prompt_label.hide()
+	prompt_bubble.hide()
 	overlay.hide()
 	modal_open = true
 	modal_mode = ModalMode.PUZZLE
 	puzzle_returning = false
 	pending_puzzle_dialogue.clear()
-	active_puzzle = PuzzleScene.instantiate()
+	pending_ending_story = &""
+	active_puzzle = puzzle_scene.instantiate()
 	active_puzzle.definition = definition
 	active_puzzle.available_fragment_ids = owned_fragments.duplicate()
 	active_puzzle.show_introduction = show_introduction
@@ -304,6 +363,8 @@ func open_puzzle(definition: Resource, owned_fragments: Array[StringName] = [], 
 	active_puzzle.return_started.connect(_on_puzzle_return_started)
 	active_puzzle.followup_requested.connect(_on_puzzle_followup_requested)
 	active_puzzle.restoration_succeeded.connect(_on_restoration_succeeded)
+	active_puzzle.memory_story_completed.connect(_on_memory_story_completed)
+	active_puzzle.memory_story_branch_completed.connect(_on_memory_story_branch_completed)
 	root_control.add_child(active_puzzle)
 	active_puzzle.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	view_state_changed.emit(true)
@@ -318,19 +379,85 @@ func _on_puzzle_followup_requested(pages: Array[Dictionary]) -> void:
 func _on_restoration_succeeded(puzzle_id: StringName) -> void:
 	restoration_succeeded.emit(puzzle_id)
 
+func _on_memory_story_completed(story_id: StringName) -> void:
+	memory_story_completed.emit(story_id)
+
+func _on_memory_story_branch_completed(story_id: StringName, branch_id: StringName, next_story_id: StringName) -> void:
+	memory_story_branch_completed.emit(story_id, branch_id, next_story_id)
+	if story_id == &"cg_04" and next_story_id in [&"cg_05_false", &"cg_05_true"]:
+		pending_ending_story = next_story_id
+
 func show_dialogue(pages: Array[Dictionary]) -> void:
 	if modal_open or pages.is_empty():
 		return
+	_present_story_dialogue(pages)
+
+func _present_story_dialogue(pages: Array[Dictionary], story_id: StringName = &"", full_black: bool = false) -> void:
 	clear_note()
-	prompt_label.hide()
+	prompt_bubble.hide()
+	ending_screen.hide()
 	modal_open = true
 	modal_mode = ModalMode.DIALOGUE
+	active_story_id = story_id
+	opaque_dialogue = full_black
 	for control: Control in [view_panel, view_texture, view_caption, view_notice, view_footer, collection_panel]:
 		control.hide()
-	overlay.color = Color(0, 0, 0, 0.6)
+	overlay.color = Color(0, 0, 0, 1.0 if full_black else 0.6)
 	overlay.show()
 	dialogue.start(pages)
 	view_state_changed.emit(true)
+
+func _show_ending_chapter(story_id: StringName) -> void:
+	if story_id == &"cg_05_false":
+		_present_story_dialogue(EndingStory.FALSE_ENDING_PAGES, story_id, true)
+	elif story_id == &"cg_05_true":
+		_present_story_dialogue(EndingStory.TRUTH_RECOLLECTION_PAGES, story_id, true)
+
+func open_consciousness_device() -> void:
+	if not modal_open:
+		_present_story_dialogue(EndingStory.DEVICE_PAGES, &"consciousness_device", true)
+
+func _on_dialogue_choice_selected(choice_id: StringName) -> void:
+	if modal_mode != ModalMode.DIALOGUE or active_story_id != &"consciousness_device":
+		return
+	if choice_id == &"leave":
+		_present_story_dialogue(EndingStory.TRUE_ENDING_PAGES, &"end2", true)
+	elif choice_id == &"stay":
+		_show_ending_chapter(&"cg_05_false")
+
+func _on_dialogue_finished() -> void:
+	var completed_id := active_story_id
+	active_story_id = &""
+	if completed_id == &"cg_05_true":
+		memory_story_completed.emit(completed_id)
+		_present_story_dialogue(EndingStory.EXPLORATION_PAGES)
+	elif completed_id == &"cg_05_false":
+		memory_story_completed.emit(completed_id)
+		_show_ending_screen(&"end1")
+	elif completed_id == &"end2":
+		memory_story_completed.emit(completed_id)
+		_show_ending_screen(&"end2")
+	else:
+		close_view()
+
+func _show_ending_screen(ending_id: StringName) -> void:
+	dialogue.stop()
+	opaque_dialogue = false
+	modal_mode = ModalMode.ENDING
+	modal_open = true
+	overlay.color = Color.BLACK
+	overlay.show()
+	ending_title.text = "真结局" if ending_id == &"end2" else "假结局"
+	ending_screen.show()
+	_layout()
+	ending_unlocked.emit(ending_id)
+	view_state_changed.emit(true)
+
+func _request_main_menu() -> void:
+	main_menu_requested.emit()
+
+func is_story_covering_world() -> bool:
+	return modal_mode == ModalMode.ENDING or (modal_mode == ModalMode.DIALOGUE and opaque_dialogue)
 
 
 func _on_puzzle_return_started() -> void:
@@ -344,6 +471,12 @@ func is_puzzle_open() -> bool:
 	return modal_mode == ModalMode.PUZZLE
 
 func handle_modal_input(event: InputEvent) -> bool:
+	if modal_mode == ModalMode.ENDING:
+		if not event.is_echo() and event.is_action_pressed("close_view"):
+			_request_main_menu()
+			return true
+		# Let the return button receive GUI mouse/focus events.
+		return false
 	if modal_mode == ModalMode.DIALOGUE:
 		if not event.is_echo() and event.is_action_pressed("close_view"):
 			close_view()
@@ -370,12 +503,17 @@ func close_view() -> void:
 	var followup_pages: Array[Dictionary] = []
 	followup_pages.assign(pending_puzzle_dialogue)
 	pending_puzzle_dialogue.clear()
+	var next_ending_story := pending_ending_story
+	pending_ending_story = &""
 	var viewport := get_viewport()
 	if viewport.gui_is_dragging() and viewport.has_method("gui_cancel_drag"):
 		viewport.call("gui_cancel_drag")
 	modal_open = false
 	modal_mode = ModalMode.NONE
 	puzzle_returning = false
+	active_story_id = &""
+	opaque_dialogue = false
+	ending_screen.hide()
 	dialogue.stop()
 	image_slides.clear()
 	image_slide_index = 0
@@ -391,7 +529,9 @@ func close_view() -> void:
 		active_puzzle.queue_free()
 		active_puzzle = null
 	overlay.hide()
-	if followup_pages.is_empty():
+	if next_ending_story != &"":
+		_show_ending_chapter(next_ending_story)
+	elif followup_pages.is_empty():
 		view_state_changed.emit(false)
 	else:
 		# The CG has faded out; keep movement locked through the new dialogue.

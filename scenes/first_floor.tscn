@@ -1,9 +1,15 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=51 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/inspect_object.gd" id="inspect_text"]
 [ext_resource type="Script" path="res://scripts/fish_tank_interaction.gd" id="fish_tank"]
+[ext_resource type="Script" path="res://scripts/tent_storage_interaction.gd" id="tent_storage"]
+[ext_resource type="Script" path="res://scripts/collect_memory_item.gd" id="collect_memory"]
+[ext_resource type="Script" path="res://scripts/story_gated_key.gd" id="story_gated_key"]
+[ext_resource type="Script" path="res://scripts/story_gated_memory_item.gd" id="story_gated_memory"]
+[ext_resource type="Script" path="res://scripts/storage_room_door.gd" id="storage_room_door"]
+[ext_resource type="Script" path="res://scripts/consciousness_device.gd" id="consciousness_device"]
 
 [ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
 
@@ -27,6 +33,31 @@
 [ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_upper_room_threshold.tres" id="art_upper_room_threshold"]
 [ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_lower_room_doorway.tres" id="art_lower_room_doorway"]
 [ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_lower_room_threshold.tres" id="art_lower_room_threshold"]
+[ext_resource type="Texture2D" path="res://resources/art/shared/floor_stain_01.tres" id="art_floor_stain_01"]
+[ext_resource type="Texture2D" path="res://resources/art/shared/floor_stain_02.tres" id="art_floor_stain_02"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_shoe_cabinet.tres" id="art_shoe_cabinet"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_living_rug.tres" id="art_living_rug"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_sofa_horizontal.tres" id="art_sofa_horizontal"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_sofa_vertical.tres" id="art_sofa_vertical"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_fish_tank.tres" id="art_fish_tank"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_hanging_painting.tres" id="art_hanging_painting"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_table.tres" id="art_dining_table"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_chair_north_left.tres" id="art_dining_chair_north_left"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_chair_north_right.tres" id="art_dining_chair_north_right"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_chair_south_left.tres" id="art_dining_chair_south_left"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_chair_south_right.tres" id="art_dining_chair_south_right"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_chair_west.tres" id="art_dining_chair_west"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_dining_chair_east.tres" id="art_dining_chair_east"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_plate_01.tres" id="art_plate_01"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_plate_02.tres" id="art_plate_02"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_plate_03.tres" id="art_plate_03"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_plate_04.tres" id="art_plate_04"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_plate_05.tres" id="art_plate_05"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_plate_06.tres" id="art_plate_06"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_canned_food.tres" id="art_canned_food"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_floor_stain.tres" id="art_floor_stain_pack"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_stairs_up.tres" id="art_stairs_up"]
+
 [node name="FirstFloor" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1")
@@ -263,6 +294,22 @@ oval = false
 shade = Color(0.65, 0.65, 0.65, 1)
 label_size = 20
 
+[node name="StorageRoomGate" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(227.5, 550.5)
+size = Vector2(115, 14)
+label = "储物间"
+label_size = 14
+solid = true
+shade = Color(0.57, 0.62, 0.65, 1)
+
+[node name="ConsciousnessDevice" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(295, 335)
+size = Vector2(160, 95)
+label = "意识深潜\n装置"
+label_size = 22
+solid = true
+shade = Color(0.66, 0.78, 0.80, 1)
+
 [node name="LowerRoomBackWallLeft" parent="Geometry" instance=ExtResource("2")]
 artwork_offset = Vector2(0.000000, 0.000000)
 artwork_size = Vector2(35.000000, 136.612903)
@@ -347,13 +394,16 @@ shade = Color(0.86, 0.86, 0.86, 1)
 label_size = 20
 
 [node name="ShoeCabinet" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(695.000000, 268.306452)
-size = Vector2(60, 150)
-label = "鞋\n柜"
-solid = true
+position = Vector2(614.775, 228.85)
+size = Vector2(50.75, 158.2)
+label = ""
+solid = false
 oval = false
 shade = Color(0.87, 0.87, 0.87, 1)
 label_size = 24
+artwork = ExtResource("art_shoe_cabinet")
+artwork_size = Vector2(50.75, 158.2)
+artwork_offset = Vector2(0, 0)
 
 [node name="Plant" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(695.000000, 371.221505)
@@ -365,40 +415,52 @@ shade = Color(0.87, 0.87, 0.87, 1)
 label_size = 18
 
 [node name="Rug" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1005.000000, 391.258065)
-size = Vector2(260, 230)
-label = "地毯"
+position = Vector2(848.75, 355.025)
+size = Vector2(198.8, 148.05)
+label = ""
 solid = false
-oval = true
+oval = false
 shade = Color(0.42, 0.62, 0.47, 1)
 label_size = 26
+artwork = ExtResource("art_living_rug")
+artwork_size = Vector2(198.8, 148.05)
+artwork_offset = Vector2(0, 0)
 
 [node name="SofaHorizontal" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1005.000000, 263.752688)
-size = Vector2(220, 90)
-label = "沙发"
-solid = true
+position = Vector2(901.075, 251.425)
+size = Vector2(183.05, 91.35)
+label = ""
+solid = false
 oval = false
 shade = Color(0.88, 0.88, 0.88, 1)
 label_size = 26
+artwork = ExtResource("art_sofa_horizontal")
+artwork_size = Vector2(183.05, 91.35)
+artwork_offset = Vector2(0, 0)
 
 [node name="SofaVertical" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(860.000000, 341.166667)
-size = Vector2(70, 180)
-label = "沙\n发"
-solid = true
+position = Vector2(737.1, 327.725)
+size = Vector2(60.2, 113.05)
+label = ""
+solid = false
 oval = false
 shade = Color(0.88, 0.88, 0.88, 1)
 label_size = 26
+artwork = ExtResource("art_sofa_vertical")
+artwork_size = Vector2(60.2, 113.05)
+artwork_offset = Vector2(0, 0)
 
 [node name="FishTank" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1245.000000, 245.537634)
-size = Vector2(100, 60)
-label = "鱼缸"
-solid = true
+position = Vector2(1063.125, 233.225)
+size = Vector2(61.95, 47.25)
+label = ""
+solid = false
 oval = false
 shade = Color(0.68, 0.86, 0.90, 1)
 label_size = 24
+artwork = ExtResource("art_fish_tank")
+artwork_size = Vector2(61.95, 47.25)
+artwork_offset = Vector2(0, 0)
 
 [node name="Stairs" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 235.500000)
@@ -408,6 +470,9 @@ solid = true
 oval = false
 shade = Color(0.8, 0.8, 0.8, 1)
 label_size = 24
+artwork = ExtResource("art_stairs_up")
+artwork_size = Vector2(95, 134.022663)
+artwork_offset = Vector2(0, 104.488669)
 
 [node name="Step0" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 85.437500)
@@ -417,6 +482,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step1" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 128.312500)
@@ -426,6 +492,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step2" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 171.187500)
@@ -435,6 +502,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step3" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 214.062500)
@@ -444,15 +512,17 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step4" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 256.937500)
 size = Vector2(91.000000, 40.875000)
-label = "上楼"
+label = ""
 solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step5" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 299.812500)
@@ -462,6 +532,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step6" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 342.687500)
@@ -471,6 +542,7 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="Step7" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1387.500000, 385.562500)
@@ -480,69 +552,107 @@ solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 22
+draw_placeholder = false
 
 [node name="DiningTable" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1080.000000, 710.021505)
-size = Vector2(200, 100)
-label = "餐桌"
-solid = true
+position = Vector2(1083.425, 698.9)
+size = Vector2(311.15, 185.5)
+label = ""
+solid = false
 oval = false
 shade = Color(0.88, 0.88, 0.88, 1)
 label_size = 26
+artwork = ExtResource("art_dining_table")
+artwork_size = Vector2(311.15, 185.5)
+artwork_offset = Vector2(0, 0)
+z_index = 1
 
 [node name="DiningChair0" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1030.000000, 623.500000)
-size = Vector2(45, 45)
+position = Vector2(1051.75, 601.425)
+size = Vector2(62.3, 89.95)
 label = ""
-solid = true
+solid = false
 oval = false
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+artwork = ExtResource("art_dining_chair_north_left")
+artwork_size = Vector2(62.3, 89.95)
+artwork_offset = Vector2(0, 0)
+z_index = 0
 
 [node name="DiningChair1" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1130.000000, 623.500000)
-size = Vector2(45, 45)
+position = Vector2(1124.375, 601.425)
+size = Vector2(62.65, 89.95)
 label = ""
-solid = true
+solid = false
 oval = false
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+artwork = ExtResource("art_dining_chair_north_right")
+artwork_size = Vector2(62.65, 89.95)
+artwork_offset = Vector2(0, 0)
+z_index = 0
 
 [node name="DiningChair2" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1030.000000, 796.543011)
-size = Vector2(45, 45)
+position = Vector2(1051.75, 768.375)
+size = Vector2(62.3, 89.95)
 label = ""
-solid = true
+solid = false
 oval = false
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+artwork = ExtResource("art_dining_chair_south_left")
+artwork_size = Vector2(62.3, 89.95)
+artwork_offset = Vector2(0, 0)
+z_index = 2
 
 [node name="DiningChair3" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1130.000000, 796.543011)
-size = Vector2(45, 45)
+position = Vector2(1124.375, 768.375)
+size = Vector2(62.65, 89.95)
 label = ""
-solid = true
+solid = false
 oval = false
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+artwork = ExtResource("art_dining_chair_south_right")
+artwork_size = Vector2(62.65, 89.95)
+artwork_offset = Vector2(0, 0)
+z_index = 2
 
 [node name="DiningChair4" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(930.000000, 710.021505)
-size = Vector2(50, 65)
+position = Vector2(893.375, 672.3)
+size = Vector2(59.15, 100.8)
 label = ""
-solid = true
+solid = false
 oval = false
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+artwork = ExtResource("art_dining_chair_west")
+artwork_size = Vector2(59.15, 100.8)
+artwork_offset = Vector2(0, 0)
+z_index = 2
+
+[node name="MovieTicket" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1051.75, 817)
+size = Vector2(36, 18)
+label = "电影票"
+label_size = 10
+solid = false
+shade = Color(0.95, 0.91, 0.78, 1)
+z_index = 3
 
 [node name="DiningChair5" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1230.000000, 710.021505)
-size = Vector2(50, 65)
+position = Vector2(1273.475, 672.3)
+size = Vector2(59.15, 100.8)
 label = ""
-solid = true
+solid = false
 oval = false
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+artwork = ExtResource("art_dining_chair_east")
+artwork_size = Vector2(59.15, 100.8)
+artwork_offset = Vector2(0, 0)
+z_index = 2
 
 [node name="SideWindow" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1422.000000, 700.913978)
@@ -561,6 +671,15 @@ solid = true
 oval = true
 shade = Color(0.92, 0.92, 0.92, 1)
 label_size = 24
+
+[node name="TentStorageBox" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(720, 930)
+size = Vector2(96, 64)
+label = "收纳盒"
+solid = true
+oval = false
+shade = Color(0.74, 0.80, 0.89, 1)
+label_size = 20
 
 [node name="KitchenCounter" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1080.000000, 1002.000000)
@@ -581,49 +700,65 @@ shade = Color(0.88, 0.88, 0.88, 1)
 label_size = 24
 
 [node name="HangingPainting" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(497, 527)
-size = Vector2(110, 28)
-label = "挂画"
+position = Vector2(503.65, 516.725)
+size = Vector2(114.1, 7.35)
+label = ""
 solid = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 20
 z_index = 2
+artwork = ExtResource("art_hanging_painting")
+artwork_size = Vector2(114.1, 7.35)
+artwork_offset = Vector2(0, 0)
+oval = false
 
 [node name="UpperRoomPuddle" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_floor_stain_pack")
+artwork_size = Vector2(125, 52.703762)
 position = Vector2(227, 425)
-size = Vector2(125, 65)
-label = "水渍"
+size = Vector2(125, 52.703762)
+label = ""
 solid = false
-oval = true
+oval = false
 shade = Color(0.55, 0.82, 0.90, 0.72)
 label_size = 20
+artwork_offset = Vector2(0, 0)
 
 [node name="HallPuddle" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_floor_stain_pack")
+artwork_size = Vector2(110, 46.37931)
 position = Vector2(155, 605)
-size = Vector2(110, 55)
-label = "水渍"
+size = Vector2(110, 46.37931)
+label = ""
 solid = false
-oval = true
+oval = false
 shade = Color(0.55, 0.82, 0.90, 0.72)
 label_size = 20
+artwork_offset = Vector2(0, 0)
 
 [node name="LivingRoomPuddle" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_floor_stain_pack")
+artwork_size = Vector2(115, 48.487461)
 position = Vector2(1300, 550)
-size = Vector2(115, 60)
-label = "水渍"
+size = Vector2(115, 48.487461)
+label = ""
 solid = false
-oval = true
+oval = false
 shade = Color(0.55, 0.82, 0.90, 0.72)
 label_size = 20
+artwork_offset = Vector2(0, 0)
 
 [node name="TentPuddle" parent="Geometry" instance=ExtResource("2")]
+artwork = ExtResource("art_floor_stain_pack")
+artwork_size = Vector2(95, 40.054859)
 position = Vector2(735, 900)
-size = Vector2(95, 140)
-label = "水渍"
+size = Vector2(95, 40.054859)
+label = ""
 solid = false
-oval = true
+oval = false
 shade = Color(0.55, 0.82, 0.90, 0.72)
 label_size = 20
+artwork_offset = Vector2(0, 0)
 
 [node name="LowerRoomBookcase" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(120, 1015)
@@ -652,6 +787,8 @@ oval = true
 shade = Color(0.98, 0.98, 0.98, 1)
 label_size = 20
 z_index = 2
+draw_placeholder = false
+
 [node name="DiningCup" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1015, 682)
 size = Vector2(22, 24)
@@ -661,6 +798,8 @@ oval = true
 shade = Color(0.98, 0.98, 0.98, 1)
 label_size = 20
 z_index = 2
+draw_placeholder = false
+
 [node name="DiningSmallDish" parent="Geometry" instance=ExtResource("2")]
 position = Vector2(1152, 741)
 size = Vector2(25, 18)
@@ -670,8 +809,10 @@ oval = true
 shade = Color(0.98, 0.98, 0.98, 1)
 label_size = 20
 z_index = 2
+draw_placeholder = false
+
 [node name="DiningOpenMagazine" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(1135, 684)
+position = Vector2(1135, 740)
 size = Vector2(60, 36)
 label = "杂志"
 solid = false
@@ -705,6 +846,164 @@ shade = Color(0.98, 0.98, 0.98, 1)
 label_size = 14
 z_index = 2
 
+[node name="ShoeCabinetFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(614.775, 294.65)
+size = Vector2(50.75, 28)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="SofaHorizontalFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(901.075, 251.425)
+size = Vector2(220, 90)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="SofaVerticalFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(737.1, 327.725)
+size = Vector2(60.2, 90)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="FishTankFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1063.125, 233.225)
+size = Vector2(100, 60)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningTableFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1083.425, 698.9)
+size = Vector2(311.15, 185.5)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningChair0Footprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1051.75, 623.9)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningChair1Footprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1124.375, 623.9)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningChair2Footprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1051.75, 790.85)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningChair3Footprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1124.375, 790.85)
+size = Vector2(45, 45)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningChair4Footprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(893.375, 690.2)
+size = Vector2(50, 65)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningChair5Footprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1273.475, 690.2)
+size = Vector2(50, 65)
+label = ""
+solid = true
+oval = false
+draw_placeholder = false
+
+[node name="DiningPlate01" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1125.95, 700.475)
+size = Vector2(51.8, 38.15)
+artwork = ExtResource("art_plate_01")
+artwork_size = Vector2(51.8, 38.15)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
+[node name="DiningPlate02" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1051.05, 700.475)
+size = Vector2(51.8, 38.15)
+artwork = ExtResource("art_plate_02")
+artwork_size = Vector2(51.8, 38.15)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
+[node name="DiningPlate03" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1125.95, 627.675)
+size = Vector2(51.8, 38.15)
+artwork = ExtResource("art_plate_03")
+artwork_size = Vector2(51.8, 38.15)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
+[node name="DiningPlate04" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1051.75, 628.025)
+size = Vector2(51.8, 38.15)
+artwork = ExtResource("art_plate_04")
+artwork_size = Vector2(51.8, 38.15)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
+[node name="DiningPlate05" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(959.35, 661.625)
+size = Vector2(51.8, 38.15)
+artwork = ExtResource("art_plate_05")
+artwork_size = Vector2(51.8, 38.15)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
+[node name="DiningPlate06" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1207.85, 664.075)
+size = Vector2(51.8, 38.15)
+artwork = ExtResource("art_plate_06")
+artwork_size = Vector2(51.8, 38.15)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
+[node name="DiningCannedFood" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(1153.075, 671.25)
+size = Vector2(52.85, 46.2)
+artwork = ExtResource("art_canned_food")
+artwork_size = Vector2(52.85, 46.2)
+label = ""
+solid = false
+oval = false
+z_index = 3
+
 [node name="Interactables" type="Node2D" parent="."]
 
 
@@ -735,8 +1034,36 @@ target_scene_path = "res://scenes/courtyard.tscn"
 target_spawn = &"from_first_floor"
 prompt_offset = Vector2(0, -160)
 
+[node name="OpenStorageRoom" type="Area2D" parent="Interactables"]
+position = Vector2(227.5, 585)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("storage_room_door")
+visual_path = NodePath("../../Geometry/StorageRoomGate")
+interaction_id = &"storage_room_door"
+interaction_rect = Rect2(-90, -75, 180, 140)
+required_key = &"storage_key_02"
+opened_event = &"storage_room_opened"
+
+[node name="UseConsciousnessDevice" type="Area2D" parent="Interactables"]
+position = Vector2(295, 405)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("consciousness_device")
+visual_path = NodePath("../../Geometry/ConsciousnessDevice")
+interaction_id = &"consciousness_device"
+interaction_rect = Rect2(-100, -20, 200, 95)
+required_story_id = &"cg_05_true"
+branch_story_id = &"cg_04"
+required_branch_id = &"truth"
+opened_event = &"storage_room_opened"
+
 [node name="InspectShoeCabinet" type="Area2D" parent="Interactables"]
-position = Vector2(630, 292)
+position = Vector2(560, 296)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -758,7 +1085,7 @@ visual_path = NodePath("../../Geometry/HangingPainting")
 text = "一个你不认识的白毛漫画角色。"
 
 [node name="InspectRug" type="Area2D" parent="Interactables"]
-position = Vector2(1005, 391.258065)
+position = Vector2(848.75, 355.025)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -769,7 +1096,7 @@ visual_path = NodePath("../../Geometry/Rug")
 text = "她讨厌绿色，但你实在喜欢上面的图案。"
 
 [node name="InspectFishTank" type="Area2D" parent="Interactables"]
-position = Vector2(1245, 315)
+position = Vector2(1063.125, 315)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -777,7 +1104,46 @@ monitorable = false
 script = ExtResource("fish_tank")
 interaction_id = &"InspectFishTank"
 visual_path = NodePath("../../Geometry/FishTank")
-text = "水面无波澜"
+text = "水里没有鱼。水面毫无波澜。"
+
+[node name="PlantStorageKey" type="Area2D" parent="Interactables"]
+position = Vector2(695, 409)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("story_gated_key")
+visual_path = NodePath("../../Geometry/Plant")
+interaction_id = &"storage_key_plant"
+key_id = &"storage_key_02"
+item_name = "储藏室钥匙"
+required_story_id = &"cg_04"
+
+[node name="CollectSmallTentMemory" type="Area2D" parent="Interactables"]
+position = Vector2(580, 980)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("collect_memory")
+visual_path = NodePath("../../Geometry/SmallTent")
+interaction_id = &"living_room_small_tent"
+interaction_rect = Rect2(-100, -25, 200, 90)
+text = "这是她的秘密基地。在无法入睡的夜晚，她会等你合上双眼后溜到这里，一个人写写画画。"
+fragment_id = &"memory_fragment_04"
+fragment_display_name = "月影"
+
+[node name="InspectTentStorageBox" type="Area2D" parent="Interactables"]
+position = Vector2(720, 990)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("tent_storage")
+visual_path = NodePath("../../Geometry/TentStorageBox")
+interaction_id = &"tent_storage_box"
+interaction_rect = Rect2(-80, -40, 160, 90)
+text = "水面毫无波澜。"
 
 [node name="InspectUpperRoomPuddle" type="Area2D" parent="Interactables"]
 position = Vector2(227, 425)
@@ -824,7 +1190,7 @@ visual_path = NodePath("../../Geometry/TentPuddle")
 text = "水渍到处都是。这座房子正在被水淹没。"
 
 [node name="InspectDiningTable" type="Area2D" parent="Interactables"]
-position = Vector2(1080, 800)
+position = Vector2(1083.425, 845)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -845,6 +1211,21 @@ interaction_id = &"InspectKitchenStorageCabinet"
 visual_path = NodePath("../../Geometry/KitchenSideCounter")
 text = "里面堆满了牛肉罐头，压缩饼干和瓶装水。"
 interaction_rect = Rect2(-15, -110, 65, 190)
+
+[node name="CollectMovieTicketMemory" type="Area2D" parent="Interactables"]
+position = Vector2(1051.75, 847)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("story_gated_memory")
+visual_path = NodePath("../../Geometry/MovieTicket")
+interaction_id = &"dining_room_movie_ticket"
+interaction_rect = Rect2(-70, -20, 140, 75)
+required_story_id = &"cg_03"
+text = "直到最后，你也没和她看成那部电影。"
+fragment_id = &"memory_fragment_05"
+fragment_display_name = "镜面"
 
 [node name="InspectKitchenDraftPaper" type="Area2D" parent="Interactables"]
 position = Vector2(1200, 930)

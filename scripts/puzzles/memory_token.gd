@@ -1,5 +1,6 @@
 extends Control
 const FONT = preload("res://ui_font.tres")
+const MOON_EDGE_FADE = preload("res://shaders/moon_fragment_edge_fade.gdshader")
 var choice: Resource
 var token_kind: StringName = &"moon"
 var puzzle
@@ -14,6 +15,9 @@ var _hover_tween: Tween
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP if puzzle != null else Control.MOUSE_FILTER_IGNORE
 	mouse_default_cursor_shape = Control.CURSOR_DRAG
+	if token_kind == &"moon":
+		texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		_configure_moon_material()
 	resized.connect(queue_redraw)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -86,7 +90,7 @@ func _draw() -> void:
 				draw_string(FONT, at + Vector2(1, 2), text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(0.03, 0.07, 0.11, 0.9))
 			draw_string(FONT, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, word_color)
 	elif choice.moon_texture != null:
-		draw_texture_rect(choice.moon_texture, Rect2(Vector2.ZERO, size), false)
+		_draw_moon_texture(choice.moon_texture)
 	else:
 		var radius := minf(size.x, size.y) * 0.38
 		var center := size * 0.5
@@ -98,6 +102,40 @@ func _draw() -> void:
 			draw_colored_polygon(outline, Color.WHITE)
 			outline.append(outline[0])
 			draw_polyline(outline, Color(0.15, 0.15, 0.15), 3.0, true)
+
+func _configure_moon_material() -> void:
+	if choice == null or choice.moon_texture == null:
+		return
+	var texture: Texture2D = choice.moon_texture
+	if not texture.has_meta("moon_reference_diameter"):
+		return
+	var source_texture: Texture2D = texture
+	var source_region := Rect2(Vector2.ZERO, texture.get_size())
+	while source_texture is AtlasTexture:
+		var atlas_texture := source_texture as AtlasTexture
+		source_region.position += atlas_texture.region.position
+		source_texture = atlas_texture.atlas
+	var source_size := source_texture.get_size()
+	var uv_rect := Rect2(source_region.position / source_size, source_region.size / source_size)
+	var edge_material := ShaderMaterial.new()
+	edge_material.shader = MOON_EDGE_FADE
+	edge_material.set_shader_parameter("source_rect", Vector4(uv_rect.position.x, uv_rect.position.y, uv_rect.size.x, uv_rect.size.y))
+	edge_material.set_shader_parameter("source_size_px", source_region.size)
+	var moon_center: Vector2 = texture.get_meta("moon_reference_center", source_region.size * 0.5)
+	edge_material.set_shader_parameter("moon_center_px", moon_center)
+	material = edge_material
+
+func _draw_moon_texture(texture: Texture2D) -> void:
+	var texture_size := texture.get_size()
+	var draw_scale := minf(size.x / texture_size.x, size.y / texture_size.y)
+	var reference_center := texture_size * 0.5
+	if texture.has_meta("moon_reference_diameter"):
+		var reference_diameter := maxf(float(texture.get_meta("moon_reference_diameter")), 1.0)
+		draw_scale = minf(size.x, size.y) * 0.76 / reference_diameter
+		reference_center = texture.get_meta("moon_reference_center", reference_center)
+	# Keep all phases on the same lunar circle, including the drag preview.
+	var rendered_size := texture_size * draw_scale
+	draw_texture_rect(texture, Rect2(size * 0.5 - reference_center * draw_scale, rendered_size), false)
 
 func _draw_moonlight_word(at: Vector2, text: String, font_size: int) -> void:
 	var light := 1.0 if _drag_preview else _hover_light

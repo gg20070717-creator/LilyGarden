@@ -3,6 +3,8 @@ extends Control
 signal exit_requested
 signal return_started
 signal restoration_succeeded(puzzle_id: StringName)
+signal memory_story_completed(story_id: StringName)
+signal memory_story_branch_completed(story_id: StringName, branch_id: StringName, next_story_id: StringName)
 signal followup_requested(pages: Array[Dictionary])
 signal drag_hint_presented
 const TokenScript = preload("res://scripts/puzzles/memory_token.gd")
@@ -15,7 +17,7 @@ const MoonlightSentenceMist = preload("res://scripts/puzzles/moonlight_sentence_
 const MemoryDragHint = preload("res://scripts/puzzles/memory_drag_hint.gd")
 const MemoryEcho = preload("res://scripts/puzzles/memory_echo.gd")
 const CombinationStories = preload("res://scripts/puzzles/memory_combination_stories.gd")
-enum Phase { MOON, RISING, WORD, FEEDBACK, STORY, INTRO, RETURNING, RESOLVING, ECHO }
+enum Phase { MOON, RISING, WORD, FEEDBACK, STORY, INTRO, RETURNING, RESOLVING, ECHO, RESISTANCE }
 @export var definition: Resource = preload("res://resources/well_memory_puzzle.tres")
 ## Caller-owned inventory snapshot. The scene never grants or consumes fragments.
 @export var available_fragment_ids: Array[StringName] = []
@@ -45,6 +47,7 @@ var word_tokens: Dictionary = {}
 var underwater_labels: Dictionary = {}
 var choices: Dictionary = {}
 var rise_tween: Tween
+var underwater_reveal_tweens: Dictionary = {}
 var introduction_started := false
 var story_dialogue: StoryDialogue
 var story_shade: ColorRect
@@ -55,6 +58,14 @@ const STORY_CANVAS_SIZE := Vector2(3508, 2480)
 var introduction_pages: Array[Dictionary] = []
 var narrative_pages: Array[Dictionary] = []
 var followup_pages: Array[Dictionary] = []
+var story_branches: Array[Dictionary] = []
+var active_story_branch: Dictionary = {}
+var resistance_pages: Array[Dictionary] = []
+var resistance_attempt_count := 0
+var resistance_tween: Tween
+var resistance_base_position := Vector2.ZERO
+var resistance_shaking := false
+var resistance_strength := 0.0
 var closing := false
 var moonlight_enter: Control
 var moonlight_esc: Control
@@ -66,6 +77,10 @@ var drag_hint: MemoryDragHint
 var memory_echo: MemoryEcho
 var combination_outcomes: Array[Dictionary] = []
 var active_outcome: Dictionary = {}
+var template_index := 0
+var sentence_suffix: Label
+var sentence_selector: HBoxContainer
+var template_buttons: Array[Button] = []
 
 func _ready() -> void:
 	var ui_theme := Theme.new()
@@ -92,10 +107,12 @@ func _ready() -> void:
 		var label := Label.new()
 		label.text = option.word
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.add_theme_font_size_override("font_size", definition.underwater_word_font_size)
 		if _has_moon_art():
 			_apply_puzzle_text_style(label, definition.underwater_word_font_size)
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		label.hide()
 		underwater_words.add_child(label)
 		underwater_labels[option.choice_id] = label
 	verb.text = definition.sentence_verb
@@ -103,6 +120,7 @@ func _ready() -> void:
 	resized.connect(_layout)
 	feedback_timer.timeout.connect(reset_attempt)
 	_setup_moonlight_ui()
+	_setup_sentence_templates()
 	_setup_drag_hint()
 	_setup_story()
 	reset_attempt()
@@ -175,6 +193,102 @@ func _add_word_trail(token: Control, surface: Vector2, destination: Vector2, ris
 		return
 	var trail := Callable(moonlight_effects, "emit_word_trail").bind(surface + token.size * 0.5, destination + token.size * 0.5, flight_time)
 	rise_tween.tween_callback(trail).set_delay(rise_time)
+
+func _setup_sentence_templates() -> void:
+	if definition.sentence_templates.is_empty():
+		return
+	sentence_suffix = Label.new()
+	sentence_suffix.name = "SentenceSuffix"
+	sentence_suffix.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sentence_suffix.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sentence_suffix.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_apply_puzzle_text_style(sentence_suffix, 42)
+	sentence.add_child(sentence_suffix)
+	_apply_puzzle_text_style(verb, 42)
+	sentence_selector = HBoxContainer.new()
+	sentence_selector.name = "SentenceTemplates"
+	sentence_selector.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sentence_selector.add_theme_constant_override("separation", 16)
+	add_child(sentence_selector)
+	var selectable_count: int = definition.sentence_templates.size() if definition.sentence_templates.size() > 1 else 0
+	for index in range(selectable_count):
+		var form: Dictionary = definition.sentence_templates[index]
+		var button := Button.new()
+		button.name = "Template%d" % int(form.get("id", index + 1))
+		button.text = "【A】%s【B】%s" % [form.get("middle", ""), form.get("suffix", "")]
+		button.tooltip_text = "点击或按 Tab 切换句型"
+		button.toggle_mode = true
+		button.focus_mode = Control.FOCUS_NONE
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.add_theme_font_size_override("font_size", 26)
+		button.add_theme_color_override("font_color", Color(0.73, 0.83, 0.93))
+		button.add_theme_color_override("font_hover_color", Color(0.92, 0.97, 1.0))
+		button.add_theme_color_override("font_pressed_color", Color(0.92, 0.97, 1.0))
+		button.add_theme_color_override("font_disabled_color", Color(0.50, 0.59, 0.69))
+		for state_name: String in ["normal", "hover", "pressed", "disabled"]:
+			var style := StyleBoxFlat.new()
+			var selected := state_name in ["hover", "pressed"]
+			style.bg_color = Color(0.06, 0.12, 0.22, 0.86 if selected else 0.68)
+			style.border_color = Color(0.64, 0.83, 1.0, 0.75 if selected else 0.28)
+			style.set_border_width_all(1)
+			style.set_corner_radius_all(8)
+			style.content_margin_left = 12.0
+			style.content_margin_right = 12.0
+			style.content_margin_top = 10.0
+			style.content_margin_bottom = 10.0
+			button.add_theme_stylebox_override(state_name, style)
+		button.pressed.connect(_select_sentence_template.bind(index))
+		sentence_selector.add_child(button)
+		template_buttons.append(button)
+	_apply_sentence_template()
+
+func _current_template_id() -> int:
+	if definition.sentence_templates.is_empty():
+		return 0
+	return int(definition.sentence_templates[template_index].get("id", template_index + 1))
+
+func _select_sentence_template(index: int) -> void:
+	if phase not in [Phase.MOON, Phase.WORD] or index < 0 or index >= definition.sentence_templates.size():
+		return
+	template_index = index
+	_apply_sentence_template()
+	_layout()
+
+func _apply_sentence_template() -> void:
+	var form: Dictionary = definition.sentence_templates[template_index]
+	verb.text = String(form.get("middle", ""))
+	sentence_suffix.text = String(form.get("suffix", ""))
+	for index in range(template_buttons.size()):
+		template_buttons[index].set_pressed_no_signal(index == template_index)
+
+func _layout_sentence_templates() -> void:
+	if not is_instance_valid(sentence_selector):
+		return
+	var form: Dictionary = definition.sentence_templates[template_index]
+	var has_suffix := not String(form.get("suffix", "")).is_empty()
+	# Reserve text space independently from the two word hit areas.
+	var left_width := 0.24 if has_suffix else 0.28
+	var middle_width := 0.23 if has_suffix else 0.40
+	var right_x := 0.49 if has_suffix else 0.71
+	slots[0].size = sentence.size * Vector2(left_width, 1.0)
+	verb.position = sentence.size * Vector2(left_width + 0.01, 0.0)
+	verb.size = sentence.size * Vector2(middle_width, 1.0)
+	slots[1].position = sentence.size * Vector2(right_x, 0.0)
+	slots[1].size = slots[0].size
+	sentence_suffix.position = sentence.size * Vector2(0.75, 0.0)
+	sentence_suffix.size = sentence.size * Vector2(0.25, 1.0)
+	var fit := minf(size.x / definition.moon_reference_size.x, size.y / definition.moon_reference_size.y)
+	verb.add_theme_font_size_override("font_size", maxi(16, roundi(42.0 * fit)))
+	sentence_suffix.add_theme_font_size_override("font_size", maxi(16, roundi(42.0 * fit)))
+	var selector_rect: Rect2 = definition.sentence_selector_rect
+	if not selector_rect.has_area():
+		selector_rect = Rect2(480, 880, 960, 70)
+	sentence_selector.scale = Vector2.ONE * fit
+	sentence_selector.size = selector_rect.size
+	sentence_selector.position = _reference_point(selector_rect.position)
+	sentence_selector.visible = definition.sentence_templates.size() > 1 and phase in [Phase.MOON, Phase.RISING, Phase.WORD, Phase.FEEDBACK]
+	for button: Button in template_buttons:
+		button.disabled = phase not in [Phase.MOON, Phase.WORD]
 
 func _confirm_success() -> void:
 	if not definition.moonlight_ui_enabled:
@@ -293,6 +407,7 @@ func _layout() -> void:
 	slots[1].size = slots[0].size
 	verb.position = sentence.size * Vector2(0.35, 0)
 	verb.size = sentence.size * Vector2(0.30, 1)
+	_layout_sentence_templates()
 	if is_instance_valid(moonlight_sentence_mist):
 		moonlight_sentence_mist.position = -sentence.size * Vector2(0.07, 0.35)
 		moonlight_sentence_mist.size = sentence.size * Vector2(1.14, 1.7)
@@ -326,7 +441,7 @@ func _layout() -> void:
 			story_canvas.scale = Vector2.ONE * composition_fit
 			story_canvas.position = (Vector2(w, dialogue_top) - STORY_CANVAS_SIZE * composition_fit) * 0.5
 		else:
-			story_image.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+			story_image.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
 			story_image.position = Vector2.ZERO
 			story_image.size = Vector2(w, dialogue_top)
 			story_image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -367,6 +482,8 @@ func _position_words() -> void:
 			token.position = _word_home(choice_id)
 
 func can_drag(kind: StringName, choice_id: StringName) -> bool:
+	if closing:
+		return false
 	if kind == &"moon":
 		return phase == Phase.MOON and choices.has(choice_id) and available_fragment_ids.has(choices[choice_id].fragment_id) and not selected_ids.has(choice_id)
 	return kind == &"word" and phase == Phase.WORD and selected_ids.has(choice_id)
@@ -380,11 +497,16 @@ func add_moon(choice_id: StringName) -> void:
 	drag_hint.dismiss()
 	selected_ids.append(choice_id)
 	moon_tokens[choice_id].hide()
-	underwater_labels[choice_id].add_theme_color_override("font_color", _puzzle_text_color())
+	# Depositing reveals exactly this word on the water, without leaving selection.
+	var label: Label = underwater_labels[choice_id]
+	label.add_theme_color_override("font_color", _puzzle_text_color())
+	label.modulate.a = 0.0
+	label.show()
+	var reveal := create_tween()
+	reveal.tween_property(label, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	underwater_reveal_tweens[choice_id] = reveal
 	if definition.water_ripple != null:
 		water_ripple.play()
-	if definition.rise_on_drop:
-		_rise_dropped_word(choice_id)
 	_refresh_hint()
 
 func assign_word(choice_id: StringName, slot_index: int) -> void:
@@ -414,11 +536,13 @@ func remove_word(choice_id: StringName) -> void:
 		_refresh_hint()
 
 func _refresh_hint() -> void:
+	# Keep selection focused on deposited water words; reveal slots on Enter.
+	sentence.visible = phase in [Phase.RISING, Phase.WORD, Phase.FEEDBACK, Phase.RESOLVING, Phase.RESISTANCE]
 	var can_confirm := (phase == Phase.MOON and not selected_ids.is_empty()) or (phase == Phase.WORD and (slot_ids[0] != &"" or slot_ids[1] != &""))
 	enter_hint.visible = can_confirm and not definition.moonlight_ui_enabled
 	if definition.moonlight_ui_enabled:
 		esc_hint.hide()
-		moonlight_esc.visible = phase not in [Phase.INTRO, Phase.STORY, Phase.RETURNING, Phase.ECHO]
+		moonlight_esc.visible = phase not in [Phase.INTRO, Phase.STORY, Phase.RETURNING, Phase.ECHO, Phase.RESISTANCE]
 		moonlight_enter.call("set_hint", "Enter", "开始还原" if phase == Phase.MOON else "确认还原")
 		if can_confirm != moonlight_enter.visible:
 			if is_instance_valid(moonlight_hint_tween):
@@ -431,12 +555,19 @@ func _refresh_hint() -> void:
 	for slot in slots:
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP if phase == Phase.WORD else Control.MOUSE_FILTER_IGNORE
 		slot.queue_redraw()
+	if is_instance_valid(sentence_selector):
+		sentence_selector.visible = definition.sentence_templates.size() > 1 and phase in [Phase.MOON, Phase.RISING, Phase.WORD, Phase.FEEDBACK]
+		for button: Button in template_buttons:
+			button.disabled = phase not in [Phase.MOON, Phase.WORD]
 
 func confirm_restoration() -> void:
 	if phase == Phase.MOON and not selected_ids.is_empty():
 		_rise_words()
 	elif phase == Phase.WORD and (slot_ids[0] != &"" or slot_ids[1] != &""):
 		active_outcome = _find_combination_outcome()
+		# Any other confirmed combination breaks the consecutive resistance attempts.
+		if StringName(active_outcome.get("kind", &"")) != &"cg_resistance":
+			resistance_attempt_count = 0
 		var matched := not active_outcome.is_empty()
 		if combination_outcomes.is_empty():
 			matched = slot_ids[0] == definition.answer_left and slot_ids[1] == definition.answer_right
@@ -452,58 +583,35 @@ func confirm_restoration() -> void:
 
 func _find_combination_outcome() -> Dictionary:
 	for outcome: Dictionary in combination_outcomes:
+		if outcome.has("template_id") and int(outcome["template_id"]) != _current_template_id():
+			continue
 		if slot_ids[0] == StringName(outcome.get("left", &"")) and slot_ids[1] == StringName(outcome.get("right", &"")):
 			return outcome.duplicate(true)
 	return {}
 
-func _surface_word_position(choice_id: StringName, token: Control) -> Vector2:
-	if not definition.underwater_word_centers.is_empty():
-		var underwater: Label = underwater_labels[choice_id]
-		var center := underwater.position + underwater.size * 0.5
-		center.x = clampf(center.x, water.position.x + water.size.x * 0.08, water.position.x + water.size.x * 0.92)
-		center.y = water.position.y + water.size.y * 0.5
-		return center - token.size * 0.5
-	return token.position - Vector2(0, maxf(32.0, water.size.y * 0.7))
+func _surface_word_position(token: Control) -> Vector2:
+	# Enter lifts a word from its visible water position before its flight home.
+	return token.position - Vector2(0, maxf(24.0, water.size.y * 0.12))
 
-func _rise_dropped_word(choice_id: StringName) -> void:
-	phase = Phase.RISING
-	var underwater: Label = underwater_labels[choice_id]
-	var token := _make_token(choices[choice_id], &"word")
-	token.size = definition.word_token_size
-	token.position = underwater.position + underwater.size * 0.5 - token.size * 0.5
-	token.modulate.a = 0.0
-	word_tokens[choice_id] = token
-	underwater.hide()
-	var surface := _surface_word_position(choice_id, token)
-	var rise_time: float = definition.rise_duration * 0.35
-	var flight_time: float = definition.rise_duration * 0.65
-	rise_tween = create_tween().set_parallel(true)
-	rise_tween.tween_property(token, "position", surface, rise_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	rise_tween.tween_property(token, "modulate:a", 1.0, rise_time)
-	rise_tween.tween_property(token, "position", _word_home(choice_id), flight_time).from(surface).set_delay(rise_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	_add_word_trail(token, surface, _word_home(choice_id), rise_time, flight_time)
-	rise_tween.finished.connect(_finish_dropped_word)
-
-func _finish_dropped_word() -> void:
-	phase = Phase.MOON
-	_layout()
-	_refresh_hint()
+func _stop_word_motion() -> void:
+	if is_instance_valid(rise_tween):
+		rise_tween.kill()
+	rise_tween = null
+	for reveal: Tween in underwater_reveal_tweens.values():
+		if is_instance_valid(reveal):
+			reveal.kill()
+	underwater_reveal_tweens.clear()
 
 func _rise_words() -> void:
+	if closing or phase != Phase.MOON or selected_ids.is_empty():
+		return
+	_stop_word_motion()
 	# Order follows the configuration, independently of drop order.
 	var ordered: Array[StringName] = []
 	for option: Resource in definition.options:
 		if selected_ids.has(option.choice_id):
 			ordered.append(option.choice_id)
 	selected_ids = ordered
-	if definition.rise_on_drop:
-		for moon: Control in moon_tokens.values():
-			moon.hide()
-		underwater_words.hide()
-		phase = Phase.WORD
-		_layout()
-		_refresh_hint()
-		return
 	phase = Phase.RISING
 	for token: Control in moon_tokens.values():
 		token.hide()
@@ -517,18 +625,20 @@ func _rise_words() -> void:
 		token.size = definition.word_token_size
 		var underwater: Label = underwater_labels[choice_id]
 		token.position = underwater.position + underwater.size * 0.5 - token.size * 0.5
-		token.modulate.a = 0.0
+		token.modulate.a = 1.0
 		word_tokens[choice_id] = token
-		var surface := _surface_word_position(choice_id, token)
+		var surface := _surface_word_position(token)
 		var rise_time: float = definition.rise_duration * 0.35
 		var flight_time: float = definition.rise_duration * 0.65
 		rise_tween.tween_property(token, "position", surface, rise_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		rise_tween.tween_property(token, "modulate:a", 1.0, rise_time)
 		rise_tween.tween_property(token, "position", _word_home(choice_id), flight_time).from(surface).set_delay(rise_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		_add_word_trail(token, surface, _word_home(choice_id), rise_time, flight_time)
 	rise_tween.finished.connect(_finish_rise)
 
 func _finish_rise() -> void:
+	if closing or phase != Phase.RISING:
+		return
+	rise_tween = null
 	phase = Phase.WORD
 	for token: Control in word_tokens.values():
 		token.light_backing = _has_moon_art() and definition.ui_backing_enabled
@@ -543,6 +653,15 @@ func _show_story() -> void:
 	if StringName(active_outcome.get("kind", &"")) in [&"micro", &"cg_placeholder"]:
 		_show_memory_outcome()
 		return
+	if StringName(active_outcome.get("kind", &"")) in [&"cg_branch", &"cg_resistance"] and active_story_branch.is_empty():
+		if StringName(active_outcome.get("kind", &"")) == &"cg_resistance":
+			resistance_attempt_count += 1
+			if resistance_attempt_count < 3:
+				_show_resistance()
+				return
+		if not _activate_story_branch(StringName(active_outcome.get("branch_id", &""))):
+			reset_attempt()
+			return
 	if not definition.play_success_story:
 		restoration_succeeded.emit(definition.puzzle_id)
 		_return_to_world()
@@ -575,6 +694,68 @@ func _show_story() -> void:
 		esc_hint.move_to_front()
 	restoration_succeeded.emit(definition.puzzle_id)
 
+func _activate_story_branch(branch_id: StringName) -> bool:
+	for branch: Dictionary in story_branches:
+		if StringName(branch.get("id", &"")) != branch_id:
+			continue
+		var pages: Array = branch.get("pages", [])
+		if pages.is_empty():
+			return false
+		active_story_branch = branch.duplicate(true)
+		narrative_pages.assign(pages.duplicate(true))
+		followup_pages.assign(branch.get("followup_pages", []).duplicate(true))
+		_build_story_panels()
+		return true
+	return false
+
+func _show_resistance() -> void:
+	phase = Phase.RESISTANCE
+	water_ripple.stop()
+	_refresh_hint()
+	resistance_base_position = position
+	resistance_shaking = true
+	resistance_strength = (12.0 if resistance_attempt_count == 1 else 24.0) * minf(size.x / 1920.0, size.y / 1080.0)
+	resistance_tween = create_tween()
+	resistance_tween.tween_method(_apply_resistance_shake, 0.0, 1.0, 0.55)
+	resistance_tween.tween_callback(_finish_resistance_shake)
+
+func _apply_resistance_shake(progress: float) -> void:
+	position = resistance_base_position + Vector2(sin(progress * 91.0), sin(progress * 117.0)) * resistance_strength * (1.0 - progress)
+
+func _finish_resistance_shake() -> void:
+	position = resistance_base_position
+	resistance_shaking = false
+	resistance_tween = null
+	if closing or phase != Phase.RESISTANCE:
+		return
+	# Return the deposited words to their homes, retaining them for the next attempt.
+	slot_ids.assign([&"", &""])
+	_position_words()
+	var page_index := resistance_attempt_count - 1
+	if page_index >= resistance_pages.size():
+		_resume_after_resistance()
+		return
+	story_shade.show()
+	var pages: Array[Dictionary] = [resistance_pages[page_index].duplicate(true)]
+	story_dialogue.start(pages)
+	story_dialogue.move_to_front()
+
+func _resume_after_resistance() -> void:
+	active_outcome.clear()
+	story_dialogue.stop()
+	story_shade.hide()
+	phase = Phase.WORD
+	_layout()
+	_refresh_hint()
+
+func _stop_resistance() -> void:
+	if is_instance_valid(resistance_tween):
+		resistance_tween.kill()
+	resistance_tween = null
+	if resistance_shaking:
+		position = resistance_base_position
+	resistance_shaking = false
+
 func _show_memory_outcome() -> void:
 	phase = Phase.ECHO
 	water_ripple.stop()
@@ -597,8 +778,13 @@ func _on_memory_echo_finished() -> void:
 		_return_to_world()
 
 func reset_attempt() -> void:
+	if closing:
+		return
+	_stop_word_motion()
 	_clear_moonlight_effects()
 	active_outcome.clear()
+	active_story_branch.clear()
+	_stop_resistance()
 	if is_instance_valid(memory_echo):
 		memory_echo.stop()
 	if is_instance_valid(story_tween):
@@ -607,8 +793,6 @@ func reset_attempt() -> void:
 		story_dialogue.stop()
 		story_shade.hide()
 	water_ripple.stop()
-	if is_instance_valid(rise_tween):
-		rise_tween.kill()
 	feedback_timer.stop()
 	phase = Phase.MOON
 	modulate.a = 1.0
@@ -621,11 +805,11 @@ func reset_attempt() -> void:
 	for choice_id: StringName in moon_tokens:
 		moon_tokens[choice_id].visible = available_fragment_ids.has(choices[choice_id].fragment_id)
 	for label: Label in underwater_labels.values():
-		label.show()
-		label.modulate.a = 0.55 if definition.moonlight_ui_enabled else 1.0
+		label.hide()
+		label.modulate.a = 0.0
 		label.add_theme_color_override("font_color", _puzzle_text_color())
 	water.show()
-	sentence.show()
+	sentence.hide()
 	cards.show()
 	underwater_words.show()
 	feedback.hide()
@@ -641,13 +825,15 @@ func request_exit() -> void:
 	if closing:
 		return
 	closing = true
+	_stop_word_motion()
+	feedback_timer.stop()
 	active_outcome.clear()
+	active_story_branch.clear()
+	_stop_resistance()
 	if is_instance_valid(memory_echo):
 		memory_echo.stop()
 	drag_hint.stop()
 	_clear_moonlight_effects()
-	if is_instance_valid(rise_tween):
-		rise_tween.kill()
 	if is_instance_valid(story_tween):
 		story_tween.kill()
 	story_dialogue.stop()
@@ -655,6 +841,9 @@ func request_exit() -> void:
 		exit_requested.emit()
 	elif get_tree().current_scene == self:
 		get_tree().quit()
+
+func _exit_tree() -> void:
+	_stop_word_motion()
 
 func handle_input(event: InputEvent) -> bool:
 	if phase == Phase.RETURNING:
@@ -665,12 +854,15 @@ func handle_input(event: InputEvent) -> bool:
 			return true
 	if phase == Phase.ECHO:
 		return memory_echo.handle_input(event)
-	if phase in [Phase.INTRO, Phase.STORY] and story_dialogue.active:
+	if phase in [Phase.INTRO, Phase.STORY, Phase.RESISTANCE] and story_dialogue.active:
 		return story_dialogue.handle_input(event)
 	if phase == Phase.MOON and drag_hint.is_open and event is InputEventKey and event.pressed and not event.echo:
 		drag_hint.dismiss()
 		return true
 	if event is InputEventKey and event.pressed and not event.echo:
+		if definition.sentence_templates.size() > 1 and (event.physical_keycode == KEY_TAB or event.keycode == KEY_TAB):
+			_select_sentence_template((template_index + 1) % definition.sentence_templates.size())
+			return true
 		if event.physical_keycode in [KEY_ENTER, KEY_KP_ENTER] or event.keycode in [KEY_ENTER, KEY_KP_ENTER]:
 			confirm_restoration()
 			return true
@@ -695,6 +887,8 @@ func _setup_story() -> void:
 		introduction_pages.assign(constants.get("INTRO_PAGES", []))
 		narrative_pages.assign(constants.get("NARRATIVE_PAGES", []))
 		followup_pages.assign(constants.get("FOLLOWUP_PAGES", []))
+		story_branches.assign(constants.get("STORY_BRANCHES", []).duplicate(true))
+		resistance_pages.assign(constants.get("RESISTANCE_PAGES", []).duplicate(true))
 	story_shade = ColorRect.new()
 	story_shade.name = "DialogueShade"
 	story_shade.color = Color(0, 0, 0, 0.45)
@@ -723,9 +917,22 @@ func _on_story_dialogue_finished() -> void:
 	if phase == Phase.INTRO:
 		reset_attempt()
 		_present_drag_hint()
+	elif phase == Phase.RESISTANCE:
+		_resume_after_resistance()
 	elif phase == Phase.STORY:
+		# The final narrative page was advanced; early exits and echoes skip this.
+		var story_id := StringName(active_outcome.get("id", &""))
+		if story_id != &"":
+			if not active_story_branch.is_empty():
+				memory_story_branch_completed.emit(story_id, StringName(active_story_branch.get("id", &"")), StringName(active_story_branch.get("next_story_id", &"")))
+			memory_story_completed.emit(story_id)
 		if not followup_pages.is_empty():
 			followup_requested.emit(followup_pages)
+		if not active_story_branch.is_empty() and StringName(active_story_branch.get("next_story_id", &"")) in [&"cg_05_false", &"cg_05_true"]:
+			# GameUI continues Act Five on the same black frame, keeping input locked.
+			phase = Phase.RETURNING
+			request_exit()
+			return
 		_return_to_world()
 
 func _return_to_world() -> void:
@@ -760,6 +967,10 @@ func _on_story_page_changed(index: int) -> void:
 		story_image.show()
 
 func _build_story_panels() -> void:
+	if is_instance_valid(story_canvas):
+		story_panel.remove_child(story_canvas)
+		story_canvas.queue_free()
+	story_panels.clear()
 	story_canvas = Control.new()
 	story_canvas.name = "StoryComposition"
 	story_canvas.size = STORY_CANVAS_SIZE

@@ -1,0 +1,95 @@
+[gd_resource type="Resource" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/puzzles/memory_puzzle_definition.gd" id="definition"]
+[ext_resource type="Script" path="res://scripts/puzzles/memory_option.gd" id="option"]
+[ext_resource type="Texture2D" path="res://assets/art/puzzles/tent_storage/backgrounds/tent_storage_environment.png" id="environment"]
+[ext_resource type="Script" path="res://scripts/puzzles/tent_storage_memory_story.gd" id="story"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_05_thin_crescent.tres" id="moon_A"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_04_crescent.tres" id="moon_B"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_03_half.tres" id="moon_C"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_02_gibbous.tres" id="moon_D"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_01_full.tres" id="moon_E"]
+
+[sub_resource type="Resource" id="A"]
+script = ExtResource("option")
+choice_id = &"A"
+fragment_id = &"bedroom_photo_01"
+fragment_display_name = "港湾"
+word = "港湾"
+moon_texture = ExtResource("moon_A")
+moon_fraction = 0.18
+
+[sub_resource type="Resource" id="B"]
+script = ExtResource("option")
+choice_id = &"B"
+fragment_id = &"corridor_photo_02"
+fragment_display_name = "涌泉"
+word = "涌泉"
+moon_texture = ExtResource("moon_B")
+moon_fraction = 0.35
+
+[sub_resource type="Resource" id="C"]
+script = ExtResource("option")
+choice_id = &"C"
+fragment_id = &"memory_fragment_03"
+fragment_display_name = "潮汐"
+word = "潮汐"
+moon_texture = ExtResource("moon_C")
+moon_fraction = 0.5
+
+[sub_resource type="Resource" id="D"]
+script = ExtResource("option")
+choice_id = &"D"
+fragment_id = &"memory_fragment_04"
+fragment_display_name = "月影"
+word = "月影"
+moon_texture = ExtResource("moon_D")
+moon_fraction = 0.78
+
+[sub_resource type="Resource" id="E"]
+script = ExtResource("option")
+choice_id = &"E"
+fragment_id = &"memory_fragment_05"
+fragment_display_name = "镜面"
+word = "镜面"
+moon_texture = ExtResource("moon_E")
+moon_fraction = 1.0
+
+[resource]
+script = ExtResource("definition")
+puzzle_id = &"tent_storage_memory"
+options = Array[Resource]([SubResource("A"), SubResource("B"), SubResource("C"), SubResource("D"), SubResource("E")])
+answer_left = &"C"
+answer_right = &"D"
+sentence_templates = Array[Dictionary]([{
+"id": 3,
+"middle": "从",
+"suffix": "中涌现"
+}])
+sentence_selector_rect = Rect2(1015, 860, 850, 70)
+failure_text = "记忆没有回应"
+ui_backing_enabled = false
+moonlight_ui_enabled = true
+moonlight_sentence_mist_opacity = 0.21
+underwater_word_font_size = 46
+word_font_size = 64
+word_token_size = Vector2(144, 96)
+slot_line_width = 3.2
+slot_empty_opacity = 0.95
+story_script = ExtResource("story")
+moon_environment = ExtResource("environment")
+moon_reference_size = Vector2(1920, 1080)
+moon_water_rect = Rect2(430, 565, 812, 460)
+fragment_drop_rect = Rect2(430, 425, 812, 655)
+fragment_drop_margin = 24.0
+drag_hint_target_name = "收纳盒"
+drag_hint_rect = Rect2(1300, 40, 460, 224)
+moon_centers = PackedVector2Array(239, 487, 480, 245, 893, 167, 1280, 309, 1640, 487)
+moon_token_size = Vector2(190, 190)
+underwater_word_centers = PackedVector2Array(610, 805, 735, 865, 870, 835, 995, 785, 1110, 785)
+sentence_rect = Rect2(1015, 710, 850, 100)
+water_drop_polygon = PackedVector2Array(0, 220, 441, 0, 812, 154, 410, 460)
+enter_hint_center = Vector2(1450, 1005)
+feedback_center = Vector2(1450, 955)
+rise_on_drop = false
+rise_duration = 0.9

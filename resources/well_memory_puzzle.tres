@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://bna62qkc1pi2w"]
+[gd_resource type="Resource" load_steps=18 format=3 uid="uid://bna62qkc1pi2w"]
 
 [ext_resource type="Script" uid="uid://bkr1dfc1nu0jh" path="res://scripts/puzzles/memory_puzzle_definition.gd" id="1"]
 [ext_resource type="Script" uid="uid://b433vydui4ado" path="res://scripts/puzzles/memory_option.gd" id="2"]
@@ -7,6 +7,11 @@
 [ext_resource type="SpriteFrames" path="res://resources/art/well_memory/water_ripple_frames.tres" id="5"]
 [ext_resource type="Texture2D" path="res://resources/art/cg/act_01/cg_01_rooftop_01.tres" id="6"]
 [ext_resource type="Script" path="res://scripts/puzzles/well_memory_story.gd" id="7"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_05_thin_crescent.tres" id="moon_A"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_04_crescent.tres" id="moon_B"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_03_half.tres" id="moon_C"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_02_gibbous.tres" id="moon_D"]
+[ext_resource type="Texture2D" path="res://resources/art/puzzles/shared/moon_fragment_01_full.tres" id="moon_E"]
 
 [sub_resource type="Resource" id="A"]
 script = ExtResource("2")
@@ -14,6 +19,7 @@ choice_id = &"A"
 fragment_id = &"bedroom_photo_01"
 fragment_display_name = "港湾"
 word = "港湾"
+moon_texture = ExtResource("moon_A")
 moon_fraction = 0.18
 
 [sub_resource type="Resource" id="B"]
@@ -22,6 +28,7 @@ choice_id = &"B"
 fragment_id = &"corridor_photo_02"
 fragment_display_name = "涌泉"
 word = "涌泉"
+moon_texture = ExtResource("moon_B")
 moon_fraction = 0.35
 
 [sub_resource type="Resource" id="C"]
@@ -30,19 +37,24 @@ choice_id = &"C"
 fragment_id = &"memory_fragment_03"
 fragment_display_name = "潮汐"
 word = "潮汐"
+moon_texture = ExtResource("moon_C")
 
 [sub_resource type="Resource" id="D"]
 script = ExtResource("2")
 choice_id = &"D"
 fragment_id = &"memory_fragment_04"
-word = "D"
+fragment_display_name = "月影"
+word = "月影"
+moon_texture = ExtResource("moon_D")
 moon_fraction = 0.78
 
 [sub_resource type="Resource" id="E"]
 script = ExtResource("2")
 choice_id = &"E"
 fragment_id = &"memory_fragment_05"
-word = "E"
+fragment_display_name = "镜面"
+word = "镜面"
+moon_texture = ExtResource("moon_E")
 moon_fraction = 1.0
 
 [resource]
@@ -60,4 +72,5 @@ water_ripple = ExtResource("5")
 
 success_image = ExtResource("6")
 story_script = ExtResource("7")
+rise_on_drop = false
 rise_duration = 0.9

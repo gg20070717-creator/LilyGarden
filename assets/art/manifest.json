@@ -2062,6 +2062,10 @@
             341
           ]
         }
+      ],
+      "used_in_scenes": [
+        "first_floor",
+        "courtyard"
       ]
     },
     {
@@ -2626,6 +2630,2161 @@
       ],
       "sha256": "48b0b33a94490707d47f1032aadcf294bd79c7f08143f3b9c68b19af6c8a065b",
       "note": "用户提供的月相布局参考，仅归档对照；运行使用独立谜题定义绘制月相，不叠加本图。"
+    },
+    {
+      "id": "bedroom_note",
+      "source_filename": "字条.png",
+      "source_archive": "素材/10.15/素材(2).zip",
+      "path": "res://assets/art/environments/bedroom/props/bedroom_note.png",
+      "category": "props",
+      "scene": "bedroom",
+      "canvas_size": [
+        200,
+        200
+      ],
+      "alpha_bounds": [
+        12,
+        43,
+        181,
+        136
+      ],
+      "sha256": "0f8558a878bab96684af56573a9077a188f1610b80cd35a5ff5f6a3940fbe039",
+      "regions": [
+        {
+          "path": "res://resources/art/bedroom/bedroom_note.tres",
+          "region": [
+            12,
+            43,
+            169,
+            93
+          ]
+        }
+      ],
+      "note": "原图字节与透明通道保留；AtlasTexture 仅裁去透明留白。"
+    },
+    {
+      "id": "dialogue_bubble",
+      "source_filename": "对话框.png",
+      "source_archive": "素材/10.15/素材(2).zip",
+      "path": "res://assets/art/ui/panels/dialogue_bubble.png",
+      "category": "ui_panel",
+      "scene": "gameplay",
+      "canvas_size": [
+        200,
+        200
+      ],
+      "alpha_bounds": [
+        24,
+        20,
+        195,
+        149
+      ],
+      "sha256": "02a36b3fcb453360496cdea38c2ad2bee0b28e2c022d8bddb6192a832cd7944d",
+      "regions": [
+        {
+          "path": "res://resources/art/ui/dialogue_bubble.tres",
+          "region": [
+            24,
+            20,
+            171,
+            129
+          ]
+        }
+      ],
+      "note": "原图字节与透明通道保留；AtlasTexture 仅裁去透明留白。"
+    },
+    {
+      "id": "key_icon",
+      "source_filename": "钥匙.png",
+      "source_archive": "素材/10.15/素材(2).zip",
+      "path": "res://assets/art/ui/icons/key_icon.png",
+      "category": "ui_icon",
+      "scene": "gameplay",
+      "canvas_size": [
+        200,
+        200
+      ],
+      "alpha_bounds": [
+        9,
+        55,
+        175,
+        119
+      ],
+      "sha256": "73f171387e3420a70db342c1fc942a954e1c704a4de9139e0a0488c214e1e336",
+      "regions": [
+        {
+          "path": "res://resources/art/ui/key_icon.tres",
+          "region": [
+            9,
+            55,
+            166,
+            64
+          ]
+        }
+      ],
+      "note": "原图字节与透明通道保留；AtlasTexture 仅裁去透明留白。"
+    },
+    {
+      "id": "floor_stain_01",
+      "source_filename": "水渍/地板水渍/插画4.png",
+      "source_archive": "素材/10.15/素材(2).zip",
+      "path": "res://assets/art/shared/decals/floor_stain_01.png",
+      "category": "decals",
+      "scene": "shared",
+      "canvas_size": [
+        200,
+        200
+      ],
+      "alpha_bounds": [
+        12,
+        114,
+        176,
+        151
+      ],
+      "sha256": "f6ff9f25cd53f6b64bd88033707c4f62f74f9c5dbb21d863c77dbe2cb5386fc3",
+      "regions": [
+        {
+          "path": "res://resources/art/shared/floor_stain_01.tres",
+          "region": [
+            12,
+            114,
+            164,
+            37
+          ]
+        }
+      ],
+      "note": "原图字节与透明通道保留；AtlasTexture 仅裁去透明留白。"
+    },
+    {
+      "id": "floor_stain_02",
+      "source_filename": "水渍/地板水渍/插画5.png",
+      "source_archive": "素材/10.15/素材(2).zip",
+      "path": "res://assets/art/shared/decals/floor_stain_02.png",
+      "category": "decals",
+      "scene": "shared",
+      "canvas_size": [
+        200,
+        200
+      ],
+      "alpha_bounds": [
+        24,
+        156,
+        148,
+        181
+      ],
+      "sha256": "66d1573e80128ceaf1358dd7462ed4b60b6460bb671bf4207df7efb2e2fb29d9",
+      "regions": [
+        {
+          "path": "res://resources/art/shared/floor_stain_02.tres",
+          "region": [
+            24,
+            156,
+            124,
+            25
+          ]
+        }
+      ],
+      "note": "原图字节与透明通道保留；AtlasTexture 仅裁去透明留白。"
+    },
+    {
+      "id": "corridor_native_water_stain_glow_mask",
+      "source_filename": "derived_alpha_mask",
+      "path": "res://assets/art/environments/corridor/props/corridor_native_water_stain_mask.svg",
+      "category": "interaction_glow_mask",
+      "scene": "corridor",
+      "canvas_size": [
+        152,
+        160
+      ],
+      "sha256": "a0d8b4501a6539dda74c79854e81dbead9f8fc6c3bc181995a41dbec5337713a",
+      "derived_from": "res://assets/art/environments/corridor/backgrounds/corridor_floor_wall.png",
+      "source_region": [
+        1648,
+        16,
+        152,
+        160
+      ],
+      "display_rect": [
+        991.2,
+        -128,
+        91.2,
+        181.818182
+      ],
+      "note": "沿原背景墙面水渍及旁侧小点描出的透明轮廓，仅由 embedded_art_glow_proxy 暴露给现有高亮；原水渍继续由背景绘制，不重复叠加。"
+    },
+    {
+      "id": "tent_storage_environment",
+      "source_filename": "帐篷收纳盒.png",
+      "source_archive": "帐篷收纳盒.zip",
+      "path": "res://assets/art/puzzles/tent_storage/backgrounds/tent_storage_environment.png",
+      "category": "puzzle_background",
+      "scene": "tent_storage_memory",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "0e0078145de968b5d6a9d535e9875b7a8a4fb03b70ae701e8b277287bb99b111",
+      "note": "用户 ZIP 原图按原字节归档，1920×1080 整图背景；前景层留空。"
+    },
+    {
+      "id": "tent_storage_layout_reference",
+      "source_filename": "帐篷收纳盒 记忆碎片示意.png",
+      "source_archive": "帐篷收纳盒.zip",
+      "path": "res://assets/art/puzzles/tent_storage/backgrounds/tent_storage_layout_reference.png",
+      "category": "puzzle_layout_reference",
+      "scene": "tent_storage_memory",
+      "canvas_size": [
+        1920,
+        1080
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "sha256": "fa4aa5d1f14803f2e3e4f0831b9ce499b78be80b25fd502597ed93314aba7856",
+      "note": "用户 ZIP 月相布局参考，运行画面不叠加本图；阶段四仅使用已配置的四种记忆。"
+    },
+    {
+      "id": "player_down_idle",
+      "source_filename": "a912d7a490a37b14d4926cb8adfa34c8.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/a912d7a490a37b14d4926cb8adfa34c8.png",
+      "path": "res://assets/art/characters/player/player_down_idle.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        440,
+        680
+      ],
+      "alpha_bounds": [
+        60,
+        60,
+        340,
+        600
+      ],
+      "sha256": "531d8c2fd69a33e3c583d5716a05543adcaae4d79cfb23974ce8597f53a61cbb",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "down_idle",
+          "region": [
+            60,
+            60,
+            280,
+            540
+          ]
+        }
+      ],
+      "foot_anchor": [
+        160,
+        540
+      ],
+      "animations": [
+        "idle_down",
+        "walk_down"
+      ],
+      "display_height": 150,
+      "display_scale": 0.2777777777777778
+    },
+    {
+      "id": "player_down_step_01",
+      "source_filename": "5D91621061F683CFD66585AEB968CBD8.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/5D91621061F683CFD66585AEB968CBD8.png",
+      "path": "res://assets/art/characters/player/player_down_step_01.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        433,
+        720
+      ],
+      "alpha_bounds": [
+        56,
+        82,
+        344,
+        658
+      ],
+      "sha256": "c23f70a206cff06cd9bdbfcbb99621cd388db0a989c0752d9635da646016ab86",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "down_step_01",
+          "region": [
+            56,
+            82,
+            288,
+            576
+          ]
+        }
+      ],
+      "foot_anchor": [
+        165,
+        576
+      ],
+      "animations": [
+        "walk_down"
+      ],
+      "display_height": 150,
+      "display_scale": 0.2604166666666667
+    },
+    {
+      "id": "player_down_step_02",
+      "source_filename": "705CAB6B2D6EE8B6B5F845ADFDE74ED5.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/705CAB6B2D6EE8B6B5F845ADFDE74ED5.png",
+      "path": "res://assets/art/characters/player/player_down_step_02.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        494,
+        782
+      ],
+      "alpha_bounds": [
+        59,
+        36,
+        418,
+        753
+      ],
+      "sha256": "04fb7941362f82ceb2ed9857073a010fc7607f9ed1c3afdb4be0d6bd05ba4ca9",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "down_step_02",
+          "region": [
+            59,
+            36,
+            359,
+            717
+          ]
+        }
+      ],
+      "foot_anchor": [
+        205,
+        717
+      ],
+      "animations": [
+        "walk_down"
+      ],
+      "display_height": 150,
+      "display_scale": 0.20920502092050208
+    },
+    {
+      "id": "player_up_idle",
+      "source_filename": "B39D7C648D25274FCFA7CC17112AB0F3.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/B39D7C648D25274FCFA7CC17112AB0F3.png",
+      "path": "res://assets/art/characters/player/player_up_idle.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        499,
+        720
+      ],
+      "alpha_bounds": [
+        72,
+        82,
+        360,
+        658
+      ],
+      "sha256": "010e824aaa794eca89b9ffe22d600eb179c313ce992f34c92dcac51eda21a0a8",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "up_idle",
+          "region": [
+            72,
+            82,
+            288,
+            576
+          ]
+        }
+      ],
+      "foot_anchor": [
+        123,
+        576
+      ],
+      "animations": [
+        "idle_up",
+        "walk_up"
+      ],
+      "display_height": 150,
+      "display_scale": 0.2604166666666667
+    },
+    {
+      "id": "player_up_step_01",
+      "source_filename": "191CF3C83D03F0C3A62F4DCB96C06329.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/191CF3C83D03F0C3A62F4DCB96C06329.png",
+      "path": "res://assets/art/characters/player/player_up_step_01.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        528,
+        720
+      ],
+      "alpha_bounds": [
+        71,
+        82,
+        359,
+        658
+      ],
+      "sha256": "18b43fd497261306682e1f739f0a3b2b47d7241bf153abd386fc3682fafaadf4",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "up_step_01",
+          "region": [
+            71,
+            82,
+            288,
+            576
+          ]
+        }
+      ],
+      "foot_anchor": [
+        123,
+        576
+      ],
+      "animations": [
+        "walk_up"
+      ],
+      "display_height": 150,
+      "display_scale": 0.2604166666666667
+    },
+    {
+      "id": "player_up_step_02",
+      "source_filename": "93D57C9360399A1E1BEEAC83B5FCD15B.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/93D57C9360399A1E1BEEAC83B5FCD15B.png",
+      "path": "res://assets/art/characters/player/player_up_step_02.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        463,
+        720
+      ],
+      "alpha_bounds": [
+        95,
+        82,
+        383,
+        658
+      ],
+      "sha256": "abc2539138ee2dd573f792aab8bb6570e282d2d3f8255995abc3ece8aa08fa4b",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "up_step_02",
+          "region": [
+            95,
+            82,
+            288,
+            576
+          ]
+        }
+      ],
+      "foot_anchor": [
+        123,
+        576
+      ],
+      "animations": [
+        "walk_up"
+      ],
+      "display_height": 150,
+      "display_scale": 0.2604166666666667
+    },
+    {
+      "id": "player_left_idle",
+      "source_filename": "dcd532353d0e783bdb725a7e43f27128.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/dcd532353d0e783bdb725a7e43f27128.png",
+      "path": "res://assets/art/characters/player/player_left_idle.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        416,
+        680
+      ],
+      "alpha_bounds": [
+        72,
+        60,
+        352,
+        620
+      ],
+      "sha256": "c399f390eaf894f1f1eb6a1b191ca52970eeff31d8ca9aeff0fdd1e114b9e65b",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "left_idle",
+          "region": [
+            72,
+            60,
+            280,
+            560
+          ]
+        }
+      ],
+      "foot_anchor": [
+        140,
+        560
+      ],
+      "animations": [
+        "idle_left",
+        "walk_left",
+        "idle_right",
+        "walk_right"
+      ],
+      "display_height": 150,
+      "display_scale": 0.26785714285714285
+    },
+    {
+      "id": "player_left_step_01",
+      "source_filename": "530834bae0d4b2caeb41f0a61c702203.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/530834bae0d4b2caeb41f0a61c702203.png",
+      "path": "res://assets/art/characters/player/player_left_step_01.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        457,
+        680
+      ],
+      "alpha_bounds": [
+        92,
+        60,
+        372,
+        620
+      ],
+      "sha256": "c31a22d2e4296f02e23fc790d8d3adc5b60867aac8502e3a53fc80455948d884",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "left_step_01",
+          "region": [
+            92,
+            60,
+            280,
+            560
+          ]
+        }
+      ],
+      "foot_anchor": [
+        140,
+        560
+      ],
+      "animations": [
+        "walk_left",
+        "walk_right"
+      ],
+      "display_height": 150,
+      "display_scale": 0.26785714285714285
+    },
+    {
+      "id": "player_left_step_02",
+      "source_filename": "d374f1f0e65c377d4ae2821d87471a2d.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\像素小人.zip",
+      "source_entry": "像素小人/d374f1f0e65c377d4ae2821d87471a2d.png",
+      "path": "res://assets/art/characters/player/player_left_step_02.png",
+      "category": "characters",
+      "scene": "gameplay",
+      "canvas_size": [
+        398,
+        680
+      ],
+      "alpha_bounds": [
+        55,
+        60,
+        335,
+        620
+      ],
+      "sha256": "f72c3aa28ea0d680246a66649b592c4d0bf8b7328765b7db6acd41a37568eac3",
+      "regions": [
+        {
+          "path": "res://resources/art/characters/player_frames.tres",
+          "sub_resource": "left_step_02",
+          "region": [
+            55,
+            60,
+            280,
+            560
+          ]
+        }
+      ],
+      "foot_anchor": [
+        140,
+        560
+      ],
+      "animations": [
+        "walk_left",
+        "walk_right"
+      ],
+      "display_height": 150,
+      "display_scale": 0.26785714285714285
+    },
+    {
+      "id": "studio_floor_wall",
+      "source_filename": "画室墙壁地面.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/backgrounds/studio_floor_wall.png",
+      "category": "backgrounds",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "2fc364ff0268e2b2ff50a44b0194327c2518ef8f9e79708c1e3920c5cc90d9ac",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "regions": [
+        {
+          "path": "res://resources/art/studio/studio_floor.tres",
+          "region": [
+            0,
+            350,
+            1360,
+            650
+          ]
+        },
+        {
+          "path": "res://resources/art/studio/studio_back_wall.tres",
+          "region": [
+            0,
+            0,
+            1360,
+            350
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studio_wall_border",
+      "source_filename": "墙体.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/backgrounds/studio_wall_border.png",
+      "category": "backgrounds",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "77d281039c70a90c06c40ebf6f1980bb9092833a2594878cf762f8b522dd3142",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        0,
+        0,
+        1360,
+        1000
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_wall_border_mask.svg",
+      "mask_sha256": "65fb630e78da45c73359e04f56b9d558139e149c20cb7df7f388429d7abca7e8",
+      "material_path": "res://resources/art/studio/studio_wall_border_material.tres",
+      "scene_node": "Geometry/WallBorderArtwork",
+      "mask_rule": "border_strips_only; bottom_portal_gap_570_790"
+    },
+    {
+      "id": "studio_wall_painting_01",
+      "source_filename": "墙上画1.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_wall_painting_01.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "db3388e4c42f6420fe3765ec094b72aa4d9d0ee1cd26783335a82a57d1d0ac34",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        203,
+        117,
+        202,
+        156
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_wall_painting_01_mask.svg",
+      "mask_sha256": "3d3341b4705f60188202e3fdc232b7ac9b0210f247b5f0436095d96e008a402b",
+      "material_path": "res://resources/art/studio/studio_wall_painting_01_material.tres",
+      "scene_node": "Geometry/WallRoundFrame",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_wall_painting_02",
+      "source_filename": "墙上画2.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_wall_painting_02.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "52f65d565202adeb1c04a3e5c623405bae99fad56bc03dd275dd971eeba169b2",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        1024,
+        49,
+        127,
+        195
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_wall_painting_02_mask.svg",
+      "mask_sha256": "c391ce29bd678050783d5f4f386cf71b8d55f4887c87b10717510f80d45644ad",
+      "material_path": "res://resources/art/studio/studio_wall_painting_02_material.tres",
+      "scene_node": "Geometry/WallPainting",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_wall_painting_03",
+      "source_filename": "墙上画3.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_wall_painting_03.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "0f2d1f74cd24d8877816201320e321b0faab72c9db652e7de90517fc5944a750",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        842,
+        103,
+        113,
+        77
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_wall_painting_03_mask.svg",
+      "mask_sha256": "ffd7b492059b5999eadf5932b7abfd92a7db5c5eb59d6914211f39eb85e5fa9b",
+      "material_path": "res://resources/art/studio/studio_wall_painting_03_material.tres",
+      "scene_node": "Geometry/WallSmallPhoto",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_wall_painting_04",
+      "source_filename": "墙上画4.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_wall_painting_04.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "b054b9cb41199e806b72f87c11eb4dbc9d034f58f35b68b6dbd5cab927fe1e51",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        424,
+        243,
+        76,
+        57
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_wall_painting_04_mask.svg",
+      "mask_sha256": "b4fa85a6d66b3e5842099e78c6c0f30e4eb41e7dce724a01a93e241065533b0b",
+      "material_path": "res://resources/art/studio/studio_wall_painting_04_material.tres",
+      "scene_node": "Geometry/WallWidePhoto",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_stacked_canvas_01",
+      "source_filename": "叠放画框1.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_stacked_canvas_01.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "b71c3e461e0efc5498843d9abc6914e7588ed7ceacdb7ed8d827f34ec31f8282",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        54,
+        743,
+        137,
+        205
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_stacked_canvas_01_mask.svg",
+      "mask_sha256": "d3f9c6d2f92f91f1d8ff8fb80d683d1ef8e8701fca0508c0e90e2a4b486301ca",
+      "material_path": "res://resources/art/studio/studio_stacked_canvas_01_material.tres",
+      "scene_node": "Geometry/ScatteredCanvas01",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_stacked_canvas_02",
+      "source_filename": "叠放画框2.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_stacked_canvas_02.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "dfd5a1b224fe9406508528b47fc8206600beddafb429ff7cff166aba70fa0ae2",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        116,
+        772,
+        133,
+        153
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_stacked_canvas_02_mask.svg",
+      "mask_sha256": "8c172cc32d4b2e9a01f9e51ac63c2c9bb0d669f2ad6f0c26a40f968f850c0f0d",
+      "material_path": "res://resources/art/studio/studio_stacked_canvas_02_material.tres",
+      "scene_node": "Geometry/ScatteredCanvas02",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_stacked_canvas_03",
+      "source_filename": "叠放画框3.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_stacked_canvas_03.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "3901e8e80dd1653907c4b990cccad753db6b9709601fd5b47e120b585c8314fa",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        78,
+        814,
+        143,
+        160
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_stacked_canvas_03_mask.svg",
+      "mask_sha256": "6c09fb445c8c9aea6c6fdf479194bae41de4dc306a561ba51a265d4e6000c8a2",
+      "material_path": "res://resources/art/studio/studio_stacked_canvas_03_material.tres",
+      "scene_node": "Geometry/ScatteredCanvas03",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_palette_support",
+      "source_filename": "小架子.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_palette_support.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "3fe4c9041d5b4f20651148fd3ec502340d7816f8fa645aed5997bf93e9e6e378",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        286,
+        506,
+        158,
+        133
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_palette_support_mask.svg",
+      "mask_sha256": "4842a307ef0d99ed884de38a11460ed6dee5b4b4a33d1768ead7d76501bd59d6",
+      "material_path": "res://resources/art/studio/studio_palette_support_material.tres",
+      "scene_node": "Geometry/PaletteSupportShelf",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_easel",
+      "source_filename": "画架.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_easel.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "4807e936837b204a205861fbbf2325ac775a5dc0792292732d39d0001cd287a6",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        492,
+        167,
+        203,
+        382
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_easel_mask.svg",
+      "mask_sha256": "c4a3de4b07f75ff50943434953c5f1fcedabb40bb2768121ee93c8c2740bb08b",
+      "material_path": "res://resources/art/studio/studio_easel_material.tres",
+      "scene_node": "Geometry/Easel",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_stool",
+      "source_filename": "画凳.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_stool.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "a9669a6f7b50c519eab6ac5b5b91ec17daed7c0b350f775ec8940396ec6a2612",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        622,
+        552,
+        114,
+        155
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_stool_mask.svg",
+      "mask_sha256": "f10f7f21ff24077804f687842b98fbf20044c7ac6856f3cf81c061db4c61b170",
+      "material_path": "res://resources/art/studio/studio_stool_material.tres",
+      "scene_node": "Geometry/Stool",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_storage_shelf",
+      "source_filename": "置物架.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_storage_shelf.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "b0b99a7e6223cb5026654e04d36e181c2b8e5830ae9c399e280ef864de7c85b2",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        1183,
+        523,
+        145,
+        452
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_storage_shelf_mask.svg",
+      "mask_sha256": "81c4f7023347e800c5b70c285c9f87e28ab293a198af9c2ee30f5b4ba61703b9",
+      "material_path": "res://resources/art/studio/studio_storage_shelf_material.tres",
+      "scene_node": "Geometry/StorageShelf",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_genesis_book",
+      "source_filename": "创世纪.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_genesis_book.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "bce566158c460abc9990c104ff682a83a385a3e729fb6acc6fdc1233a29e3016",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        1176,
+        555,
+        137,
+        164
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_genesis_book_mask.svg",
+      "mask_sha256": "b0a5d547f7874241ca38b30385cd44f2ddaae07e02f3ea610444aedb74a2a584",
+      "material_path": "res://resources/art/studio/studio_genesis_book_material.tres",
+      "scene_node": "Geometry/GenesisBook",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_palette",
+      "source_filename": "调色盘.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\画室.zip",
+      "path": "res://assets/art/environments/studio/props/studio_palette.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1000
+      ],
+      "sha256": "3ebd4c2017ccee84ded46d6cb2b602883521a21edee36a5e74fe823042dc005f",
+      "display_scale": 0.6,
+      "source_alpha": "opaque_white_canvas",
+      "source_region": [
+        323,
+        493,
+        89,
+        76
+      ],
+      "mask_path": "res://assets/art/environments/studio/masks/studio_palette_mask.svg",
+      "mask_sha256": "044f7acc9140a7150541a6a520f593e4d6800438585dd27a03b5a64a9fb1bdcd",
+      "material_path": "res://resources/art/studio/studio_palette_material.tres",
+      "scene_node": "Geometry/PaletteTable",
+      "mask_rule": "edge_connected_near_white_removed; enclosed_white_preserved"
+    },
+    {
+      "id": "studio_brush_wash_bucket",
+      "source_filename": "洗笔桶.png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\洗笔桶.png",
+      "path": "res://assets/art/environments/studio/props/studio_brush_wash_bucket.png",
+      "category": "props",
+      "scene": "studio",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        620,
+        511,
+        855,
+        756
+      ],
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "523ab495d63fcbd1ace11b48d0b52cba2dca642ee794df56f353f21c10b747be",
+      "display_scale": 0.6,
+      "regions": [
+        {
+          "path": "res://resources/art/studio/studio_brush_wash_bucket.tres",
+          "region": [
+            620,
+            511,
+            235,
+            245
+          ]
+        }
+      ],
+      "note": "天然透明探索桶身；新画布高1141，按旧画室脚底335独立摆放，保持原碰撞与F锚点。"
+    },
+    {
+      "id": "courtyard_wall",
+      "source_filename": "围墙.png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\围墙.png",
+      "path": "res://assets/art/environments/courtyard/backgrounds/courtyard_wall.png",
+      "category": "backgrounds",
+      "scene": "courtyard",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1360,
+        1141
+      ],
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "a2c2c98f1b92def5f2976c049ac61c72a29a44cf26b792f8d77c10b480dafb94",
+      "display_scale": 0.6,
+      "regions": [
+        {
+          "path": "res://resources/art/courtyard/courtyard_wall.tres",
+          "region": [
+            0,
+            0,
+            1360,
+            1141
+          ]
+        }
+      ]
+    },
+    {
+      "id": "courtyard_tree",
+      "source_filename": "树.png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\树.png",
+      "path": "res://assets/art/environments/courtyard/props/courtyard_tree.png",
+      "category": "props",
+      "scene": "courtyard",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        876,
+        463,
+        1338,
+        1103
+      ],
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "f21e8d50854c3e535e9b116a82f89b897091eeeff69cfe0de7ed1f560f4afd34",
+      "display_scale": 0.6,
+      "regions": [
+        {
+          "path": "res://resources/art/courtyard/courtyard_tree.tres",
+          "region": [
+            876,
+            463,
+            462,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "id": "courtyard_well",
+      "source_filename": "水井 (1).png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\水井 (1).png",
+      "path": "res://assets/art/environments/courtyard/props/courtyard_well.png",
+      "category": "props",
+      "scene": "courtyard",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        792,
+        30,
+        1351,
+        606
+      ],
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "4adae5320d7f6b8444734bd5e5801517f740a140e95fe9e253cb046549a8f0ab",
+      "display_scale": 0.6,
+      "regions": [
+        {
+          "path": "res://resources/art/courtyard/courtyard_well.tres",
+          "region": [
+            792,
+            30,
+            559,
+            313
+          ]
+        }
+      ],
+      "note": "探索井身与井边草丛取主体区域，排除远处散点；独立解谜背景沿用原资源。"
+    },
+    {
+      "id": "courtyard_bush",
+      "source_filename": "灌木丛.png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\灌木丛.png",
+      "path": "res://assets/art/environments/courtyard/props/courtyard_bush.png",
+      "category": "props",
+      "scene": "courtyard",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        82,
+        164,
+        365,
+        389
+      ],
+      "source_alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "8785b1cadd1867d38e3a8e15b3fb955a9abc320b4325aff83b2dceba91b5535f",
+      "display_scale": 0.6,
+      "regions": [
+        {
+          "path": "res://resources/art/courtyard/courtyard_bush.tres",
+          "region": [
+            82,
+            164,
+            283,
+            225
+          ]
+        }
+      ]
+    },
+    {
+      "id": "courtyard_ground",
+      "source_filename": "地面.png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\地面.png",
+      "path": "res://assets/art/environments/courtyard/backgrounds/courtyard_ground.png",
+      "category": "backgrounds",
+      "scene": "courtyard",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1360,
+        1141
+      ],
+      "source_alpha_range": [
+        255,
+        255
+      ],
+      "sha256": "3f42c3e08a030acd833f356d95962dc867c73cdb31267e65ed6ea1ddf446e72c",
+      "display_scale": 0.6,
+      "regions": [
+        {
+          "path": "res://resources/art/courtyard/courtyard_ground.tres",
+          "region": [
+            0,
+            0,
+            1360,
+            1141
+          ]
+        },
+        {
+          "path": "res://resources/art/courtyard/courtyard_house_threshold.tres",
+          "region": [
+            60,
+            1101,
+            220,
+            40
+          ],
+          "usage_status": "archived",
+          "note": "原地面裁片已停用并保留归档；当前小院返回门复用first_floor_courtyard_door.tres。"
+        }
+      ],
+      "note": "地面背景继续使用；其中courtyard_house_threshold.tres原地面裁片已停用并保留归档，当前小院返回门复用一楼门素材。"
+    },
+    {
+      "id": "courtyard_composite_reference",
+      "source_filename": "完整.png",
+      "source_path": "C:\\Users\\muziguoguozhu\\AppData\\Local\\Temp\\完整.png",
+      "path": "res://assets/art/environments/courtyard/references/courtyard_composite_reference.png",
+      "category": "composition_reference",
+      "scene": "courtyard",
+      "canvas_size": [
+        1360,
+        1141
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        1360,
+        1141
+      ],
+      "source_alpha_range": [
+        255,
+        255
+      ],
+      "sha256": "571f54cfc952037fbc150c6178bab7da2c34119e6d76831165c2add4992b26b9",
+      "display_scale": 0.6,
+      "regions": [],
+      "note": "用户完整构图仅作摆放参考，运行时不重复叠加。"
+    },
+    {
+      "id": "first_floor_stairs_up",
+      "source_filename": "一楼楼梯.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_stairs_up.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3359,
+        2,
+        3713,
+        501
+      ],
+      "sha256": "8124e2fe632db9efe93e2a178196025dfcd4af2df8e3601071a7105db4af5d8a",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_stairs_up.tres",
+          "region": [
+            3360,
+            2,
+            353,
+            498
+          ]
+        }
+      ],
+      "note": "按原比例适配现有楼梯宽度并对齐交互端点，保持旧碰撞、门户与出生点。"
+    },
+    {
+      "id": "corridor_stairs_down",
+      "source_filename": "二楼楼梯.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/corridor/props/corridor_stairs_down.png",
+      "category": "props",
+      "scene": "corridor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3359,
+        2,
+        3713,
+        501
+      ],
+      "sha256": "00e927bd8f98817422d4875dfa61e567673bf337e52ff39312198a5f7c953db6",
+      "regions": [
+        {
+          "path": "res://resources/art/corridor/corridor_stairs_down.tres",
+          "region": [
+            3360,
+            2,
+            353,
+            498
+          ]
+        }
+      ],
+      "note": "按原比例适配现有楼梯宽度并对齐交互端点，保持旧碰撞、门户与出生点。"
+    },
+    {
+      "id": "first_floor_floor_stain",
+      "source_filename": "地板水渍.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/decals/first_floor_floor_stain.png",
+      "category": "decals",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        160,
+        1719,
+        798,
+        1988
+      ],
+      "sha256": "1019935a35b6ab25a06ae8868a871ce2d9480a785be9a48e74040bb4022a088d",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_floor_stain.tres",
+          "region": [
+            160,
+            1719,
+            638,
+            269
+          ]
+        }
+      ],
+      "note": "替换一楼四处水渍显示，位置/交互保留；原共享10.15水渍继续供其他场景使用。"
+    },
+    {
+      "id": "first_floor_living_rug",
+      "source_filename": "地毯.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/decals/first_floor_living_rug.png",
+      "category": "decals",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        511,
+        620,
+        2609,
+        1499
+      ],
+      "sha256": "8dd8c04814a37157f802718b9e2d0c114683e3f16cb9f982c7454a53f55f5883",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_living_rug.tres",
+          "region": [
+            2041,
+            620,
+            568,
+            423
+          ]
+        }
+      ],
+      "note": "地毯取最大主体区域，排除原图(511,1496,13,3)的远处36像素杂点；源文件不改写。"
+    },
+    {
+      "id": "first_floor_hanging_painting",
+      "source_filename": "挂画.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_hanging_painting.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        1176,
+        1283,
+        1502,
+        1304
+      ],
+      "sha256": "95be8087903ef6d2057a18003f7990daec25fb6035d4fc57f0cbb6a1698c6df9",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_hanging_painting.tres",
+          "region": [
+            1176,
+            1283,
+            326,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_chairs_north",
+      "source_filename": "椅子1.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_chairs_north.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2816,
+        1407,
+        3202,
+        1664
+      ],
+      "sha256": "d444b50845b369247a250b5ee5d22c86be72022ab9bb6d253ce98e87958eabe1",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_chair_north_left.tres",
+          "region": [
+            2816,
+            1407,
+            178,
+            257
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_chair_north_right.tres",
+          "region": [
+            3023,
+            1407,
+            179,
+            257
+          ]
+        }
+      ],
+      "note": "每张含左右两把餐椅，拆为两个AtlasTexture，共保留六把现有餐椅。"
+    },
+    {
+      "id": "first_floor_chairs_south",
+      "source_filename": "椅子2.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_chairs_south.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2816,
+        1884,
+        3202,
+        2141
+      ],
+      "sha256": "9ca4e90f5be521bb36ac6468e1fd0cf327da6fa2a74b6a416582c98265cba4a0",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_chair_south_left.tres",
+          "region": [
+            2816,
+            1884,
+            178,
+            257
+          ]
+        },
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_chair_south_right.tres",
+          "region": [
+            3023,
+            1884,
+            179,
+            257
+          ]
+        }
+      ],
+      "note": "每张含左右两把餐椅，拆为两个AtlasTexture，共保留六把现有餐椅。"
+    },
+    {
+      "id": "first_floor_dining_chair_east",
+      "source_filename": "椅子3.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_dining_chair_east.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3453,
+        1594,
+        3624,
+        1882
+      ],
+      "sha256": "9335af5f77bf518307e40b236e0ca34d0d88e8d055a0748e247b05819dccc691",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_chair_east.tres",
+          "region": [
+            3454,
+            1594,
+            169,
+            288
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_dining_chair_west",
+      "source_filename": "椅子4.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_dining_chair_west.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2367,
+        1594,
+        2538,
+        1882
+      ],
+      "sha256": "3751e9ef7fa62c2dd66d135d249b254328f2c419126fdabcab2ca9fccb7eab82",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_chair_west.tres",
+          "region": [
+            2368,
+            1594,
+            169,
+            288
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_sofa_horizontal",
+      "source_filename": "沙发1.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_sofa_horizontal.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2213,
+        405,
+        2736,
+        666
+      ],
+      "sha256": "819b7a6c4a9d93767e51a15bc94bfc02d80018f924ec67603310eae855b0f315",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_sofa_horizontal.tres",
+          "region": [
+            2213,
+            405,
+            523,
+            261
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_sofa_vertical",
+      "source_filename": "沙发2.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_sofa_vertical.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        1919,
+        592,
+        2092,
+        915
+      ],
+      "sha256": "55a6ad285bfcb11b6c95e75ce1dee6b31190d50f8682a34c4b896b7e1cb98807",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_sofa_vertical.tres",
+          "region": [
+            1920,
+            592,
+            172,
+            323
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_canned_food",
+      "source_filename": "罐头.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_canned_food.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3119,
+        1669,
+        3270,
+        1801
+      ],
+      "sha256": "b15e27d1498f239ecfb05ed4818f9f0b2bff36a9099247a825e1f8a248fbda32",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_canned_food.tres",
+          "region": [
+            3119,
+            1669,
+            151,
+            132
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_shoe_cabinet",
+      "source_filename": "鞋柜.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_shoe_cabinet.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        1584,
+        245,
+        1729,
+        697
+      ],
+      "sha256": "aff6d50ef45170e65eb0761232c3ec5ecd82244e6b28991f6a2af5ffd798ef64",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_shoe_cabinet.tres",
+          "region": [
+            1584,
+            245,
+            145,
+            452
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_dining_table",
+      "source_filename": "餐桌.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_dining_table.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2551,
+        1549,
+        3440,
+        2079
+      ],
+      "sha256": "beea614dffb2eadeb439ef4c6bfd349244df265de64fb7d2a1ccce0b4bb70544",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_dining_table.tres",
+          "region": [
+            2551,
+            1549,
+            889,
+            530
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_fish_tank",
+      "source_filename": "鱼缸.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_fish_tank.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2849,
+        416,
+        3026,
+        551
+      ],
+      "sha256": "d9839d995f1ad8a2d0fb7c90f093074cc67246002033e538d77ebea85881e292",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_fish_tank.tres",
+          "region": [
+            2849,
+            416,
+            177,
+            135
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_plate_01",
+      "source_filename": "盘子1.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_plate_01.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3043,
+        1764,
+        3191,
+        1873
+      ],
+      "sha256": "3b93cc86459768a485b666b8f38a6f394d08f2b091382568ec5d5405cdd2ca84",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_plate_01.tres",
+          "region": [
+            3043,
+            1764,
+            148,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_plate_02",
+      "source_filename": "盘子2.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_plate_02.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2829,
+        1764,
+        2977,
+        1873
+      ],
+      "sha256": "8b0d44c339ded223e2bd076ae58be7a09051ec4e4848441d805261694b3a5167",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_plate_02.tres",
+          "region": [
+            2829,
+            1764,
+            148,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_plate_03",
+      "source_filename": "盘子3.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_plate_03.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3043,
+        1556,
+        3191,
+        1665
+      ],
+      "sha256": "ba45e5990a19e5a1fccc4b3b47eb718cae2e7b8cc722d80a76f697a6fb4f008c",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_plate_03.tres",
+          "region": [
+            3043,
+            1556,
+            148,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_plate_04",
+      "source_filename": "盘子4.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_plate_04.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2831,
+        1557,
+        2979,
+        1666
+      ],
+      "sha256": "beb7bcd271aab8c1adaa8ef409ca10bc65fdd167673bb0f1e23f13fbf20c3ddd",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_plate_04.tres",
+          "region": [
+            2831,
+            1557,
+            148,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_plate_05",
+      "source_filename": "盘子5.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_plate_05.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        2567,
+        1653,
+        2715,
+        1762
+      ],
+      "sha256": "d61a80d5c29a798c507e975795262315a1a970912eed9010a9505ca5b48ef087",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_plate_05.tres",
+          "region": [
+            2567,
+            1653,
+            148,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first_floor_plate_06",
+      "source_filename": "盘子6.png",
+      "source_archive": "D:\\微信\\聊天记录\\xwechat_files\\wxid_n5xuklyzkxa321_cfaf\\msg\\file\\2026-10\\客厅厨房(2).zip",
+      "path": "res://assets/art/environments/first_floor/props/first_floor_plate_06.png",
+      "category": "props",
+      "scene": "first_floor",
+      "canvas_size": [
+        4000,
+        3000
+      ],
+      "alpha_bounds": [
+        3277,
+        1660,
+        3425,
+        1769
+      ],
+      "sha256": "64ba8dd28170d6cc90df17393f997357516987b3dce4ffd9f0a72a43b0012812",
+      "regions": [
+        {
+          "path": "res://resources/art/first_floor/first_floor_plate_06.tres",
+          "region": [
+            3277,
+            1660,
+            148,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moon_fragment_01_full",
+      "source_filename": "记忆碎片1.png",
+      "source_path": "C:/Users/muziguoguozhu/AppData/Local/Temp/记忆碎片1.png",
+      "path": "res://assets/art/puzzles/shared/moon_fragments/moon_fragment_01_full.png",
+      "category": "memory_fragment",
+      "scene": "shared_memory_puzzles",
+      "canvas_size": [
+        300,
+        300
+      ],
+      "alpha_bounds": [
+        1,
+        1,
+        287,
+        288
+      ],
+      "sha256": "4cb12305859da53375b698e395dce4728794b0b64a793ec9c4d0fc21506230f4",
+      "regions": [
+        {
+          "path": "res://resources/art/puzzles/shared/moon_fragment_01_full.tres",
+          "region": [
+            83,
+            67,
+            133,
+            133
+          ],
+          "moon_reference_center": [
+            66.5,
+            66.5
+          ],
+          "moon_reference_diameter": 85.0
+        }
+      ],
+      "choice_id": "E",
+      "fragment_id": "memory_fragment_05",
+      "fragment_display_name": "镜面",
+      "note": "原PNG字节、像素与透明通道保留；Atlas按月轮圆心保留近边柔光，统一参考直径绘制为token短边的0.76，拖拽预览使用同图。文件5至1由最薄残月至满月，依次对应A至E。近柔光围绕Atlas参考圆心形成圆形柔晕，外半径取圆心到裁区最近边的距离，18原像素向内平滑渐隐；仅作用于月相与其拖拽预览，保留月轮主体与词牌样式。",
+      "rendering": {
+        "reference_diameter_token_short_side_ratio": 0.76,
+        "edge_fade_shader": "res://shaders/moon_fragment_edge_fade.gdshader",
+        "edge_feather_source_pixels": 18,
+        "edge_coordinates": "source_rect还原Atlas局部UV后，以moon_reference_center计算源像素半径距离",
+        "material_scope": [
+          "moon_token",
+          "moon_drag_preview"
+        ],
+        "fade_shape": "circle",
+        "circle_outer_radius": "参考圆心到Atlas裁区最近边的距离"
+      }
+    },
+    {
+      "id": "moon_fragment_02_gibbous",
+      "source_filename": "记忆碎片2.png",
+      "source_path": "C:/Users/muziguoguozhu/AppData/Local/Temp/记忆碎片2.png",
+      "path": "res://assets/art/puzzles/shared/moon_fragments/moon_fragment_02_gibbous.png",
+      "category": "memory_fragment",
+      "scene": "shared_memory_puzzles",
+      "canvas_size": [
+        300,
+        300
+      ],
+      "alpha_bounds": [
+        4,
+        11,
+        291,
+        297
+      ],
+      "sha256": "1d09bec1716c76f5a629773f8b4d328ca9b5964829ea48bc2a3cf25ee772a2d9",
+      "regions": [
+        {
+          "path": "res://resources/art/puzzles/shared/moon_fragment_02_gibbous.tres",
+          "region": [
+            81,
+            72,
+            143,
+            143
+          ],
+          "moon_reference_center": [
+            71.5,
+            71.5
+          ],
+          "moon_reference_diameter": 94.0
+        }
+      ],
+      "choice_id": "D",
+      "fragment_id": "memory_fragment_04",
+      "fragment_display_name": "月影",
+      "note": "原PNG字节、像素与透明通道保留；Atlas按月轮圆心保留近边柔光，统一参考直径绘制为token短边的0.76，拖拽预览使用同图。文件5至1由最薄残月至满月，依次对应A至E。近柔光围绕Atlas参考圆心形成圆形柔晕，外半径取圆心到裁区最近边的距离，18原像素向内平滑渐隐；仅作用于月相与其拖拽预览，保留月轮主体与词牌样式。",
+      "rendering": {
+        "reference_diameter_token_short_side_ratio": 0.76,
+        "edge_fade_shader": "res://shaders/moon_fragment_edge_fade.gdshader",
+        "edge_feather_source_pixels": 18,
+        "edge_coordinates": "source_rect还原Atlas局部UV后，以moon_reference_center计算源像素半径距离",
+        "material_scope": [
+          "moon_token",
+          "moon_drag_preview"
+        ],
+        "fade_shape": "circle",
+        "circle_outer_radius": "参考圆心到Atlas裁区最近边的距离"
+      }
+    },
+    {
+      "id": "moon_fragment_03_half",
+      "source_filename": "记忆碎片3.png",
+      "source_path": "C:/Users/muziguoguozhu/AppData/Local/Temp/记忆碎片3.png",
+      "path": "res://assets/art/puzzles/shared/moon_fragments/moon_fragment_03_half.png",
+      "category": "memory_fragment",
+      "scene": "shared_memory_puzzles",
+      "canvas_size": [
+        300,
+        300
+      ],
+      "alpha_bounds": [
+        5,
+        9,
+        288,
+        297
+      ],
+      "sha256": "779c8b13c196f87c6beabc5e35d3b31b4ef7c7a3b7ece0b661fbab6283a20bd2",
+      "regions": [
+        {
+          "path": "res://resources/art/puzzles/shared/moon_fragment_03_half.tres",
+          "region": [
+            87,
+            74,
+            132,
+            132
+          ],
+          "moon_reference_center": [
+            66.0,
+            66.0
+          ],
+          "moon_reference_diameter": 84.0
+        }
+      ],
+      "choice_id": "C",
+      "fragment_id": "memory_fragment_03",
+      "fragment_display_name": "潮汐",
+      "note": "原PNG字节、像素与透明通道保留；Atlas按月轮圆心保留近边柔光，统一参考直径绘制为token短边的0.76，拖拽预览使用同图。文件5至1由最薄残月至满月，依次对应A至E。近柔光围绕Atlas参考圆心形成圆形柔晕，外半径取圆心到裁区最近边的距离，18原像素向内平滑渐隐；仅作用于月相与其拖拽预览，保留月轮主体与词牌样式。",
+      "rendering": {
+        "reference_diameter_token_short_side_ratio": 0.76,
+        "edge_fade_shader": "res://shaders/moon_fragment_edge_fade.gdshader",
+        "edge_feather_source_pixels": 18,
+        "edge_coordinates": "source_rect还原Atlas局部UV后，以moon_reference_center计算源像素半径距离",
+        "material_scope": [
+          "moon_token",
+          "moon_drag_preview"
+        ],
+        "fade_shape": "circle",
+        "circle_outer_radius": "参考圆心到Atlas裁区最近边的距离"
+      }
+    },
+    {
+      "id": "moon_fragment_04_crescent",
+      "source_filename": "记忆碎片4.png",
+      "source_path": "C:/Users/muziguoguozhu/AppData/Local/Temp/记忆碎片4.png",
+      "path": "res://assets/art/puzzles/shared/moon_fragments/moon_fragment_04_crescent.png",
+      "category": "memory_fragment",
+      "scene": "shared_memory_puzzles",
+      "canvas_size": [
+        300,
+        300
+      ],
+      "alpha_bounds": [
+        14,
+        8,
+        296,
+        289
+      ],
+      "sha256": "1de4e3e3b06f21133d769d3b10c440fabb0e3bc0156f5ecee252cf51b02b352e",
+      "regions": [
+        {
+          "path": "res://resources/art/puzzles/shared/moon_fragment_04_crescent.tres",
+          "region": [
+            97,
+            69,
+            137,
+            137
+          ],
+          "moon_reference_center": [
+            68.5,
+            68.5
+          ],
+          "moon_reference_diameter": 88.0
+        }
+      ],
+      "choice_id": "B",
+      "fragment_id": "corridor_photo_02",
+      "fragment_display_name": "涌泉",
+      "note": "原PNG字节、像素与透明通道保留；Atlas按月轮圆心保留近边柔光，统一参考直径绘制为token短边的0.76，拖拽预览使用同图。文件5至1由最薄残月至满月，依次对应A至E。近柔光围绕Atlas参考圆心形成圆形柔晕，外半径取圆心到裁区最近边的距离，18原像素向内平滑渐隐；仅作用于月相与其拖拽预览，保留月轮主体与词牌样式。",
+      "rendering": {
+        "reference_diameter_token_short_side_ratio": 0.76,
+        "edge_fade_shader": "res://shaders/moon_fragment_edge_fade.gdshader",
+        "edge_feather_source_pixels": 18,
+        "edge_coordinates": "source_rect还原Atlas局部UV后，以moon_reference_center计算源像素半径距离",
+        "material_scope": [
+          "moon_token",
+          "moon_drag_preview"
+        ],
+        "fade_shape": "circle",
+        "circle_outer_radius": "参考圆心到Atlas裁区最近边的距离"
+      }
+    },
+    {
+      "id": "moon_fragment_05_thin_crescent",
+      "source_filename": "记忆碎片5.png",
+      "source_path": "C:/Users/muziguoguozhu/AppData/Local/Temp/记忆碎片5.png",
+      "path": "res://assets/art/puzzles/shared/moon_fragments/moon_fragment_05_thin_crescent.png",
+      "category": "memory_fragment",
+      "scene": "shared_memory_puzzles",
+      "canvas_size": [
+        300,
+        300
+      ],
+      "alpha_bounds": [
+        12,
+        7,
+        293,
+        292
+      ],
+      "sha256": "04e74eccd6733123a1dab95def4f8c17d1ae5879bede32a0b21c88fbbe835824",
+      "regions": [
+        {
+          "path": "res://resources/art/puzzles/shared/moon_fragment_05_thin_crescent.tres",
+          "region": [
+            91,
+            71,
+            137,
+            137
+          ],
+          "moon_reference_center": [
+            68.5,
+            68.5
+          ],
+          "moon_reference_diameter": 88.0
+        }
+      ],
+      "choice_id": "A",
+      "fragment_id": "bedroom_photo_01",
+      "fragment_display_name": "港湾",
+      "note": "原PNG字节、像素与透明通道保留；Atlas按月轮圆心保留近边柔光，统一参考直径绘制为token短边的0.76，拖拽预览使用同图。文件5至1由最薄残月至满月，依次对应A至E。近柔光围绕Atlas参考圆心形成圆形柔晕，外半径取圆心到裁区最近边的距离，18原像素向内平滑渐隐；仅作用于月相与其拖拽预览，保留月轮主体与词牌样式。",
+      "rendering": {
+        "reference_diameter_token_short_side_ratio": 0.76,
+        "edge_fade_shader": "res://shaders/moon_fragment_edge_fade.gdshader",
+        "edge_feather_source_pixels": 18,
+        "edge_coordinates": "source_rect还原Atlas局部UV后，以moon_reference_center计算源像素半径距离",
+        "material_scope": [
+          "moon_token",
+          "moon_drag_preview"
+        ],
+        "fade_shape": "circle",
+        "circle_outer_radius": "参考圆心到Atlas裁区最近边的距离"
+      }
     }
   ]
 }

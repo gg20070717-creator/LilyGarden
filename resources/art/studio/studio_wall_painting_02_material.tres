@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://shaders/studio_art_mask.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/props/studio_wall_painting_02.png" id="2_source"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/source_texture = ExtResource("2_source")
+shader_parameter/source_rect = Vector4(0.752941, 0.049, 0.093382, 0.195)

@@ -1,5 +1,5 @@
 extends RefCounted
-## The studio bucket introduction and Act Two memory; CG imagery is currently black.
+## The studio bucket introduction, Act Two memory, and follow-up narration.
 const INTRO_PAGES: Array[Dictionary] = [
 	{
 		"speaker": "Luna",
@@ -214,4 +214,56 @@ const NARRATIVE_PAGES: Array[Dictionary] = [
 		"text": "一起努力吧。我们首都见。",
 		"show_protagonist": false
 	}
+]
+
+# 情节块 2 完整读完后，在原画室继续旁白；幕标题与任务备注不显示。
+const FOLLOWUP_PAGES: Array[Dictionary] = [
+	{
+		"speaker": "",
+		"text": "直到现在你才意识到，她和你一同搬来首都的决定背后牺牲了多少。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "桩桩件件的事情里，她始终在为你让步——就连家中客厅里的全部陈设，都几乎是按照你的想法布置的，",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "无论是地毯颜色还是鱼缸里热带鱼的品种，她什么事都顺着你的心意。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "可迟来的愧疚是不作数的。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "你再也没有机会把客厅那条地毯换成她喜欢的款式，再也没有机会养她喜欢的小小猫而非昂贵的热带鱼，",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "再也没有机会好好告诉她，你的付出我全部看在眼里。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "你愿意用一切换一个再次和她窝在沙发上看电视的机会。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "可你对她的记忆，几乎都已经消散殆尽了。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
 ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/whitebox.tscn" id="2"]
@@ -10,21 +10,30 @@
 [ext_resource type="Script" path="res://scripts/well_interaction.gd" id="8"]
 [ext_resource type="Resource" path="res://resources/well_memory_puzzle.tres" id="9"]
 [ext_resource type="Script" path="res://scripts/collect_key.gd" id="10"]
+[ext_resource type="Texture2D" path="res://resources/art/courtyard/courtyard_ground.tres" id="art_ground"]
+[ext_resource type="Texture2D" path="res://resources/art/courtyard/courtyard_wall.tres" id="art_wall"]
+[ext_resource type="Texture2D" path="res://resources/art/courtyard/courtyard_tree.tres" id="art_tree"]
+[ext_resource type="Texture2D" path="res://resources/art/courtyard/courtyard_well.tres" id="art_well"]
+[ext_resource type="Texture2D" path="res://resources/art/courtyard/courtyard_bush.tres" id="art_bush"]
+[ext_resource type="Texture2D" path="res://resources/art/first_floor/first_floor_courtyard_door.tres" id="art_house_door"]
 
 [node name="Courtyard" type="Node2D"]
 script = ExtResource("1")
 level_id = &"courtyard"
 display_name = "院子"
-camera_bounds = Rect2(-12, -185, 684, 737)
+camera_bounds = Rect2(0, 0, 816, 684.6)
+texture_filter = 1
 
 [node name="MovementBounds" parent="." instance=ExtResource("7")]
-area = Rect2(12, 12, 636, 516)
+area = Rect2(20.4, 18, 779.4, 666.6)
 
 [node name="Geometry" type="Node2D" parent="."]
 
 [node name="Floor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(330, 270)
-size = Vector2(636, 516)
+position = Vector2(408, 342.3)
+size = Vector2(816, 684.6)
+artwork = ExtResource("art_ground")
+artwork_size = Vector2(816, 684.6)
 label = ""
 shade = Color(0.97, 0.97, 0.97, 1)
 solid = false
@@ -32,12 +41,14 @@ oval = false
 label_size = 14
 
 [node name="GardenPath" type="Polygon2D" parent="Geometry"]
+visible = false
 polygon = PackedVector2Array(28, 12, 90, 12, 88, 80, 100, 155, 132, 220, 151, 285, 154, 355, 135, 416, 132, 516, 66, 516, 69, 413, 90, 345, 87, 288, 67, 226, 46, 158, 32, 82)
 color = Color(0.78, 0.78, 0.76, 1)
 
 [node name="TopWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(330, 6)
-size = Vector2(660, 12)
+position = Vector2(408, 9)
+size = Vector2(816, 18)
+draw_placeholder = false
 label = ""
 shade = Color(0.35, 0.35, 0.35, 1)
 solid = true
@@ -45,8 +56,9 @@ oval = false
 label_size = 14
 
 [node name="LeftWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(6, 270)
-size = Vector2(12, 516)
+position = Vector2(10.2, 342.3)
+size = Vector2(20.4, 684.6)
+draw_placeholder = false
 label = ""
 shade = Color(0.35, 0.35, 0.35, 1)
 solid = true
@@ -54,8 +66,9 @@ oval = false
 label_size = 14
 
 [node name="RightWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(654, 270)
-size = Vector2(12, 516)
+position = Vector2(807.9, 342.3)
+size = Vector2(16.2, 684.6)
+draw_placeholder = false
 label = ""
 shade = Color(0.35, 0.35, 0.35, 1)
 solid = true
@@ -63,8 +76,9 @@ oval = false
 label_size = 14
 
 [node name="BottomWallLeft" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(22.5, 534)
-size = Vector2(45, 12)
+position = Vector2(18, 690.6)
+size = Vector2(36, 12)
+draw_placeholder = false
 label = ""
 shade = Color(0.35, 0.35, 0.35, 1)
 solid = true
@@ -72,8 +86,9 @@ oval = false
 label_size = 14
 
 [node name="BottomWallRight" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(412.5, 534)
-size = Vector2(495, 12)
+position = Vector2(492, 690.6)
+size = Vector2(648, 12)
+draw_placeholder = false
 label = ""
 shade = Color(0.35, 0.35, 0.35, 1)
 solid = true
@@ -81,42 +96,53 @@ oval = false
 label_size = 14
 
 [node name="HouseDoor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(105, 528)
-size = Vector2(120, 24)
-label = "大门"
+position = Vector2(102, 672.6)
+size = Vector2(132, 24)
+artwork = ExtResource("art_house_door")
+artwork_size = Vector2(120.4, 119.35)
+artwork_offset = Vector2(0, -47.675)
+label = ""
 shade = Color(0.85, 0.85, 0.85, 1)
 solid = true
 oval = false
 label_size = 18
+z_index = 2
 
 [node name="Pool" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(513, 123)
-size = Vector2(140, 140)
-label = "水井"
+position = Vector2(642.9, 111.9)
+size = Vector2(335.4, 187.8)
+artwork = ExtResource("art_well")
+artwork_size = Vector2(335.4, 187.8)
+label = ""
 shade = Color(0.85, 0.85, 0.85, 1)
-solid = true
-oval = true
+solid = false
+oval = false
 label_size = 22
 
 [node name="Bush" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(340, 123)
-size = Vector2(80, 70)
-label = "灌木丛"
+position = Vector2(134.1, 165.9)
+size = Vector2(169.8, 135)
+artwork = ExtResource("art_bush")
+artwork_size = Vector2(169.8, 135)
+label = ""
 shade = Color(0.92, 0.92, 0.92, 1)
-solid = true
-oval = true
+solid = false
+oval = false
 label_size = 18
 
 [node name="BackFence" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(400, 30)
-size = Vector2(460, 18)
-label = "栏杆"
+position = Vector2(408, 342.3)
+size = Vector2(816, 684.6)
+artwork = ExtResource("art_wall")
+artwork_size = Vector2(816, 684.6)
+label = ""
 solid = false
 oval = false
 shade = Color(0.66, 0.66, 0.64, 1)
 label_size = 14
 
 [node name="FencePost01" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(174, 32)
 size = Vector2(8, 36)
 label = ""
@@ -126,6 +152,7 @@ shade = Color(0.62, 0.62, 0.60, 1)
 label_size = 20
 
 [node name="FencePost02" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(286, 32)
 size = Vector2(8, 36)
 label = ""
@@ -135,6 +162,7 @@ shade = Color(0.62, 0.62, 0.60, 1)
 label_size = 20
 
 [node name="FencePost03" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(398, 32)
 size = Vector2(8, 36)
 label = ""
@@ -144,6 +172,7 @@ shade = Color(0.62, 0.62, 0.60, 1)
 label_size = 20
 
 [node name="FencePost04" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(510, 32)
 size = Vector2(8, 36)
 label = ""
@@ -153,6 +182,7 @@ shade = Color(0.62, 0.62, 0.60, 1)
 label_size = 20
 
 [node name="FencePost05" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(624, 32)
 size = Vector2(8, 36)
 label = ""
@@ -162,42 +192,48 @@ shade = Color(0.62, 0.62, 0.60, 1)
 label_size = 20
 
 [node name="TreeTrunk" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(584, 397)
-size = Vector2(32, 72)
-label = "树"
+position = Vector2(664.2, 469.8)
+size = Vector2(277.2, 384)
+artwork = ExtResource("art_tree")
+artwork_size = Vector2(277.2, 384)
+label = ""
 solid = false
 oval = false
 shade = Color(0.66, 0.65, 0.62, 1)
 label_size = 16
 
 [node name="TreeCanopy" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(584, 320)
 size = Vector2(120, 144)
-label = "树冠"
+label = ""
 solid = false
 oval = true
 shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 20
 
 [node name="FallenLeaves" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(548, 429)
 size = Vector2(90, 32)
-label = "落叶"
+label = ""
 solid = false
 oval = true
 shade = Color(0.78, 0.78, 0.7, 1)
 label_size = 16
 
 [node name="LowerBush01" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(236, 479)
 size = Vector2(98, 74)
-label = "灌木丛"
+label = ""
 solid = false
 oval = true
 shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
 [node name="LowerBush02" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(341, 474)
 size = Vector2(132, 84)
 label = ""
@@ -207,6 +243,7 @@ shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
 [node name="LowerBush03" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(466, 477)
 size = Vector2(142, 82)
 label = ""
@@ -216,6 +253,7 @@ shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
 [node name="LowerBush04" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(590, 485)
 size = Vector2(96, 62)
 label = ""
@@ -225,15 +263,17 @@ shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
 [node name="GrassPatch01" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(220, 254)
 size = Vector2(48, 26)
-label = "杂草"
+label = ""
 solid = false
 oval = true
 shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
 [node name="GrassPatch02" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(402, 326)
 size = Vector2(44, 22)
 label = ""
@@ -243,6 +283,7 @@ shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
 [node name="GrassPatch03" parent="Geometry" instance=ExtResource("2")]
+draw_placeholder = false
 position = Vector2(278, 384)
 size = Vector2(38, 20)
 label = ""
@@ -251,10 +292,26 @@ oval = true
 shade = Color(0.69, 0.72, 0.66, 1)
 label_size = 16
 
+[node name="PoolFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(666, 145)
+size = Vector2(174, 60)
+solid = true
+oval = true
+draw_placeholder = false
+label = ""
+
+[node name="BushFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(134, 208)
+size = Vector2(138, 40.8)
+solid = true
+oval = true
+draw_placeholder = false
+label = ""
+
 [node name="Interactables" type="Node2D" parent="."]
 
 [node name="ToFirstFloor" type="Area2D" parent="Interactables"]
-position = Vector2(105, 481.8)
+position = Vector2(102, 638.4)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -267,7 +324,7 @@ target_scene_path = "res://scenes/first_floor.tscn"
 target_spawn = &"from_courtyard"
 
 [node name="Well" type="Area2D" parent="Interactables"]
-position = Vector2(513, 226)
+position = Vector2(666, 215)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -279,7 +336,7 @@ definition = ExtResource("9")
 prompt_offset = Vector2(-95, 10)
 
 [node name="BushKey" type="Area2D" parent="Interactables"]
-position = Vector2(340, 195)
+position = Vector2(134, 267)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -290,8 +347,9 @@ interaction_id = &"studio_key_bush"
 prompt_offset = Vector2(0, -120)
 key_id = &"studio_key_01"
 item_name = "画室钥匙"
+acquisition_text = "获得画室钥匙！快去看看吧"
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="from_first_floor" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(105, 441)
+position = Vector2(102, 598.4)

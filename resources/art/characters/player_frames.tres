@@ -1,0 +1,176 @@
+[gd_resource type="SpriteFrames" load_steps=19 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_down_idle.png" id="down_idle"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_down_step_01.png" id="down_step_01"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_down_step_02.png" id="down_step_02"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_up_idle.png" id="up_idle"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_up_step_01.png" id="up_step_01"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_up_step_02.png" id="up_step_02"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_left_idle.png" id="left_idle"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_left_step_01.png" id="left_step_01"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/player/player_left_step_02.png" id="left_step_02"]
+
+[sub_resource type="AtlasTexture" id="down_idle"]
+atlas = ExtResource("down_idle")
+region = Rect2(60, 60, 280, 540)
+filter_clip = true
+metadata/foot_anchor = Vector2(160, 540)
+
+[sub_resource type="AtlasTexture" id="down_step_01"]
+atlas = ExtResource("down_step_01")
+region = Rect2(56, 82, 288, 576)
+filter_clip = true
+metadata/foot_anchor = Vector2(165, 576)
+
+[sub_resource type="AtlasTexture" id="down_step_02"]
+atlas = ExtResource("down_step_02")
+region = Rect2(59, 36, 359, 717)
+filter_clip = true
+metadata/foot_anchor = Vector2(205, 717)
+
+[sub_resource type="AtlasTexture" id="up_idle"]
+atlas = ExtResource("up_idle")
+region = Rect2(72, 82, 288, 576)
+filter_clip = true
+metadata/foot_anchor = Vector2(123, 576)
+
+[sub_resource type="AtlasTexture" id="up_step_01"]
+atlas = ExtResource("up_step_01")
+region = Rect2(71, 82, 288, 576)
+filter_clip = true
+metadata/foot_anchor = Vector2(123, 576)
+
+[sub_resource type="AtlasTexture" id="up_step_02"]
+atlas = ExtResource("up_step_02")
+region = Rect2(95, 82, 288, 576)
+filter_clip = true
+metadata/foot_anchor = Vector2(123, 576)
+
+[sub_resource type="AtlasTexture" id="left_idle"]
+atlas = ExtResource("left_idle")
+region = Rect2(72, 60, 280, 560)
+filter_clip = true
+metadata/foot_anchor = Vector2(140, 560)
+
+[sub_resource type="AtlasTexture" id="left_step_01"]
+atlas = ExtResource("left_step_01")
+region = Rect2(92, 60, 280, 560)
+filter_clip = true
+metadata/foot_anchor = Vector2(140, 560)
+
+[sub_resource type="AtlasTexture" id="left_step_02"]
+atlas = ExtResource("left_step_02")
+region = Rect2(55, 60, 280, 560)
+filter_clip = true
+metadata/foot_anchor = Vector2(140, 560)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("down_idle")
+
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("left_idle")
+
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("left_idle")
+
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("up_idle")
+
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("down_step_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("down_idle")
+}, {
+"duration": 1.0,
+"texture": SubResource("down_step_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("down_idle")
+
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("left_step_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_idle")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_step_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_idle")
+
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("left_step_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_idle")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_step_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("left_idle")
+
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("up_step_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("up_idle")
+}, {
+"duration": 1.0,
+"texture": SubResource("up_step_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("up_idle")
+
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 8.0
+}]

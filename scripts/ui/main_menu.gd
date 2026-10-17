@@ -92,6 +92,7 @@ func start_new_game() -> void:
 		_game.queue_free()
 	_game = packed.instantiate() as Node2D
 	game_host.add_child(_game)
+	_game.get_node("UI").main_menu_requested.connect(return_to_menu)
 	# Render the bedroom during the fade while keeping all gameplay frozen.
 	_game.process_mode = Node.PROCESS_MODE_DISABLED
 	await _fade_to(0.0)

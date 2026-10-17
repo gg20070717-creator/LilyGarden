@@ -3,8 +3,10 @@ extends Control
 signal finished
 signal page_changed(index: int)
 signal shake_offset_changed(offset: Vector2)
+signal choice_selected(choice_id: StringName)
 
 const FONT = preload("res://ui_font.tres")
+const DialogueBubble = preload("res://scripts/ui/dialogue_bubble.gd")
 const REFERENCE_SIZE := Vector2(1920, 1080)
 const SHAKE_DURATION := 0.55
 const SHAKE_STRENGTH := 16.0
@@ -38,6 +40,11 @@ var _shake_remaining := 0.0
 var _shake_elapsed := 0.0
 var _portrait_tween: Tween
 var _portrait_present := false
+var _choices: Array[Dictionary] = []
+var _choice_buttons: Array[Button] = []
+var _choice_labels: Array[Label] = []
+var _choice_index := 0
+var _choices_visible := false
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -70,16 +77,12 @@ func _ready() -> void:
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	artwork.add_child(panel)
 	speaker_label = _make_label("Speaker", 32)
-	speaker_label.position = Vector2(32, 18)
-	speaker_label.size = Vector2(1740, 42)
 	body_label = _make_label("Body", 36)
-	body_label.size = Vector2(1740, 168)
 	body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body_label.add_theme_constant_override("line_spacing", 10)
 	hint_label = _make_label("ContinueHint", 22)
-	hint_label.position = Vector2(1200, 207)
-	hint_label.size = Vector2(568, 30)
 	hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_layout_text()
 	get_viewport().size_changed.connect(_fit)
 	_fit()
 	hide()
@@ -90,9 +93,124 @@ func _make_label(node_name: String, font_size: int) -> Label:
 	result.add_theme_font_override("font", FONT)
 	result.add_theme_font_size_override("font_size", font_size)
 	result.add_theme_color_override("font_color", Color.BLACK)
+	result.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
 	result.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(result)
 	return result
+
+func _layout_text() -> void:
+	# Keep the original rectangular dialogue layout; choices share its text area.
+	speaker_label.position = Vector2(32, 18)
+	speaker_label.size = Vector2(1740, 42)
+	var body_rect := Rect2(Vector2(32, 68 if speaker_label.visible else 30), Vector2(1740, 130 if speaker_label.visible else 168))
+	if not _choices.is_empty():
+		_layout_choices(body_rect)
+		body_rect.size.y = 0.0 if body_label.text.is_empty() else body_rect.size.y * 0.3
+	DialogueBubble.fit_text(body_label, body_rect, 36, 24)
+	hint_label.position = Vector2(1200, 207)
+	hint_label.size = Vector2(568, 30)
+
+func _layout_choices(body_rect: Rect2) -> void:
+	var body_height := 0.0 if body_label.text.is_empty() else body_rect.size.y * 0.3
+	var available_height := body_rect.size.y - body_height
+	var font := body_label.get_theme_font("font")
+	var font_size := 32
+	var row_heights: Array[float] = []
+	while true:
+		row_heights.clear()
+		var total_height := 0.0
+		for label: Label in _choice_labels:
+			var measured := font.get_multiline_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, body_rect.size.x - 16, font_size)
+			var height := maxf(40.0, measured.y + 8.0)
+			row_heights.append(height)
+			total_height += height
+		if total_height <= available_height or font_size <= 24:
+			break
+		font_size -= 1
+	var row_y := body_rect.position.y + body_height
+	for index in range(_choice_buttons.size()):
+		var button := _choice_buttons[index]
+		var label := _choice_labels[index]
+		button.position = Vector2(body_rect.position.x, row_y)
+		button.size = Vector2(body_rect.size.x, row_heights[index])
+		label.position = Vector2(8, 0)
+		label.size = button.size - Vector2(16, 0)
+		label.add_theme_font_size_override("font_size", font_size)
+		row_y += row_heights[index]
+
+func _prepare_choices(page: Dictionary) -> void:
+	_clear_choices()
+	for entry: Variant in page.get("choices", []):
+		if not entry is Dictionary:
+			continue
+		var choice: Dictionary = entry
+		if not choice.has("id") or String(choice.get("text", "")).is_empty():
+			continue
+		_choices.append(choice.duplicate(true))
+	for index in range(_choices.size()):
+		var button := Button.new()
+		button.name = "Choice%d" % (index + 1)
+		button.flat = true
+		button.focus_mode = Control.FOCUS_ALL
+		button.mouse_filter = Control.MOUSE_FILTER_STOP
+		for style_name: String in ["normal", "hover", "pressed", "focus"]:
+			button.add_theme_stylebox_override(style_name, StyleBoxEmpty.new())
+		button.pressed.connect(_select_choice.bind(index))
+		button.mouse_entered.connect(_focus_choice.bind(index))
+		button.focus_entered.connect(_on_choice_focused.bind(index))
+		panel.add_child(button)
+		button.hide()
+		_choice_buttons.append(button)
+		var label := Label.new()
+		label.text = "%d. %s" % [index + 1, String(_choices[index].get("text", ""))]
+		label.add_theme_font_override("font", FONT)
+		label.add_theme_color_override("font_color", Color.BLACK)
+		label.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(label)
+		_choice_labels.append(label)
+
+func _clear_choices() -> void:
+	for button: Button in _choice_buttons:
+		button.release_focus()
+		button.hide()
+		panel.remove_child(button)
+		button.queue_free()
+	_choice_buttons.clear()
+	_choice_labels.clear()
+	_choices.clear()
+	_choice_index = 0
+	_choices_visible = false
+
+func _show_choices() -> void:
+	if _choices_visible or _choices.is_empty():
+		return
+	_choices_visible = true
+	for button: Button in _choice_buttons:
+		button.show()
+	_focus_choice(0)
+
+func _focus_choice(index: int) -> void:
+	if not active or not _choices_visible or index < 0 or index >= _choice_buttons.size():
+		return
+	_choice_buttons[index].grab_focus()
+	_on_choice_focused(index)
+
+func _on_choice_focused(index: int) -> void:
+	_choice_index = index
+	for label_index in range(_choice_labels.size()):
+		_choice_labels[label_index].add_theme_color_override("font_color", Color(0.13, 0.28, 0.40) if label_index == index else Color.BLACK)
+
+func _select_choice(index: int) -> void:
+	if not active or _input_cooldown > 0.0 or not _choices_visible or not is_text_complete() or index < 0 or index >= _choices.size():
+		return
+	var choice_id := StringName(_choices[index].get("id", &""))
+	active = false
+	_reset_shake()
+	_clear_choices()
+	choice_selected.emit(choice_id)
 
 func _fit() -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
@@ -141,9 +259,9 @@ func _show_page() -> void:
 	var speaker := String(page.get("speaker", ""))
 	speaker_label.text = speaker + "：" if not speaker.is_empty() else ""
 	speaker_label.visible = not speaker.is_empty()
-	body_label.position = Vector2(32, 68 if speaker_label.visible else 30)
-	body_label.size = Vector2(1740, 130 if speaker_label.visible else 168)
 	body_label.text = String(page.get("text", ""))
+	_prepare_choices(page)
+	_layout_text()
 	body_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	body_label.visible_characters = 0
 	_revealed = 0.0
@@ -185,6 +303,10 @@ func _process(delta: float) -> void:
 	_update_hint()
 
 func _update_hint() -> void:
+	if not _choices.is_empty() and is_text_complete():
+		hint_label.text = "点击选项 / ↑↓ 选择 / Enter 确认"
+		_show_choices()
+		return
 	hint_label.text = "点击继续  ▸" if is_text_complete() else "点击显示全文"
 
 func is_text_complete() -> bool:
@@ -202,6 +324,8 @@ func advance() -> void:
 		reveal_text()
 		_input_cooldown = 0.15
 		return
+	if not _choices.is_empty():
+		return
 	if page_index + 1 >= pages.size():
 		active = false
 		_reset_shake()
@@ -215,12 +339,31 @@ func handle_input(event: InputEvent) -> bool:
 		return false
 	var click: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 	var key: bool = event is InputEventKey and event.pressed and not event.echo and (event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE, KEY_F] or event.physical_keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE, KEY_F])
+	if not _choices.is_empty() and is_text_complete():
+		if click:
+			for index in range(_choice_buttons.size()):
+				if _choice_buttons[index].get_global_rect().has_point(event.position):
+					_select_choice(index)
+					break
+			return true
+		if event is InputEventKey and event.pressed and not event.echo:
+			var keycode: int = event.keycode if event.keycode != 0 else event.physical_keycode
+			if keycode in [KEY_UP, KEY_DOWN]:
+				_focus_choice(posmod(_choice_index + (-1 if keycode == KEY_UP else 1), _choices.size()))
+				return true
+			if keycode in [KEY_1, KEY_KP_1, KEY_2, KEY_KP_2]:
+				_select_choice(0 if keycode in [KEY_1, KEY_KP_1] else 1)
+				return true
+		if key:
+			_select_choice(_choice_index)
+			return true
 	if click or key:
 		advance()
 	return click or key or event.is_action_pressed("ui_cancel")
 
 func stop() -> void:
 	active = false
+	_clear_choices()
 	_portrait_present = false
 	portrait.hide()
 	pages.clear()

@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/puzzles/memory_puzzle.tscn" id="base"]
+[ext_resource type="Resource" path="res://resources/tent_storage_memory_puzzle.tres" id="definition"]
+
+[node name="TentStorageMemoryPuzzle" instance=ExtResource("base")]
+definition = ExtResource("definition")

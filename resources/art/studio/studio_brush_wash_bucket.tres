@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/props/studio_brush_wash_bucket.png" id="1"]
+
+[resource]
+atlas = ExtResource("1")
+region = Rect2(620, 511, 235, 245)
+filter_clip = true

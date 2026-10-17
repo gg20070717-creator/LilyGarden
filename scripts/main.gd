@@ -23,6 +23,9 @@ func _ready() -> void:
 	_setup_input()
 	context = {"game": self, "player": player, "state": state, "ui": ui}
 	ui.view_state_changed.connect(_on_view_state_changed)
+	ui.memory_story_completed.connect(_on_memory_story_completed)
+	ui.memory_story_branch_completed.connect(_on_memory_story_branch_completed)
+	ui.ending_unlocked.connect(state.unlock_ending)
 	ui.dialogue.shake_offset_changed.connect(_on_dialogue_shake_offset_changed)
 	state.fragment_acquired.connect(_on_fragment_acquired)
 	get_viewport().size_changed.connect(_fit_camera)
@@ -213,10 +216,11 @@ func _on_dialogue_shake_offset_changed(offset: Vector2) -> void:
 	camera.force_update_scroll()
 
 func _on_view_state_changed(is_open: bool) -> void:
-	$World.visible = not ui.is_puzzle_covering_world()
+	$World.visible = not (ui.is_puzzle_covering_world() or ui.is_story_covering_world())
 	var puzzle_music: bool = ui.is_puzzle_covering_world()
 	if puzzle_music:
-		puzzle_music = ui.active_puzzle.definition.puzzle_id in [&"well_memory", &"fish_tank_memory", &"brush_wash_memory"]
+		puzzle_music = ui.active_puzzle.definition.puzzle_id in [&"well_memory", &"fish_tank_memory", &"brush_wash_memory", &"tent_storage_memory"]
+	puzzle_music = puzzle_music or ui.opaque_dialogue
 	bgm.set_puzzle_active(puzzle_music)
 	player.input_blocked = is_open or transitioning or ui.is_controls_hint_open()
 	player.velocity = Vector2.ZERO
@@ -224,6 +228,12 @@ func _on_view_state_changed(is_open: bool) -> void:
 
 func _on_fragment_acquired(_fragment_id: StringName) -> void:
 	ui.set_status(level.display_name, state.fragment_count())
+
+func _on_memory_story_completed(story_id: StringName) -> void:
+	state.mark_memory_story_seen(story_id)
+
+func _on_memory_story_branch_completed(story_id: StringName, branch_id: StringName, next_story_id: StringName) -> void:
+	state.record_memory_story_branch(story_id, branch_id, next_story_id)
 
 func _try_click_inspection(event: InputEventMouseButton) -> bool:
 	if not is_instance_valid(level) or ui.is_controls_hint_open():

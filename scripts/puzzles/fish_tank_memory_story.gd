@@ -1,5 +1,33 @@
 extends RefCounted
-## Act Three memory: black-screen dialogue while CG imagery is pending.
+## Fish tank introduction, Act Three memory, and Act Four follow-up dialogue.
+# 第三幕鱼缸解密前；幕标题与进解密备注不显示。
+const INTRO_PAGES: Array[Dictionary] = [
+	{
+		"speaker": "Luna",
+		"text": "我从来不喜欢听你聊工作。我只是想和你聊聊漫画，电影，可自从来首都后我们的生活就只剩下你的研究了——",
+		"show_protagonist": false,
+	},
+	{
+		"speaker": "你",
+		"text": "......我很抱歉。",
+		"expression": &"speaking",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "她的声音忽然轻快起来，让你不由得觉得有些反常。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "没关系，小汐，我们的时间还有很多。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+]
+
+# 情节块 3：正式 CG 图片提供前，继续使用现有黑底完整对白。
 const NARRATIVE_PAGES: Array[Dictionary] = [
 	{
 		"speaker": "你",
@@ -206,4 +234,106 @@ const NARRATIVE_PAGES: Array[Dictionary] = [
 		"text": "随便吧。就当我没说过。",
 		"show_protagonist": false
 	}
+]
+
+# 情节块 3 完整读完后，在原客厅衔接第四幕对白；微剧情与提前退出不触发。
+const FOLLOWUP_PAGES: Array[Dictionary] = [
+	{
+		"speaker": "",
+		"text": "那是什么？",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "回忆里突兀插入的一帧，让你深感到不安。你遗漏了什么非常重要的东西。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "你",
+		"text": "我记起了一些不太对的东西——究竟发生了什么？我到底忘记了什么？",
+		"expression": &"speaking",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "你脑中的声音变了。它不再亲切熟悉，反而变得冷漠、僵硬，甚至令人毛骨悚然。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "潮汐偏要去找比记忆更深的东西，结果翻上来的确实比灾变还要旧的伤口。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "我执意把月光留在岸上，月光却执意沉入湖底。洪水退去后，内生泉水开始涌出。大地的裂隙永远不会愈合了。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "你",
+		"text": "......什么？",
+		"expression": &"speaking",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "不，不，不。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+		"shake": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "所有一切等于1110101错误。来到首都等于错错错错错错误。弦音科0011技等于错误。不，不，不，事情本该如此——",
+		"expression": &"neutral",
+		"show_protagonist": true,
+		"shake": true,
+	},
+	{
+		"speaker": "",
+		"text": "——你的后脑又传来被敲击的钝痛。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "哈哈，小汐。记得我们在客厅摆的小帐篷吗？你送我的那只小兔玩偶还摆在哪里呢。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "哈哈，小汐。记得我们在客厅摆的小帐篷吗？你送我的那只小兔玩偶还摆在哪里呢。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "Luna",
+		"text": "哈哈，小汐。记得我们在客厅摆的小帐篷吗？你送我的那只小兔玩偶还摆在哪里呢。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "脑中的声音一遍又一遍地重复同一句话。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "这个声音到底是如何被植入到你的大脑里的？",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
+	{
+		"speaker": "",
+		"text": "你预感真相正在向你靠近。",
+		"expression": &"neutral",
+		"show_protagonist": true,
+	},
 ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=43 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1"]
@@ -16,84 +16,128 @@
 [ext_resource type="Script" path="res://scripts/studio_genesis_interaction.gd" id="genesis"]
 [ext_resource type="Script" path="res://scripts/brush_wash_interaction.gd" id="brush_wash"]
 [ext_resource type="Texture2D" path="res://assets/art/cg/act_02/studio_sketch_placeholder.svg" id="sketch_artwork"]
+[ext_resource type="Texture2D" path="res://resources/art/shared/floor_stain_01.tres" id="art_floor_stain"]
+
+[ext_resource type="Texture2D" path="res://resources/art/studio/studio_floor.tres" id="art_studio_floor"]
+[ext_resource type="Texture2D" path="res://resources/art/studio/studio_back_wall.tres" id="art_studio_back_wall"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_wall_border_mask.svg" id="studio_wall_border_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_wall_border_material.tres" id="studio_wall_border_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_wall_painting_01_mask.svg" id="studio_wall_painting_01_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_wall_painting_01_material.tres" id="studio_wall_painting_01_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_wall_painting_02_mask.svg" id="studio_wall_painting_02_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_wall_painting_02_material.tres" id="studio_wall_painting_02_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_wall_painting_03_mask.svg" id="studio_wall_painting_03_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_wall_painting_03_material.tres" id="studio_wall_painting_03_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_wall_painting_04_mask.svg" id="studio_wall_painting_04_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_wall_painting_04_material.tres" id="studio_wall_painting_04_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_stacked_canvas_01_mask.svg" id="studio_stacked_canvas_01_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_stacked_canvas_01_material.tres" id="studio_stacked_canvas_01_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_stacked_canvas_02_mask.svg" id="studio_stacked_canvas_02_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_stacked_canvas_02_material.tres" id="studio_stacked_canvas_02_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_stacked_canvas_03_mask.svg" id="studio_stacked_canvas_03_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_stacked_canvas_03_material.tres" id="studio_stacked_canvas_03_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_palette_support_mask.svg" id="studio_palette_support_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_palette_support_material.tres" id="studio_palette_support_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_easel_mask.svg" id="studio_easel_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_easel_material.tres" id="studio_easel_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_stool_mask.svg" id="studio_stool_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_stool_material.tres" id="studio_stool_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_storage_shelf_mask.svg" id="studio_storage_shelf_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_storage_shelf_material.tres" id="studio_storage_shelf_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_genesis_book_mask.svg" id="studio_genesis_book_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_genesis_book_material.tres" id="studio_genesis_book_material"]
+[ext_resource type="Texture2D" path="res://assets/art/environments/studio/masks/studio_palette_mask.svg" id="studio_palette_mask"]
+[ext_resource type="Material" path="res://resources/art/studio/studio_palette_material.tres" id="studio_palette_material"]
+
+[ext_resource type="Texture2D" path="res://resources/art/studio/studio_brush_wash_bucket.tres" id="art_brush_wash_bucket"]
 
 [node name="Studio" type="Node2D"]
 script = ExtResource("1")
 level_id = &"studio"
 display_name = "画室"
-camera_bounds = Rect2(0, -12, 480, 636)
+camera_bounds = Rect2(0, 0, 816, 600)
+texture_filter = 1
 
 [node name="MovementBounds" parent="." instance=ExtResource("5")]
-area = Rect2(12, 150, 456, 450)
+area = Rect2(18, 210, 780, 375)
 
 [node name="Geometry" type="Node2D" parent="."]
 
 
 [node name="Floor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(240, 375)
-size = Vector2(456, 450)
+position = Vector2(408, 405)
+size = Vector2(816, 390)
 label = ""
 solid = false
 oval = false
 shade = Color(0.97, 0.97, 0.97, 1)
 label_size = 24
+artwork = ExtResource("art_studio_floor")
+artwork_size = Vector2(816, 390)
 
 [node name="BackWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(240, 75)
-size = Vector2(456, 150)
+position = Vector2(408, 105)
+size = Vector2(816, 210)
 label = ""
 solid = true
 oval = false
 shade = Color(0.65, 0.65, 0.65, 1)
 label_size = 24
+artwork = ExtResource("art_studio_back_wall")
+artwork_size = Vector2(816, 210)
 
 [node name="TopWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(240, -6)
-size = Vector2(480, 12)
+position = Vector2(408, 7.2)
+size = Vector2(816, 14.4)
 label = ""
 solid = true
 oval = false
 shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
+draw_placeholder = false
 
 [node name="LeftWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(6, 300)
-size = Vector2(12, 600)
+position = Vector2(9, 300)
+size = Vector2(18, 600)
 label = ""
 solid = true
 oval = false
 shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
+draw_placeholder = false
 
 [node name="RightWall" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(474, 300)
-size = Vector2(12, 600)
+position = Vector2(807, 300)
+size = Vector2(18, 600)
 label = ""
 solid = true
 oval = false
 shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
+draw_placeholder = false
 
 [node name="BottomWallLeft" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(87, 606)
-size = Vector2(174, 12)
+position = Vector2(171, 592.5)
+size = Vector2(342, 15)
 label = ""
 solid = true
 oval = false
 shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
+draw_placeholder = false
 
 [node name="BottomWallRight" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(393, 606)
-size = Vector2(174, 12)
+position = Vector2(645, 592.5)
+size = Vector2(342, 15)
 label = ""
 solid = true
 oval = false
 shade = Color(0.35, 0.35, 0.35, 1)
 label_size = 24
+draw_placeholder = false
 
 [node name="CorridorDoor" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(240, 600)
+position = Vector2(408, 590)
 size = Vector2(132, 12)
 label = "门"
 solid = false
@@ -101,26 +145,48 @@ oval = false
 shade = Color(0.85, 0.85, 0.85, 1)
 label_size = 24
 
-[node name="WallRoundFrame" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(80, 72)
-size = Vector2(88, 88)
-label = "画框"
+[node name="WallBorderArtwork" parent="Geometry" instance=ExtResource("2")]
 solid = false
-oval = true
+label = ""
+position = Vector2(408, 300)
+size = Vector2(816, 600)
+artwork_size = Vector2(816, 600)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+oval = false
+artwork = ExtResource("studio_wall_border_mask")
+material = ExtResource("studio_wall_border_material")
+
+[node name="WallRoundFrame" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(182.4, 117)
+size = Vector2(121.2, 93.6)
+label = ""
+solid = false
+oval = false
 shade = Color(0.79, 0.79, 0.79, 1)
 label_size = 20
+artwork_size = Vector2(121.2, 93.6)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_wall_painting_01_mask")
+material = ExtResource("studio_wall_painting_01_material")
 
 [node name="WallPainting" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(164, 61)
-size = Vector2(94, 62)
-label = "挂画"
+position = Vector2(652.5, 87.9)
+size = Vector2(76.2, 117)
+label = ""
 solid = false
 oval = false
 shade = Color(0.83, 0.83, 0.83, 1)
 label_size = 20
+artwork_size = Vector2(76.2, 117)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_wall_painting_02_mask")
+material = ExtResource("studio_wall_painting_02_material")
 
 [node name="WallNewspaper" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(207, 122)
+position = Vector2(447, 169)
 size = Vector2(48, 25)
 label = "报纸"
 solid = false
@@ -129,52 +195,92 @@ shade = Color(0.9, 0.9, 0.9, 1)
 label_size = 16
 
 [node name="WallSmallPhoto" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(298, 62)
-size = Vector2(36, 28)
-label = "照片"
+position = Vector2(539.1, 84.9)
+size = Vector2(67.8, 46.2)
+label = ""
 solid = false
 oval = false
 shade = Color(0.9, 0.9, 0.9, 1)
 label_size = 14
+artwork_size = Vector2(67.8, 46.2)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_wall_painting_03_mask")
+material = ExtResource("studio_wall_painting_03_material")
 
 [node name="WallWidePhoto" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(391, 64)
-size = Vector2(84, 60)
-label = "照片"
+position = Vector2(277.2, 162.9)
+size = Vector2(45.6, 34.2)
+label = ""
 solid = false
 oval = false
 shade = Color(0.84, 0.84, 0.84, 1)
 label_size = 20
+artwork_size = Vector2(45.6, 34.2)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_wall_painting_04_mask")
+material = ExtResource("studio_wall_painting_04_material")
 
 [node name="Easel" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(126, 260)
-size = Vector2(100, 70)
-label = "画架"
-solid = true
+position = Vector2(356.1, 214.8)
+size = Vector2(121.8, 229.2)
+label = ""
+solid = false
 oval = false
 shade = Color(0.9, 0.9, 0.9, 1)
 label_size = 20
-rotation = -0.488692
+rotation = 0
+artwork_size = Vector2(121.8, 229.2)
+artwork_offset = Vector2(0, 0)
+artwork = ExtResource("studio_easel_mask")
+material = ExtResource("studio_easel_material")
+
 [node name="Stool" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(229, 280)
-size = Vector2(46, 42)
-label = "凳子"
-solid = true
-oval = true
+position = Vector2(407.4, 377.7)
+size = Vector2(68.4, 93)
+label = ""
+solid = false
+oval = false
 shade = Color(0.9, 0.9, 0.9, 1)
 label_size = 18
+artwork_size = Vector2(68.4, 93)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_stool_mask")
+material = ExtResource("studio_stool_material")
+
+[node name="PaletteSupportShelf" parent="Geometry" instance=ExtResource("2")]
+solid = false
+label = ""
+position = Vector2(219, 343.5)
+size = Vector2(94.8, 79.8)
+artwork_size = Vector2(94.8, 79.8)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+oval = false
+artwork = ExtResource("studio_palette_support_mask")
+material = ExtResource("studio_palette_support_material")
 
 [node name="PaletteTable" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(118, 388)
-size = Vector2(78, 34)
-label = "调色板桌"
-solid = true
+position = Vector2(220.5, 318.6)
+size = Vector2(53.4, 45.6)
+label = ""
+solid = false
 oval = false
 shade = Color(0.9, 0.9, 0.9, 1)
 label_size = 16
+artwork_size = Vector2(53.4, 45.6)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_palette_mask")
+material = ExtResource("studio_palette_material")
 
 [node name="WetPatch" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(226, 237)
+texture_filter = 1
+artwork = ExtResource("art_floor_stain")
+artwork_size = Vector2(62, 13.987805)
+position = Vector2(451, 300)
 size = Vector2(62, 42)
 label = "水渍"
 solid = false
@@ -183,25 +289,33 @@ shade = Color(0.55, 0.82, 0.9, 0.72)
 label_size = 18
 
 [node name="BrushWashBucket" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(267, 238)
-size = Vector2(42, 42)
-label = "洗笔桶"
-solid = true
-oval = true
+position = Vector2(486, 261.5)
+size = Vector2(141, 147)
+label = ""
+solid = false
+oval = false
 shade = Color(0.9, 0.9, 0.9, 1)
 label_size = 14
+artwork = ExtResource("art_brush_wash_bucket")
+artwork_size = Vector2(141, 147)
+artwork_offset = Vector2(0, 0)
 
 [node name="StorageShelf" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(437, 358)
-size = Vector2(40, 168)
-label = "置\n物\n架"
-solid = true
+position = Vector2(753.3, 449.4)
+size = Vector2(87, 271.2)
+label = ""
+solid = false
 oval = false
 shade = Color(0.82, 0.82, 0.82, 1)
 label_size = 18
+artwork_size = Vector2(87, 271.2)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_storage_shelf_mask")
+material = ExtResource("studio_storage_shelf_material")
 
 [node name="StudioWindow" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(462, 231)
+position = Vector2(801, 274)
 size = Vector2(10, 142)
 label = "窗"
 solid = false
@@ -210,34 +324,49 @@ shade = Color(0.79, 0.87, 0.89, 1)
 label_size = 18
 
 [node name="ScatteredCanvas01" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(50, 495)
-size = Vector2(38, 50)
+position = Vector2(73.5, 507.3)
+size = Vector2(82.2, 123)
 label = ""
 solid = false
 oval = false
 shade = Color(0.96, 0.96, 0.96, 1)
 label_size = 20
+artwork_size = Vector2(82.2, 123)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_stacked_canvas_01_mask")
+material = ExtResource("studio_stacked_canvas_01_material")
 
 [node name="ScatteredCanvas02" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(80, 520)
-size = Vector2(42, 42)
-label = "画框"
+position = Vector2(109.5, 509.1)
+size = Vector2(79.8, 91.8)
+label = ""
 solid = false
 oval = false
 shade = Color(0.94, 0.94, 0.94, 1)
 label_size = 14
+artwork_size = Vector2(79.8, 91.8)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_stacked_canvas_02_mask")
+material = ExtResource("studio_stacked_canvas_02_material")
 
 [node name="ScatteredCanvas03" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(61, 547)
-size = Vector2(50, 28)
+position = Vector2(89.7, 536.4)
+size = Vector2(85.8, 96)
 label = ""
 solid = false
 oval = false
 shade = Color(0.96, 0.96, 0.96, 1)
 label_size = 20
+artwork_size = Vector2(85.8, 96)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_stacked_canvas_03_mask")
+material = ExtResource("studio_stacked_canvas_03_material")
 
 [node name="SketchPaper" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(80, 514)
+position = Vector2(141, 520)
 rotation = -0.12
 size = Vector2(34, 42)
 label = "草稿纸"
@@ -247,19 +376,64 @@ shade = Color(0.98, 0.98, 0.98, 1)
 label_size = 10
 
 [node name="GenesisBook" parent="Geometry" instance=ExtResource("2")]
-position = Vector2(437, 303)
-size = Vector2(32, 48)
-label = "创\n世\n纪"
+position = Vector2(746.7, 382.2)
+size = Vector2(82.2, 98.4)
+label = ""
 solid = false
 oval = false
 shade = Color(0.78, 0.8, 0.82, 1)
 label_size = 12
+artwork_size = Vector2(82.2, 98.4)
+artwork_offset = Vector2(0, 0)
+rotation = 0
+artwork = ExtResource("studio_genesis_book_mask")
+material = ExtResource("studio_genesis_book_material")
+
+[node name="EaselFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(356.1, 319.2)
+size = Vector2(97.8, 20.4)
+solid = true
+oval = false
+draw_placeholder = false
+label = ""
+
+[node name="StoolFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(407.7, 404.1)
+size = Vector2(47.4, 40.2)
+solid = true
+oval = false
+draw_placeholder = false
+label = ""
+
+[node name="PaletteSupportFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(219, 373.2)
+size = Vector2(94.8, 20.4)
+solid = true
+oval = false
+draw_placeholder = false
+label = ""
+
+[node name="StorageShelfFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(753.3, 573)
+size = Vector2(87, 24)
+solid = true
+oval = false
+draw_placeholder = false
+label = ""
+
+[node name="BrushWashBucketFootprint" parent="Geometry" instance=ExtResource("2")]
+position = Vector2(486, 314)
+size = Vector2(42, 42)
+solid = true
+oval = true
+draw_placeholder = false
+label = ""
 
 [node name="Interactables" type="Node2D" parent="."]
 
 
 [node name="ToCorridor" type="Area2D" parent="Interactables"]
-position = Vector2(240, 557)
+position = Vector2(408, 557)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -272,7 +446,7 @@ target_spawn = &"from_studio"
 prompt_offset = Vector2(100, -30)
 
 [node name="CollectSketchPaper" type="Area2D" parent="Interactables"]
-position = Vector2(132, 516)
+position = Vector2(192, 531)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -286,7 +460,7 @@ fragment_display_name = "潮汐"
 artwork = ExtResource("sketch_artwork")
 
 [node name="InspectEasel" type="Area2D" parent="Interactables"]
-position = Vector2(170, 330)
+position = Vector2(356, 363)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -297,7 +471,7 @@ visual_path = NodePath("../../Geometry/Easel")
 text = "月亮。这是她最爱的母题。"
 
 [node name="GenesisStory" type="Area2D" parent="Interactables"]
-position = Vector2(377, 303)
+position = Vector2(690, 436)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -305,9 +479,10 @@ monitorable = false
 script = ExtResource("genesis")
 interaction_id = &"studio_genesis"
 visual_path = NodePath("../../Geometry/GenesisBook")
+interaction_rect = Rect2(-45, -45, 90, 90)
 
 [node name="BrushWashBucket" type="Area2D" parent="Interactables"]
-position = Vector2(308, 270)
+position = Vector2(521, 350)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -321,4 +496,4 @@ text = "水面毫无波澜。"
 
 
 [node name="from_corridor" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(240, 500)
+position = Vector2(408, 520)
